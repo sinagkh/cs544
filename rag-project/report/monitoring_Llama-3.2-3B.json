@@ -1,0 +1,148 @@
+{
+ "summary": {
+  "encoder": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 4.0,
+    "false_alarm": 0.000788224121557455
+   },
+   "MiniCheck": {
+    "detected": 1.0,
+    "median_delay": 23.0,
+    "false_alarm": 0.00018993352326685662
+   },
+   "LLM verifier": {
+    "detected": 0.67,
+    "median_delay": 63.0,
+    "false_alarm": 0.0001234567901234568
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 10.0,
+    "false_alarm": 0.0010161443494776828
+   }
+  },
+  "truncation": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 4.0,
+    "false_alarm": 0.0007027540360873694
+   },
+   "MiniCheck": {
+    "detected": 1.0,
+    "median_delay": 19.0,
+    "false_alarm": 0.0003038936372269706
+   },
+   "LLM verifier": {
+    "detected": 0.92,
+    "median_delay": 39.0,
+    "false_alarm": 0.00016144349477682812
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 10.0,
+    "false_alarm": 0.0005792972459639126
+   }
+  },
+  "overflow": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 4.0,
+    "false_alarm": 0.0009591642924976259
+   },
+   "MiniCheck": {
+    "detected": 0.9966666666666667,
+    "median_delay": 35.0,
+    "false_alarm": 0.00026590693257359923
+   },
+   "LLM verifier": {
+    "detected": 0.34,
+    "median_delay": 88.5,
+    "false_alarm": 0.0001519468186134853
+   },
+   "abstention": {
+    "detected": 0.8933333333333333,
+    "median_delay": 55.5,
+    "false_alarm": 0.0006647673314339981
+   }
+  },
+  "stale": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 24.0,
+    "false_alarm": 0.0011490978157644822
+   },
+   "MiniCheck": {
+    "detected": 0.22333333333333333,
+    "median_delay": 75.0,
+    "false_alarm": 0.00019943019943019944
+   },
+   "LLM verifier": {
+    "detected": 0.19666666666666666,
+    "median_delay": 93.0,
+    "false_alarm": 0.00018993352326685662
+   },
+   "abstention": {
+    "detected": 0.25,
+    "median_delay": 77.0,
+    "false_alarm": 0.001339031339031339
+   }
+  },
+  "encoder+truncation": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 4.0,
+    "false_alarm": 0.0004938271604938272
+   },
+   "MiniCheck": {
+    "detected": 1.0,
+    "median_delay": 18.0,
+    "false_alarm": 0.0003418803418803419
+   },
+   "LLM verifier": {
+    "detected": 0.9866666666666667,
+    "median_delay": 34.5,
+    "false_alarm": 0.0001234567901234568
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 7.0,
+    "false_alarm": 0.0007882241215574549
+   }
+  }
+ },
+ "rates": {
+  "trace checks": {
+   "clean": 0.04,
+   "encoder": 1.0,
+   "truncation": 1.0,
+   "overflow": 1.0,
+   "stale": 0.86,
+   "encoder+truncation": 1.0
+  },
+  "MiniCheck": {
+   "clean": 0.44,
+   "encoder": 0.8466666666666667,
+   "truncation": 0.9466666666666667,
+   "overflow": 0.7066666666666667,
+   "stale": 0.52,
+   "encoder+truncation": 0.9733333333333334
+  },
+  "LLM verifier": {
+   "clean": 0.7466666666666667,
+   "encoder": 0.86,
+   "truncation": 0.9466666666666667,
+   "overflow": 0.8066666666666666,
+   "stale": 0.9,
+   "encoder+truncation": 0.9933333333333333
+  },
+  "abstention": {
+   "clean": 0.05333333333333334,
+   "encoder": 0.5,
+   "truncation": 0.49333333333333335,
+   "overflow": 0.12,
+   "stale": 0.05333333333333334,
+   "encoder+truncation": 0.7266666666666667
+  }
+ }
+}

@@ -1,0 +1,31 @@
+\section{Related Work}\label{sec:related}
+
+\paragraph{RAG failures and evaluation.} Barnett et al.\ catalog seven failure points of RAG systems
+and argue that RAG can only be fully validated in operation~\cite{barnett2024seven}. RAGAS, ARES and
+RAGChecker score retrieval and generation quality~\cite{es2024ragas,saadfalcon2024ares,ru2024ragchecker};
+RAGChecker separates retriever and generator errors with claim-level metrics. Chen et al.\ study 654
+configuration issues in ten RAG systems and find that root causes often sit in a different stage
+than the symptoms~\cite{chen2026configuring}. Kim et al.\ apply metamorphic testing to RAG under
+corpus changes~\cite{kim2026knowledge}. These works measure the retrieved context and the answer;
+we additionally treat prompt assembly and serving, the glue code that Sculley et al.\ identify as a
+source of hidden debt~\cite{sculley2015debt}, as components that can fail, and we test at runtime
+rather than offline.
+
+\paragraph{Repair and self-correction.} Self-RAG trains a model to critique its retrievals and
+generations~\cite{asai2024selfrag}; CRAG uses a retrieval evaluator to trigger corrective
+retrieval~\cite{yan2024crag}; Doctor-RAG localizes failures in agentic RAG trajectories and repairs
+from the earliest failure point~\cite{jiao2026doctorrag}. Huang et al.\ show that LLMs cannot
+reliably self-correct reasoning without external feedback~\cite{huang2024selfcorrect}. We compare
+lightweight, training-free policies under a fixed call budget and measure what they break.
+
+\paragraph{Grounding, staleness and abstention.} MiniCheck provides small, accurate grounding
+classifiers~\cite{tang2024minicheck}. HoH shows that outdated information coexisting with current
+information degrades RAG~\cite{ouyang2025hoh}. RefusalBench evaluates when grounded models should
+refuse~\cite{muhamed2026refusalbench}.
+
+\paragraph{ML in production.} The ML Test Score lists monitoring and testing practices for
+production ML~\cite{breck2017mltestscore}; Ma et al.\ argue for slice-based regression tests of
+evolving LLM APIs~\cite{ma2024prompt}; Dutta et al.\ show that aggregate accuracy hides changed
+predictions after model compression~\cite{dutta2024accuracy}, the motivation for our clean-damage
+measure. Our monitoring and record/replay tests follow the practices described by
+K\"astner~\cite{kastner2025mlip}.

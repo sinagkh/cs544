@@ -1,0 +1,57 @@
+\section{Introduction}
+
+A retrieval-augmented generation (RAG) service is a pipeline: a retriever finds passages, glue code
+assembles them into a prompt, a serving runtime runs the model, and an index holds the documents.
+Evaluation frameworks for RAG score the retrieved context and the final
+answer~\cite{es2024ragas,saadfalcon2024ares,ru2024ragchecker}. In production, however, evidence can
+be lost \emph{between} those two points. A government help-desk assistant lost its system prompt and
+its top-ranked documents for weeks because the serving runtime silently kept only the tail of a
+prompt that exceeded its default context window~\cite{musetoiu2026ragal}; users of a popular RAG
+platform report the same problem when the model server ignores the configured
+window~\cite{ragflow_ollama_ctx}. Template code that truncates passages, an index that still holds
+an outdated version of an updated document~\cite{ouyang2025hoh}, and a query encoder that no longer
+matches the encoder the index was built with are similar failures: the retriever may work, the model
+may work, and the answer is still wrong.
+
+When answers look wrong, a common runtime response is generic: retry, or ask the model whether its
+answer is supported and regenerate if not. Such repairs spend calls on the generator even when the
+generator is not the component that failed, and LLMs are known to be unreliable at verifying their
+own outputs without external feedback~\cite{huang2024selfcorrect}. This paper asks a practical
+question for teams operating RAG services: \emph{when a pipeline component fails, which runtime
+repair helps, what does it break, and what does it cost?}
+
+We study this with a fault-injection harness around a small but complete RAG service running
+locally. We inject six faults motivated by reported incidents at four pipeline stages (retrieval,
+prompt assembly, serving, index content), and compare twelve repair policies under a fixed budget
+of two extra model calls. The policies range from generic (retry, self-check) to
+\emph{trace-based}: checks computed from what the service already logs, such as whether the rendered
+prompt is shorter than the retrieved text or whether the server processed fewer tokens than were
+sent. We measure success under faults, damage to answers that were correct, abstention when the
+evidence is gone, and cost. We address four questions:
+\begin{description}
+\item[RQ1] How do generic, blanket and trace-based repairs compare under component faults?
+\item[RQ2] Does the verifier or the repair action matter more? We cross \{LLM self-verifier,
+MiniCheck grounding classifier~\cite{tang2024minicheck}, text match\} with \{regenerate on the
+same passages, repair the context\}.
+\item[RQ3] How quickly do trace checks and model-based signals detect a faulty deploy in a
+request stream?
+\item[RQ4] Can a regression suite built from observed failures catch regressions in the repair
+logic itself?
+\end{description}
+
+On 150 held-out HotpotQA questions with Llama-3.2-3B, trace-based diagnosis raises success under
+faults from 26.8\% to 56.9\% (+30.1 points, 95\% CI [24.8, 35.7]) while breaking 4.7\% of correct
+clean answers; trace checks alone account for almost all of the gain. A generic LLM self-check
+lowers success to 20.7\% and breaks 24.3\% of correct clean answers. Applying every repair on every
+request reaches 46.4\%, breaks 15.9\% of correct clean answers, and makes the serving fault worse
+than doing nothing (6.0\% vs.\ 30.0\%). Trace checks detect each global fault a median of 4
+requests after a deploy; the model's own verifier needs tens of requests and often never alarms.
+A 35-case regression suite, replayed from recorded responses in seconds, fails whenever one of
+the diagnostics is disabled.
+
+\paragraph{Contributions.} (1) A fault-injection study of RAG runtime repair that treats prompt
+assembly and serving as components that can fail; (2) a budget-matched comparison of twelve
+repair policies that accounts for damage and abstention; (3) evidence that cheap, model-free trace
+checks recover most of the benefit and detect faulty deploys fastest, while model self-verification
+is harmful at this scale; and (4) an open, laptop-scale artifact with record/replay regression tests
+for LLM pipelines.

@@ -1,0 +1,16 @@
+\begin{tabular}{lrrrr}
+\toprule
+Approach & NLBSE'24 & 2025--26 & New repo & Tokens \\
+\midrule
+TF-IDF + LR & 76.2 & 67.5 & 60.3 & -- \\
+Embedding + LR & 69.6 & 68.1 & 58.8 & -- \\
+LLM zero-shot & 68.5 & 71.2 & 68.4 & 0.4k \\
+LLM few-shot & 70.9 & 75.3 & 68.0 & 1.1k \\
+\midrule
+\multicolumn{5}{l}{\emph{Cross-repository F1 (NLBSE ranking metric)}} \\
+TF-IDF + LR & 0.760 & 0.584 & 0.589 & \\
+Embedding + LR & 0.694 & 0.640 & 0.576 & \\
+LLM zero-shot & 0.663 & 0.650 & 0.661 & \\
+LLM few-shot & 0.694 & 0.682 & 0.657 & \\
+\bottomrule
+\end{tabular}

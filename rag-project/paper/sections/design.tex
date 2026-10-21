@@ -1,0 +1,111 @@
+\section{Study Design}\label{sec:design}
+
+\subsection{System under test}
+The service answers a question in three steps. (1) \emph{Retrieval}: dense retrieval with
+\texttt{bge-small-en-v1.5}~\cite{xiao2023cpack} over a fixed passage store, top $k{=}5$. A BM25 index
+over the same store is available as a lexical fallback. (2) \emph{Prompt assembly}: each passage is
+rendered as \texttt{[P$i$] title (last updated date)} followed by its text, and the instruction asks
+for the shortest possible answer plus the ids of supporting passages, or \INS{}.
+(3) \emph{Serving}: a 4-bit instruction-tuned model served locally with MLX~\cite{mlx2023}, greedy
+decoding. The service logs a trace for every call: retrieved documents with their similarity scores
+and metadata, the passages exactly as rendered, the number of prompt tokens it sent and the number
+the server reports as processed, and the raw output. Repair policies see this trace and nothing else;
+they never see the fault label or the gold answer.
+
+\subsection{Data}
+We use the HotpotQA distractor validation set~\cite{yang2018hotpotqa}. We keep \emph{bridge}
+questions whose answer string occurs in exactly one of the question's ten paragraphs, in a gold
+supporting sentence, and drop answers with annotation artifacts. The first 1{,}200 such questions
+(seeded shuffle) define the store: all their paragraphs, deduplicated by title (11{,}737 passages).
+Of these, 664 have both gold paragraphs in the clean dense top-5; this filter guarantees that in the
+clean condition the evidence is present, so each injected fault is the only reason it goes missing.
+We draw 30 development and 150 test questions and exclude every question used in an earlier
+prototype of this study. Each passage carries a ``last updated'' date (2023--2024). For the stale
+fault, each question's answer passage also has an \emph{old version}, dated three to six years
+earlier, in which the answer value is replaced by a plausible wrong value: numbers and dates are
+shifted by rule; entity answers are rewritten by a local 7B model (e.g., Sam Waterston $\to$ Tom
+Hanks) and checked to differ from the gold answer.
+
+\subsection{Faults}
+Table~\ref{tab:faults} lists the six faults. Each models a failure reported for deployed RAG
+services, and none targets the answer passage directly except \emph{absent}, where abstaining is the
+correct behavior.
+
+\begin{table}[t]
+\caption{Injected faults, by pipeline stage.}\label{tab:faults}
+\small
+\begin{tabular}{@{}p{1.55cm}p{3.15cm}p{2.9cm}@{}}
+\toprule
+Fault & Injection & Production cause \\
+\midrule
+encoder & queries embedded with \texttt{all-MiniLM-L6-v2}~\cite{reimers2019sbert}; index built with \texttt{bge-small} & query service falls back to a library default encoder \\
+truncation & template cuts every passage to its first 100 characters & \texttt{text[:max\_chars]} misconfiguration \\
+overflow & server keeps only the last 512 prompt tokens & unset context window, e.g.\ \texttt{num\_ctx} default~\cite{musetoiu2026ragal,ragflow_ollama_ctx} \\
+stale & old version of the answer passage indexed beside the current one; retrieval ranks both & index not deduplicated after an update~\cite{ouyang2025hoh} \\
+absent & answer passage removed from the index & content gap \\
+enc.+trunc. & encoder and truncation together & independent faults co-occur \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Signals and repair policies}
+\emph{Trace checks} are computed from the trace with no model call: (i) \emph{truncation}, a rendered
+passage is shorter than the retrieved text; (ii) \emph{version conflict}, two passages share a title;
+(iii) \emph{overflow}, the server processed fewer prompt tokens than were sent; (iv) \emph{low
+retrieval}, the top dense similarity is below the 5th percentile of clean traffic, calibrated on
+467 held-out questions. Each check has a matching repair: render in full, keep the newest version,
+fit the passages to the window the server reported, or fall back to BM25. \emph{Support checks}
+decide whether an answer is grounded: a text-match check (the answer appears in the passages), the
+model's own verifier (``Is the proposed answer correct and directly supported by the passages?
+SUPPORTED/UNSUPPORTED''), or MiniCheck-RoBERTa-Large~\cite{tang2024minicheck}, a 355M-parameter
+grounding classifier run on the passages packed into 400-token chunks. MiniCheck's model and claim
+format were chosen on prototype development data; its thresholds were set on the development split by
+rules fixed in advance (0.5, MiniCheck's default, to trigger a repair; the 2nd percentile of scores
+of correct grounded answers, 0.01, to abstain). The support check of the proposed policy (text
+match) was also chosen on the development split; the other two remain as comparison arms.
+
+Table~\ref{tab:policies} lists the policies. All start from the same initial answer and may make at
+most two more model calls; LLM verifier calls count against this budget, MiniCheck calls do not
+(their time is reported separately). \emph{Diagnose} applies the repairs indicated by the trace
+checks, then checks support; while the answer is unsupported and budget remains it widens
+retrieval to 10, then adds BM25 results, regenerating after each step; if the final answer is
+still clearly unsupported it returns \INS{}. The self-check and diagnose variants
+form a factorial design: \{LLM verifier, MiniCheck\} $\times$ \{regenerate on the same passages,
+repair the context\}, plus text match with context repair.
+
+\begin{table}[t]
+\caption{Repair policies (budget: two extra model calls).}\label{tab:policies}
+\small
+\begin{tabular}{@{}p{2.25cm}p{5.4cm}@{}}
+\toprule
+Policy & Behavior \\
+\midrule
+No repair & deployed pipeline \\
+Retry & if \INS{}, resample at temperature 0.7 \\
+Self-check (2 verifiers) & verify the answer (LLM or MiniCheck); if unsupported, regenerate on the same passages with a hint \\
+Repair-all & always: dense top-10 $\cup$ BM25 top-5, full rendering, newest versions, regenerate \\
+Trace checks only & trace checks and their repairs; no support check \\
+Diagnose (3 support checks) & trace checks, then a support check (text match, LLM, or MiniCheck) with re-check after each repair, retrieval ladder, abstention \\
+\quad ablations & proposed (text match) variant without re-check, without abstention, without trace checks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Measures and statistics}
+\emph{Success} is a correct answer in the answerable conditions and \INS{} in
+\emph{absent}. Correctness is exact match after normalization (number words mapped to digits),
+token F1 $\geq 0.8$, or the gold phrase inside a short prediction; other predictions go to a local
+answer-equivalence judge (Qwen2.5-7B) that sees only the question, gold answer and prediction. On
+the prototype, 197 of 203 audited judge decisions agreed with a manual audit; we report results with
+string matching alone as a sensitivity check. \emph{Success under faults} averages the five
+answerable fault conditions per question. \emph{Clean damage} is the share of clean questions
+answered correctly at first and wrongly after the policy~\cite{dutta2024accuracy}. Costs are model
+calls, prompt tokens and GPU seconds per case. All comparisons are paired by question: 95\% intervals
+are percentile bootstraps over questions (2{,}000 resamples), per-condition tests are exact McNemar.
+
+\subsection{Model and setup}
+The generator is Llama-3.2-3B-Instruct~\cite{grattafiori2024llama3}, 4-bit, served with MLX on one
+MacBook Pro (M4, 16\,GB); this paper reports one model, and extending the study to
+Qwen2.5-7B~\cite{qwen2025qwen25} and Gemma-2-9B~\cite{gemma2024gemma2} is ongoing
+(Section~\ref{sec:threats}). A response cache keyed by model, prompt and sampling settings lets
+policies that issue the same prompt share generations and makes every run replayable.

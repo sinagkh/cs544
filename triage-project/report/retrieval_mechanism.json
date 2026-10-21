@@ -1,0 +1,34 @@
+{
+ "newcomer": {
+  "n": 210,
+  "question_share_orig": 0.3277777777777778,
+  "question_share_variant": 0.3325396825396825,
+  "retrieved_overlap": 0.8523809523809524,
+  "flips": 34,
+  "question_share_change_in_flips": 0.02941176470588235
+ },
+ "non_native": {
+  "n": 159,
+  "question_share_orig": 0.30712788259958074,
+  "question_share_variant": 0.31236897274633124,
+  "retrieved_overlap": 0.8448637316561843,
+  "flips": 12,
+  "question_share_change_in_flips": 0.041666666666666664
+ },
+ "no_code": {
+  "n": 77,
+  "question_share_orig": 0.3073593073593074,
+  "question_share_variant": 0.27272727272727276,
+  "retrieved_overlap": 0.7597402597402596,
+  "flips": 5,
+  "question_share_change_in_flips": -0.1
+ },
+ "no_template": {
+  "n": 112,
+  "question_share_orig": 0.2648809523809524,
+  "question_share_variant": 0.2857142857142857,
+  "retrieved_overlap": 0.793154761904762,
+  "flips": 4,
+  "question_share_change_in_flips": 0.125
+ }
+}

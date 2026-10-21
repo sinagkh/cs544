@@ -1,0 +1,58 @@
+\documentclass[sigconf,review=false,anonymous=false]{acmart}
+\settopmatter{printacmref=false}
+\setcopyright{none}
+\acmConference[CS 544 Project]{CS 544 Machine Learning in Production}{Fall 2026}{University of Illinois Chicago}
+\acmYear{2026}\acmDOI{}\acmISBN{}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{graphicx}
+\graphicspath{{../report/figures/}}
+\setlength{\emergencystretch}{1.5em}
+
+\begin{document}
+
+\title{When Should an LLM Issue Triager Stay Silent? Calibration, Drift, Rewording and Evidence in Issue Triage}
+
+\author{Sina Gogani-Khiabani}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+\email{sgoga3@uic.edu}
+\author{Verya Monjezi}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+\author{Third Author}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+
+\begin{abstract}
+Issue-labeling services now apply LLM labels to open-source issues automatically. We evaluate one
+as a deployed, selective service: Qwen2.5-7B, zero-shot and with retrieved examples, against
+classical classifiers, on the NLBSE'24 benchmark and on 1{,}430 issues the same five repositories
+received in 2025--26, after the model's training cutoff. The classical TF-IDF classifier is the most
+accurate on the benchmark (76.2\%) but falls to 67.5\% on 2025--26 issues and 60.3\% on a new
+repository; the LLM is stable (70.9\%, 75.3\%, 68.0\%). Raw LLM probabilities are badly overconfident.
+A confidence threshold tuned for 10\% error among auto-labeled issues overshoots in every condition
+(14.9\% in distribution, 20.5\% on a new repository); a risk-controlled threshold keeps the target in
+distribution and a year later but auto-labels only 7\% of issues, and no threshold carries over to a
+new repository. A one-sentence newcomer apology flips 16.2\% of the few-shot LLM's labels, mostly
+toward question, and non-native English costs the zero-shot LLM up to 10 points; calibrated deferral
+keeps almost all such flips from being auto-applied. The LLM's evidence quotes are genuine (93\%
+verbatim) but deleting them moves its decision little more than deleting random text. Input novelty
+detects a new repository within 11 requests, while the model's own confidence rarely notices. A
+record/replay regression suite catches injected bugs in calibration, retrieval and preprocessing.
+\end{abstract}
+
+\keywords{issue triage, large language models, selective prediction, calibration, robustness, explanations, ML in production}
+
+\maketitle
+
+\input{sections/intro}
+\input{sections/related}
+\input{sections/design}
+\input{sections/results}
+\input{sections/discussion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{refs}
+
+\end{document}

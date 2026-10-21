@@ -1,0 +1,26 @@
+\section{Related Work}\label{sec:related}
+
+\paragraph{Issue classification.} Ticket Tagger predicts GitHub issue types from text with
+fastText~\cite{kallis2021tickettagger}. The NLBSE tool competitions turned the task into a shared
+benchmark; the 2024 edition provides 3{,}000 balanced issues from five repositories and a SetFit
+baseline~\cite{nlbse24}. Colavito et al.\ benchmark 22 decoder LLMs against fine-tuned
+encoders and find zero-shot LLMs less consistent across datasets~\cite{colavito2025issue}; Aracena
+et al.\ compare GPT-4o and DeepSeek-R1 on the same data~\cite{aracena2025issue}. GitHub now ships an
+LLM-based issue labeler as an Action~\cite{github2025labeler}. These works report accuracy on a fixed
+benchmark; we ask how a deployed labeler should decide when \emph{not} to label, and what happens
+after the benchmark period.
+
+\paragraph{Calibration and selective prediction.} Modern networks are overconfident, and temperature
+scaling is a simple fix~\cite{guo2017calibration}. Selective classification abstains below a
+confidence threshold chosen for a target risk~\cite{geifman2017selective}; split conformal
+prediction gives distribution-free coverage under exchangeability~\cite{angelopoulos2021conformal}.
+We test whether these guarantees survive the shifts a triage service meets in production.
+
+\paragraph{Behavioral testing, fairness and explanations.} CheckList tests NLP models with
+meaning-preserving perturbations~\cite{ribeiro2020checklist}. LLMs answer users with lower English
+proficiency less accurately~\cite{poole2024llm}, which motivates testing whether a triager treats
+non-native reporters differently. ERASER measures whether rationales are faithful by deleting
+them~\cite{deyoung2020eraser}; we apply the same idea to the evidence quotes an LLM triager gives.
+
+\paragraph{ML in production.} Monitoring, calibration under drift, and regression tests are part of
+production readiness~\cite{breck2017mltestscore,kastner2025mlip}.

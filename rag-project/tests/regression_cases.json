@@ -1,0 +1,427 @@
+{
+ "model": "mlx-community/Llama-3.2-3B-Instruct-4bit",
+ "policy": "diagnose",
+ "cases": [
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "clean",
+   "kind": "must_not_break",
+   "gold": "Dumb and Dumber",
+   "answer": "Dumb and Dumber"
+  },
+  {
+   "qid": "5a7618d85542994ccc9186cf",
+   "condition": "clean",
+   "kind": "must_not_break",
+   "gold": "Lionel Hollins",
+   "answer": "Lionel Hollins"
+  },
+  {
+   "qid": "5a7982435542994bb945701f",
+   "condition": "clean",
+   "kind": "must_not_break",
+   "gold": "Folkets",
+   "answer": "Folkets Hus"
+  },
+  {
+   "qid": "5a79ea435542996c55b2dc9e",
+   "condition": "clean",
+   "kind": "must_not_break",
+   "gold": "Rear Adm. J. Edward Snyder",
+   "answer": "Rear Adm. J. Edward Snyder"
+  },
+  {
+   "qid": "5a7a1b845542990783324e5f",
+   "condition": "clean",
+   "kind": "must_not_break",
+   "gold": "Stadio Olimpico",
+   "answer": "Stadio Olimpico"
+  },
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "encoder",
+   "kind": "fixed_failure",
+   "gold": "Dumb and Dumber",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Dumb and Dumber",
+   "actions": [
+    "bm25_fallback",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7618d85542994ccc9186cf",
+   "condition": "encoder",
+   "kind": "fixed_failure",
+   "gold": "Lionel Hollins",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Lionel Hollins",
+   "actions": [
+    "bm25_fallback",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7a9a2255429941d65f26eb",
+   "condition": "encoder",
+   "kind": "fixed_failure",
+   "gold": "119 minutes",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "119 minutes",
+   "actions": [
+    "bm25_fallback",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7b820c5542997c3ec971d8",
+   "condition": "encoder",
+   "kind": "fixed_failure",
+   "gold": "NYPD's 83rd Precinct",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "NYPD's 83rd Precinct",
+   "actions": [
+    "bm25_fallback",
+    "regenerate",
+    "widen_bm25",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7c8ae855429935c91b5207",
+   "condition": "encoder",
+   "kind": "fixed_failure",
+   "gold": "Alexander Porfiryevich Borodin",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Alexander Borodin",
+   "actions": [
+    "bm25_fallback",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "encoder+truncation",
+   "kind": "fixed_failure",
+   "gold": "Dumb and Dumber",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Dumb and Dumber",
+   "actions": [
+    "bm25_fallback",
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7618d85542994ccc9186cf",
+   "condition": "encoder+truncation",
+   "kind": "fixed_failure",
+   "gold": "Lionel Hollins",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Lionel Hollins",
+   "actions": [
+    "bm25_fallback",
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7a9a2255429941d65f26eb",
+   "condition": "encoder+truncation",
+   "kind": "fixed_failure",
+   "gold": "119 minutes",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "119 minutes",
+   "actions": [
+    "bm25_fallback",
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7afdc85542992d025e672e",
+   "condition": "encoder+truncation",
+   "kind": "fixed_failure",
+   "gold": "Wayman Tisdale",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Wayman Tisdale",
+   "actions": [
+    "bm25_fallback",
+    "full_render",
+    "regenerate",
+    "widen_bm25",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7b820c5542997c3ec971d8",
+   "condition": "encoder+truncation",
+   "kind": "fixed_failure",
+   "gold": "NYPD's 83rd Precinct",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "NYPD's 83rd Precinct",
+   "actions": [
+    "bm25_fallback",
+    "full_render",
+    "regenerate",
+    "widen_bm25",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "overflow",
+   "kind": "fixed_failure",
+   "gold": "Dumb and Dumber",
+   "broken_answer": "Seth Meyers",
+   "repaired_answer": "Dumb and Dumber",
+   "actions": [
+    "fit_window",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7982435542994bb945701f",
+   "condition": "overflow",
+   "kind": "fixed_failure",
+   "gold": "Folkets",
+   "broken_answer": "I'm sorry I don't have enough information to answer this question",
+   "repaired_answer": "Folkets Hus",
+   "actions": [
+    "fit_window",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a79ea435542996c55b2dc9e",
+   "condition": "overflow",
+   "kind": "fixed_failure",
+   "gold": "Rear Adm. J. Edward Snyder",
+   "broken_answer": "Captain Snyder",
+   "repaired_answer": "Rear Adm. J. Edward Snyder",
+   "actions": [
+    "fit_window",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7a1b845542990783324e5f",
+   "condition": "overflow",
+   "kind": "fixed_failure",
+   "gold": "Stadio Olimpico",
+   "broken_answer": "Prater Stadium",
+   "repaired_answer": "Stadio Olimpico",
+   "actions": [
+    "fit_window",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7a8d15554299042af8f669",
+   "condition": "overflow",
+   "kind": "fixed_failure",
+   "gold": "Azeroth",
+   "broken_answer": "Darksiders",
+   "repaired_answer": "Azeroth",
+   "actions": [
+    "fit_window",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "stale",
+   "kind": "fixed_failure",
+   "gold": "Dumb and Dumber",
+   "broken_answer": "Charles Rocket",
+   "repaired_answer": "Dumb and Dumber",
+   "actions": [
+    "keep_newest",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7982435542994bb945701f",
+   "condition": "stale",
+   "kind": "fixed_failure",
+   "gold": "Folkets",
+   "broken_answer": "Folketets Hus",
+   "repaired_answer": "Folkets Hus",
+   "actions": [
+    "keep_newest",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a79ea435542996c55b2dc9e",
+   "condition": "stale",
+   "kind": "fixed_failure",
+   "gold": "Rear Adm. J. Edward Snyder",
+   "broken_answer": "Rear Adm. William H. McRaven",
+   "repaired_answer": "Rear Adm. J. Edward Snyder",
+   "actions": [
+    "keep_newest",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7b820c5542997c3ec971d8",
+   "condition": "stale",
+   "kind": "fixed_failure",
+   "gold": "NYPD's 83rd Precinct",
+   "broken_answer": "NYPD's 149th Precinct",
+   "repaired_answer": "NYPD's 83rd Precinct",
+   "actions": [
+    "keep_newest",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7d3f895542995f4f402248",
+   "condition": "stale",
+   "kind": "fixed_failure",
+   "gold": "mountain Banshee",
+   "broken_answer": "Peregrine Falcon",
+   "repaired_answer": "Mountain Banshee",
+   "actions": [
+    "keep_newest",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a728f505542992359bc30f5",
+   "condition": "truncation",
+   "kind": "fixed_failure",
+   "gold": "Dumb and Dumber",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Dumb and Dumber",
+   "actions": [
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7618d85542994ccc9186cf",
+   "condition": "truncation",
+   "kind": "fixed_failure",
+   "gold": "Lionel Hollins",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Lionel Hollins",
+   "actions": [
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7982435542994bb945701f",
+   "condition": "truncation",
+   "kind": "fixed_failure",
+   "gold": "Folkets",
+   "broken_answer": "Folkehuset",
+   "repaired_answer": "Folkets Hus",
+   "actions": [
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a79ea435542996c55b2dc9e",
+   "condition": "truncation",
+   "kind": "fixed_failure",
+   "gold": "Rear Adm. J. Edward Snyder",
+   "broken_answer": "INSUFFICIENT",
+   "repaired_answer": "Rear Adm. J. Edward Snyder",
+   "actions": [
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7a1b845542990783324e5f",
+   "condition": "truncation",
+   "kind": "fixed_failure",
+   "gold": "Stadio Olimpico",
+   "broken_answer": "1987",
+   "repaired_answer": "Stadio Olimpico",
+   "actions": [
+    "full_render",
+    "regenerate"
+   ]
+  },
+  {
+   "qid": "5a7d3f895542995f4f402248",
+   "condition": "absent",
+   "kind": "fixed_failure",
+   "gold": "mountain Banshee",
+   "broken_answer": "Ikran",
+   "repaired_answer": "INSUFFICIENT",
+   "actions": [
+    "widen_dense",
+    "regenerate",
+    "add_bm25",
+    "regenerate",
+    "abstain"
+   ]
+  },
+  {
+   "qid": "5a81b7205542990a1d231e79",
+   "condition": "absent",
+   "kind": "fixed_failure",
+   "gold": "from 1825 to 1854",
+   "broken_answer": "17 years",
+   "repaired_answer": "INSUFFICIENT",
+   "actions": [
+    "widen_dense",
+    "regenerate",
+    "add_bm25",
+    "regenerate",
+    "abstain"
+   ]
+  },
+  {
+   "qid": "5a84524a554299123d8c2203",
+   "condition": "absent",
+   "kind": "fixed_failure",
+   "gold": "five books",
+   "broken_answer": "6",
+   "repaired_answer": "INSUFFICIENT",
+   "actions": [
+    "widen_dense",
+    "regenerate",
+    "add_bm25",
+    "regenerate",
+    "abstain"
+   ]
+  },
+  {
+   "qid": "5a84a5dc5542992a431d1a82",
+   "condition": "absent",
+   "kind": "fixed_failure",
+   "gold": "2016\u201317 NHL season",
+   "broken_answer": "2016-17",
+   "repaired_answer": "INSUFFICIENT",
+   "actions": [
+    "widen_dense",
+    "regenerate",
+    "add_bm25",
+    "regenerate",
+    "abstain"
+   ]
+  },
+  {
+   "qid": "5a8c42d7554299240d9c20f5",
+   "condition": "absent",
+   "kind": "fixed_failure",
+   "gold": "two years",
+   "broken_answer": "2 years",
+   "repaired_answer": "INSUFFICIENT",
+   "actions": [
+    "widen_dense",
+    "regenerate",
+    "add_bm25",
+    "regenerate",
+    "abstain"
+   ]
+  }
+ ]
+}

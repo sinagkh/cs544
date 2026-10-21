@@ -1,0 +1,2200 @@
+item,repo,title,original_body,rewritten_body,same_issue_type_1,same_issue_type_2,info_preserved_1,info_preserved_2,notes
+0,microsoft/vscode,Disposable leaks cause unit test failures,"Build: https://dev.azure.com/monacotools/a6d41577-0fa3-498e-af22-257312ff0545/_build/results?buildId=231184
+Changes: https://github.com/Microsoft/vscode/compare/8971983...35c2ce3
+
+```
+
+  (shared with 1/2 leaks) at $Fg (out-build/vs/base/common/async.js:389:16)
+  (shared with 1/2 leaks) at /mnt/vss/_work/1/s/out-build/vs/base/common/async.js:387:33
+  (shared with 1/2 leaks) at $sg (out-build/vs/base/common/async.js:15:26)
+      - stacktraces of 1 other leaks continue with $sg (out-build/vs/base/common/async.js:16:25)
+  (shared with 2/2 leaks) at Object.$Fg (out-build/vs/base/common/async.js:387:20)
+  (shared with 2/2 leaks) at Context.<anonymous> (out-build/vs/base/test/common/async.test.js:613:45)
+  (shared with 2/2 leaks) at process.processImmediate (node:internal/timers:476:21)
+  ============================================================
+  
+  
+  
+  
+  ==================== Leaking disposable 2/2: Object ====================
+  (shared with 1/2 leaks) at $8S.trackDisposable (out-build/vs/base/test/common/utils.js:56:21)
+  (shared with 1/2 leaks) at $db (out-build/vs/base/common/lifecycle.js:58:28)
+  (shared with 1/2 leaks) at $kb (out-build/vs/base/common/lifecycle.js:143:22)
+  (shared with 1/2 leaks) at MutableToken.q (out-build/vs/base/common/event.js:822:52)
+  (shared with 1/2 leaks) at /mnt/vss/_work/1/s/out-build/vs/base/common/async.js:17:47
+  (shared with 1/2 leaks) at new Promise (<anonymous>)
+  (shared with 1/2 leaks) at $sg (out-build/vs/base/common/async.js:16:25)","Problem with build
+
+Build: https://dev.azure.com/monacotools/a6d41577-0fa3-498e-af22-257312ff0545/_build/results?buildId=231184
+Changes: https://github.com/Microsoft/vscode/compare/8971983...35c2ce3
+
+I see problem with memory (out of memory). Leaks in code.
+
+Error messages:
+
+ (shared with 1/2 leaks) at $Fg (out-build/vs/base/common/async.js:389:16)
+ (shared with 1/2 leaks) at /mnt/vss/_work/1/s/out-build/vs/base/common/async.js:387:33
+ (shared with 1/2 leaks) at $sg (out-build/vs/base/common/async.js:15:26)
+ - stacktraces of 1 other leaks continue with $sg (out-build/vs/base/common/async.js:16:25)
+ (shared with 2/2 leaks) at Object.$Fg (out-build/vs/base/common/async.js:387:20)
+ (shared with 2/2 leaks) at Context.<anonymous> (out-build/vs/base/test/common/async.test.js:613:45)
+ (shared with 2/2 leaks) at process.processImmediate (node:internal/timers:476:21)
+ ============================================================
+ 
+=================== Leaking disposable 2/2: Object ====================
+ (shared with 1/2 leaks) at $8S.trackDisposable (out-build/vs/base/test/common/utils.js:56:21)
+ (shared with 1/2 leaks) at $db (out-build/vs/base/common/lifecycle.js:58:28)
+ (shared with 1/2 leaks) at $kb (out-build/vs/base/common/lifecycle.js:143:22)
+ (shared with 1/2 leaks) at MutableToken.q (out-build/vs/base/common/event.js:822:52)
+ (shared with 1/2 leaks) at /mnt/vss/_work/1/s/out-build/vs/base/common/async.js:17:47
+ (shared with 1/2 leaks) at new Promise (<anonymous>)
+ (shared with ",,,,,
+1,bitcoin/bitcoin,"RPC usage for ""logging"" unclear","It's not clear how to enable/include or disable/exclude debug settings from within the console. The usage is not clear.
+
+For example, I have tried
+
+logging exclude mempool
+logging exclude [ mempool ]
+logging exclude [ ""mempool"" ]
+logging exclude [\\""mempool\\""]
+logging exclude ""[\\\\""mempool\\\\""]""
+
+none of them work!","It's hard to find how to enable or disable debug settings from console. Usage is not clear.
+
+I try
+
+logging exclude mempool
+logging exclude [ mempool ]
+logging exclude [ ""mempool"" ]
+logging exclude [ ""mempool"" ]
+logging exclude [ ""mempool"" ]
+
+none of them work!",,,,,
+2,microsoft/vscode,Extension tree that use `vscode.open` and `vscode.diff` commands should respect enter vs. space,"When discussing with @meganrogge how we're going to improve accessibility for GitHub Pull Requests and Issues when opening a PR description we found that the built in Extensions view does the following:
+- Arrow keys are used to navigate between list/tree items
+- Enter opens the extension item and moves focus to the extension description webview editor
+- Space opens the extension item and keeps focus in the tree
+
+Extension trees don't work the same way:
+- Arrow keys are used to navigate between list/tree items (same as above)
+- Both enter and space run the tree item command and keep focus in the tree
+
+We already have special handling for `vscode.open` and `vscode.diff` command run from the tree view so that we can keep things ctrl+click as open to the side. We should also handle enter and space as the Extensions view does.","We have problem with Extensions view. We talk with @meganrogge about make it better for accessibility. We find that built in Extensions view do this:
+
+- Arrow keys move between list/tree items
+- Enter open extension item and move focus to extension description webview editor
+- Space open extension item and keep focus in tree
+
+Extension trees no work same way:
+- Arrow keys move between list/tree items (same as above)
+- Both Enter and Space run tree item command and keep focus in tree
+
+We already have special handling for `vscode.open` and `vscode.diff` command run from tree view. We can keep things ctrl+click as open to side. We should also handle Enter and Space like Extensions view. 
+
+Is it possible to make Extensions view work like this?",,,,,
+3,tensorflow/tensorflow,Add bazel rule to selectively build TFLite by ops instead of model,"<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Feature Request
+
+### Source
+
+source
+
+### Tensorflow Version
+
+2.9, all
+
+### Custom Code
+
+No
+
+### OS Platform and Distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+Per Tensorflow Lite's documentation on reducing binary size (https://www.tensorflow.org/lite/guide/reduce_binary_size), one way to reduce TFLite's binary size is to build it with a reduced set of ops based on a list of models on disk. It'd be nice if instead of a list of models, users could instead specify a list of ops that they want included in the binary (for both android and iOS). This is useful in environments where you may not have the models immediately available, but know the set of ops the group of models will want.
+
+### Standalone code to reproduce the issue
+
+```shell
+N/A
+```
+
+### Relevant log output
+
+_No response_</details>","<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Feature Request
+
+### Source
+
+source
+
+### Tensorflow Version
+
+2.9, all
+
+### Custom Code
+
+No
+
+### OS Platform and Distribution
+
+No response
+
+### Mobile device
+
+No response
+
+### Python version
+
+No response
+
+### Bazel version
+
+No response
+
+### GCC/Compiler version
+
+No response
+
+### CUDA/cuDNN version
+
+No response
+
+### GPU model and memory
+
+No response
+
+### Current Behaviour?
+
+One way to reduce TFLite's binary size is to build it with a reduced set of ops based on a list of models on disk. According to Tensorflow Lite's documentation on reducing binary size (https://www.tensorflow.org/lite/guide/reduce_binary_size), we can do this. But it would be nice if instead of a list of models, users can specify a list of ops that they want included in the binary. This is useful when you don't have models immediately available, but you know the set of ops the group of models will want.
+
+### Standalone code to reproduce the issue
+
+```shell
+N/A
+```
+
+### Relevant log output
+
+No response
+
+</details>",,,,,
+4,tensorflow/tensorflow,Error when runnning tensorflow.python.ops.sparse_ops.sparse_to_dense,"<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Bug
+
+### Have you reproduced the bug with TF nightly?
+
+No
+
+### Source
+
+binary
+
+### Tensorflow Version
+
+2.10.0
+
+### Custom Code
+
+Yes
+
+### OS Platform and Distribution
+
+Ubuntu 22.04
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.9
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+```shell
+Zero or negative argument
+```
+
+### Standalone code to reproduce the issue
+
+```shell
+import tensorflow as tf
+import numpy as np
+from tensorflow.python.ops import sparse_ops
+try:
+  try:
+    with tf.device('/CPU'):
+      arg_0_0_0 = 2
+      arg_0_0 = [arg_0_0_0,]
+      arg_0_1_0 = 1
+      arg_0_1 = [arg_0_1_0,]
+      arg_0 = [arg_0_0,arg_0_1,]
+      arg_1_0 = 0
+      arg_1 = [arg_1_0,]
+      arg_2_0 = -1.0
+      arg_2_1 = 1.0
+      arg_2 = [arg_2_0,arg_2_1,]
+      arg_3 = 0.0
+      validate_indices = False
+      out = sparse_ops.sparse_to_dense(arg_0,arg_1,arg_2,arg_3,validate_indices=validate_indices,)
+  except Exception as e:
+    print(""Error:""+str(e))
+  try:
+    with tf.device('/GPU:0'):
+      arg_0_0 = [arg_0_0_0,]
+      arg_0_1 = [arg_0_1_0,]
+      arg_0 = [arg_0_0,arg_0_1,]
+      arg_1 = [arg_1_0,]
+      arg_2 = [arg_2_0,arg_2_1,]
+      sparse_ops.sparse_to_dense(arg_0,arg_1,arg_2,arg_3,validate_indices=validate_indices,)
+  except Exception as e:
+    print(""Error:""+str(e))
+except Exception","<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Bug
+
+### Have you try to make the bug with TF nightly?
+
+No
+
+### Source
+
+binary
+
+### Tensorflow Version
+
+2.10.0
+
+### Custom Code
+
+Yes
+
+### OS Platform and Distribution
+
+Ubuntu 22.04
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.9
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+```shell
+Zero or negative argument
+```
+
+### Standalone code to make the issue
+
+```shell
+import tensorflow as tf
+import numpy as np
+from tensorflow.python.ops import sparse_ops
+try:
+  try:
+    with tf.device('/CPU'):
+      arg_0_0_0 = 2
+      arg_0_0 = [arg_0_0_0,]
+      arg_0_1_0 = 1
+      arg_0_1 = [arg_0_1_0,]
+      arg_0 = [arg_0_0,arg_0_1,]
+      arg_1_0 = 0
+      arg_1 = [arg_1_0,]
+      arg_2_0 = -1.0
+      arg_2_1 = 1.0
+      arg_2 = [arg_2_0,arg_2_1,]
+      arg_3 = 0.0
+      validate_indices = False
+      out = sparse_ops.sparse_to_dense(arg_0,arg_1,arg_2,arg_3,validate_indices=validate_indices,)
+  except Exception as e:
+    print(""Error:""+str(e))
+  try:
+    with tf.device('/GPU:0'):
+      arg_0_0 = [arg_0_0_0,]
+      arg_0_1 = [arg_0_1_0,]
+      arg_0 = [arg_0_0,arg_0_1,]
+      arg_1 = [arg_1_0,]
+      arg_2 = [arg_2_0,arg_2_1,]
+      sparse_ops.sparse_to_dense(arg_0,arg_1,arg_2,arg_3,validate_indices=validate_indices,)
+  except Exception as e:
+    print(""Error:""+str(e))
+except Exception 
+ [",,,,,
+5,bitcoin/bitcoin,ci: Use containerfiles?,"containerfiles have the advantage that they can be cached locally, so for example an `apt` operation in an image layer is faster to retrieve from the (local) cache than to run vanilla.
+
+Converting the ci system to those is non-trivial, because it uses a lot of env vars, different configs, and numerous per-config hacks.
+
+My understanding of docker is limited, but to pass env vars into a containerfile would require using `ARG` in the file, as well as code to pass in the ARG at runtime via the command line. For hundreds of args, this should be possible, but verbose, which is why I haven't looked at it yet.","I have problem with containerfiles. They can be cached locally, so if I do `apt` in image layer, it faster to get from cache than run normal.
+
+But convert CI system to containerfiles hard. It use many env vars, config files, and many hack for config.
+
+I no good at Docker, but to pass env vars to containerfile, I need use `ARG` in file and code to pass `ARG` at runtime via command line. For many args, this possible, but very long and that why I no look at it yet.
+
+Can you help me?",,,,,
+6,bitcoin/bitcoin,build: autoconf 2.71 warns that `%.raw.h` was already defined,"The master branch (cc22bd7f708fc3f5e793bf0138cd340f71c0feb9) on Ubuntu 22.04:
+```
+$ ./autogen.sh 
+...
+src/Makefile.bench.include:97: warning: %.raw.h was already defined in condition TRUE, which includes condition ENABLE_BENCH ...
+src/Makefile.am:1065:   'src/Makefile.bench.include' included from here
+src/Makefile.test.include:420: ... '%.raw.h' previously defined here
+src/Makefile.am:1062:   'src/Makefile.test.include' included from here
+...
+```","The master branch (cc22bd7f708fc3f5e793bf0138cd340f71c0feb9) on Ubuntu 22.04 have problem.
+
+I try to run ```
+$ ./autogen.sh 
+...
+src/Makefile.bench.include:97: warning: %.raw.h was already defined in condition TRUE, which includes condition ENABLE_BENCH ...
+src/Makefile.am:1065:   'src/Makefile.bench.include' included from here
+src/Makefile.test.include:420: ... '%.raw.h' previously defined here
+src/Makefile.am:1062:   'src/Makefile.test.include' included from here
+...
+``` on Ubuntu 22.04. But get error message.
+
+Error message say: [CODE1]
+
+I do follow step in task, but still got error. I try to run this command [CODE2] with version 1.0.0.
+
+I also try to run [CODE3] with version 1.1.0. But still get same error. I do not understand what is wrong.
+
+Can you help me?",,,,,
+7,opencv/opencv,ci: tests on Ubuntu2004-x64 are automatically cancelled for some reasons after the Ubuntu2004-x64-OpenVINO is added,"### System Information
+
+N/A
+
+### Detailed description
+
+See this with Ubuntu2004-x64-OpenVINO: https://github.com/opencv/opencv/actions/runs/6334391424/job/17205417534?pr=24334
+
+See this without Ubuntu2004-x64-OpenVINO: https://github.com/opencv/opencv/pull/24335
+
+Maybe the jobs is capped due to too many are assgined on a single machine (or it exceeds the number of workers that we set)?
+
+### Steps to reproduce
+
+Push new commits and trigger Ubuntu2004-x64-OpenVINO, then jobs of Ubuntu2004-x6 are cancelled instantly.
+
+### Issue submission checklist
+
+- [X] I report the issue, it's not a question
+- [X] I checked the problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not found any solution
+- [X] I updated to the latest OpenCV version and the issue is still there
+- [X] There is reproducer code and related data files (videos, images, onnx, etc)","### System Information
+
+N/A
+
+### Detailed description
+
+See this with Ubuntu2004-x64-OpenVINO: https://github.com/opencv/opencv/actions/runs/6334391424/job/17205417534?pr=24334
+
+See this without Ubuntu2004-x64-OpenVINO: https://github.com/opencv/opencv/pull/24335
+
+Maybe jobs is capped because too many are assigned on one machine (or it exceed number of workers we set)?
+
+### Steps to reproduce
+
+Push new commits and trigger Ubuntu2004-x64-OpenVINO, then jobs of Ubuntu2004-x6 cancelled instantly.
+
+### Issue submission checklist
+
+- [X] I report issue, it's not question
+- [X] I check problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not find any solution
+- [X] I update to latest OpenCV version and issue still there
+- [X] There is reproducer code and related data files (videos, images, onnx, etc)",,,,,
+8,opencv/opencv,Fix bug at blobFromImagesWithParams,"## `blobFromImagesWithParams`(image-s) apply swap scalefactor for every images when swapRB is true. This patch moves the swap scalefactor code out of the loop, that fix the above issue.
+
+We would like to improve the recently introduced function `blobFromImagesWithParams` with respect to three minor issues that we noticed:
+
+- Currently, `mean` and `scalefactor` are recreated for every image, even though they should be reused. Maybe the compiler is smart enough to optimize this, still we think the variable should be created / swapped before the main loop.
+- Next, we would like to improve the function's robustness with respect to inconsistent arguments, i.e. if a single-channel image is passed but `swapRB` is true, as explained below.
+- Finally, we made some minor modifications to follow the coding guidelines (`if - else if - else` instead of nested else).
+
+Function wise, there are two improvements from this:
+
+1. Currently, if the user passes a single-channel image in combination with `mean` and `scalefactor` values, but unintentionally sets `swapRB` to true, the whole result can be silently zeroed. The `mean` and `scalefactor` arrays will only contain a single value (whereas the other indices' values remain 0), but `swapRB` will swap out the true mean / scalefactor values and swap in zeros for these instead. There is no warning or assertion, only the whole image will be zeroed by the following multiplication. Therefore, we suggest to only swap these values if the image is not a","## `blobFromImagesWithParams`(image-s) apply swap scalefactor for every images when swapRB is true. This patch move the swap scalefactor code out of the loop, that fix the above issue.
+
+We want to improve the recently introduced function `blobFromImagesWithParams` with respect to three minor issues that we notice:
+
+- Currently, `mean` and `scalefactor` are recreate for every image, even though they should be reuse. Maybe the compiler is smart enough to optimize this, still we think the variable should be create / swap before the main loop.
+- Next, we want to improve the function's robustness with respect to inconsistent arguments, i.e. if a single-channel image is pass but `swapRB` is true, as explain below.
+- Finally, we make some minor modification to follow the coding guidelines (`if - else if - else` instead of nested else).
+
+Function wise, there are two improvement from this:
+
+1. Currently, if the user pass a single-channel image in combination with `mean` and `scalefactor` values, but unintentionally set `swapRB` to true, the whole result can be silently zeroed. The `mean` and `scalefactor` arrays will only contain a single value (whereas the other indices' values remain 0), but `swapRB` will swap out the true mean / scalefactor values and swap in zeros for these instead. There is no warning or assertion, only the whole image will be zeroed by the following multiplication. Therefore, we suggest to only swap these values if the image is not a [CODEk] single-channel image",,,,,
+9,opencv/opencv,OpenCV 3.4.8 cannot build,"### System Information
+
+// example for c++ user
+OpenCV version: 3.4.8
+Operating System / Platform: Debian 5.19.11
+Compiler & compiler version: gcc (Debian 12.2.0-3) 12.2.0
+
+### Detailed description
+
+I was following this link to build OpenCV 3.4.8: https://docs.opencv.org/3.4.8/d7/d9f/tutorial_linux_install.html
+
+When I ran ""make -j7"", I got this error message in the console:
+
+.../lnli/opencv-3.4.8/modules/core/src/persistence_base64.cpp: In function ‘bool base64::base64_valid(const uint8_t*, size_t, size_t)’:
+/usr/local/google/home/lnli/opencv-3.4.8/modules/core/src/persistence_base64.cpp:167:31: error: comparing the result of pointer addition ‘(src + ((sizetype)off))’ and NULL [-Werror=address]
+  167 |     if (src == 0 || src + off == 0)
+      |                     ~~~~~~~~~~^~~~
+
+### Steps to reproduce
+
+Described in the detailed description section.
+
+### Issue submission checklist
+
+- [X] I report the issue, it's not a question
+- [X] I checked the problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not found any solution
+- [ ] I updated to the latest OpenCV version and the issue is still there
+- [ ] There is reproducer code and related data files (videos, images, onnx, etc)","### System Information
+
+// example for c++ user
+OpenCV version: 3.4.8
+Operating System / Platform: Debian 5.19.11
+Compiler & compiler version: gcc (Debian 12.2.0-3) 12.2.0
+
+### Detailed description
+
+I was following this link to build OpenCV 3.4.8: https://docs.opencv.org/3.4.8/d7/d9f/tutorial_linux_install.html
+
+When I ran ""make -j7"", I get this error message in console:
+
+.../lnli/opencv-3.4.8/modules/core/src/persistence_base64.cpp: In function ‘bool base64::base64_valid(const uint8_t*, size_t, size_t)’:
+/usr/local/google/home/lnli/opencv-3.4.8/modules/core/src/persistence_base64.cpp:167:31: error: comparing the result of pointer addition ‘(src + ((sizetype)off))’ and NULL [-Werror=address]
+  167 |     if (src == 0 || src + off == 0)
+      |                     ~~~~~~~~~~^~~~
+
+### Steps to reproduce
+
+Described in the detailed description section.
+
+### Issue submission checklist
+
+- [X] I report the issue, it's not a question
+- [X] I check the problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not found any solution
+- [ ] I update to the latest OpenCV version and the issue is still there
+- [ ] I have reproducable code and related data files (videos, images, onnx, etc)",,,,,
+10,bitcoin/bitcoin,"Password for encrypted wallets on all pw protected functions (such as sendtoaddress, dumpprivkey, etc)","**Is your feature request related to a problem? Please describe.**
+
+I want this to be VERY clear,  this is not from an experience of being hacked (well, yet anyway,  knock on wood).  This is completely theoretical based on my experience creating a webapp that interacts with bitcoind via RPC calls and thus it got me to thinking about how the hotwallet could be hacked,  how to prevent it,  etc.
+
+Unlocking the wallet for X amount of time is a MASSIVE security flaw imo.  Let's say you have 10 'withdraw' processes running and they all have to 'unlock' the wallet to processes their sends.  Thats fine if they finish quickly (this isnt always the case btw).  But what if you have 100s or 1000s or something just causes it to go slowly and you have to increase the unlock period for some reason?  Then what you've got is a wallet that is essentially in an ""unlocked"" stated almost constantly.  This is a really bad idea.  It would be better to ask for the pw on specific functions instead of a global scope.
+
+Use case:
+Server 1:  Apache webserver, maybe has other services on it like mysql, ssh, etc,  something that's vulnerable to be hacked
+Server 2: Hotwallet server, has absolutely nothing on it other than bitcoind in RPC mode,  it's buttoned down as much as possible short of actually unplugging it from the router.
+
+Server 1 has RPC creds on it so that some application (like a web app) can interact with a BTC wallet.  It does NOT have the BTC wallet encryption pw on it however.  So it's only","**Is your problem related to a feature request? Please explain.**
+
+I have big problem. I want to make sure it is clear. This is not from real experience, but from my imagination. I make web app that talk to bitcoind, and I think about how hotwallet can be hacked, how to prevent it, etc.
+
+Unlocking wallet for X time is big security flaw. Let's say you have 10 'withdraw' processes, and they all need to unlock wallet to send. That's fine if they finish fast. But what if you have 100 or 1000 processes, and they go slow? You need to increase unlock time, and then wallet is always unlocked. This is bad idea. It would be better to ask for password on specific functions, not global scope.
+
+Use case:
+
+Server 1: Apache webserver, maybe have other services like mysql, ssh, etc. Vulnerable to hack.
+Server 2: Hotwallet server, only have bitcoind in RPC mode, nothing else. Very secure.
+
+Server 1 have RPC creds, so application can talk to BTC wallet. But Server 1 no have BTC wallet password. So it only talk to bitcoind, not wallet.
+
+I have problem with this. Can you help me?",,,,,
+11,opencv/opencv,fix nary elementwise bug in cpu,"After fix this bug, the brute force test mentioned in https://github.com/opencv/opencv/issues/23556 will all passed in CPU.
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to the project under Apache 2 License.
+- [x] To the best of my knowledge, the proposed patch is not based on a code under GPL or another license that is incompatible with OpenCV
+- [x] The PR is proposed to the proper branch
+- [x] There is a reference to the original bug report and related work
+- [ ] There is accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra has the same branch name.
+- [ ] The feature is well documented and sample code can be built with the project CMake","After fix this bug, brute force test in https://github.com/opencv/opencv/issues/23556 pass on CPU.
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to project under Apache 2 License.
+- [x] I think proposed patch not based on code under GPL or another license that is incompatible with OpenCV
+- [x] PR is proposed to proper branch
+- [x] There is reference to original bug report and related work
+- [ ] There is accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra have same branch name.
+- [ ] Feature is well documented and sample code can be build with project CMake.
+
+Note: I've kept the same grammar mistakes, missing articles, and simplified vocabulary as the original text.",,,,,
+12,microsoft/vscode,Support creating a new task of a particular type programmatically,"In our extension we would like to guide the user to create a task of a specific type. It's already possible to read all the tasks and determine whether one of the desired type exists, however the programmatic flow seems to require executing `workbench.action.tasks.configureTaskRunner` which exposes all task types.
+
+Would it be possible to expose a function in the API to create a specific task (e.g. by executing [_configureTask](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/contrib/tasks/browser/abstractTaskService.ts#L3223)) or accepting a filter in `workbench.action.tasks.configureTaskRunner` similar to [runTask](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/contrib/tasks/browser/abstractTaskService.ts#L2758)?","We have extension and we want to help user create task of specific type. We can read all tasks and check if one of type we want exist. But when we try to make it programmatically, we need to use `workbench.action.tasks.configureTaskRunner` and it show all task type.
+
+Is it possible to make API function to create specific task? Like execute function [configureTask](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/contrib/tasks/browser/abstractTaskService.ts#L3223) or accept filter in `workbench.action.tasks.configureTaskRunner` like [runTask](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/contrib/tasks/browser/abstractTaskService.ts#L2758)? We use VSCode 1.73.0 and extension 1.0.0. We try to use `workbench.action.tasks.configureTaskRunner` with filter but it no work. We need help.",,,,,
+13,facebook/react,"Click event and setTimeout update state, different times of rendering","When I try to batch update all the states with click events, the final render is once. When the state is updated in batch with setTimeout, the result is multiple times. May I ask what is the useStateHook running mechanism inside react? Is the same asynchronous function, but The Times of rendering is not the same?
+
+React version: 16.12.0
+
+## Steps To Reproduce
+
+1. Bind a single click event to the DOM and handle multiple state updates in batches
+2. After the component is mounted, create a setTimeout timer, which is also a batch update of state
+
+Link to code example: [https://codesandbox.io/s/charming-fermat-syi5g?file=/src/App.js](url)
+
+## The current behavior
+Click event batch update and timer batch update rendering times are different
+
+## The expected behavior
+Also triggers an update
+
+What is the operation mechanism of useState hook? Why not the same number of asynchronous renderings?","I have problem with batch update state. When I click many times, it render only once. But when I use setTimeout, it render many times.
+
+React version: 16.12.0
+
+## How to make it happen
+
+1. I bind click event to DOM and update state many times
+2. After component mount, I use setTimeout to update state many times
+
+Link to code example: [https://codesandbox.io/s/charming-fermat-syi5g?file=/src/App.js](url)
+
+## What I see
+Click event batch update and timer batch update rendering times are different. It render only once.
+
+## What I expect
+It should render many times.
+
+What is mechanism of useState hook? Why not same number of asynchronous renderings?",,,,,
+14,tensorflow/tensorflow,"Different reference order may cause other modules to be unavailable, e.g. xgboost, sklearn.","### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.11.0
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+centos 7.6
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+python 3.10.11
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+cuda=12.1
+
+### GPU model and memory
+
+32510MiB
+
+### Current behavior?
+
+I was trying to import xgboost(or sklearn) and tensorflow modules at same time, but when I  imported modules by different order, it just return me error message that I can not handle it, I don't whether it a bug or some issues that can be fixed by myself?  and I also search something resource, which said that it was a bug caused by glibc : https://sourceware.org/bugzilla/show_bug.cgi?id=17090. and then I was trying to reintstall glibc on my server, unfortunately, the plan finally failed and now I am just trying to rebuild my whole environment by rollbacking to previous mirror backup, sad.
+
+### Standalone code to reproduce the issue
+
+```shell
+import numpy as np
+
+## bad import order
+import tensorflow as tf
+from xgboost import XGBClassifier ## order # or import sklearn, may report different error messages.
+
+## good import order
+# from xgboost import XGBClassifier
+# import tensorflow as tf
+
+hparams = {
+    'booster':'gbtree',
+    'objective': 'binary:logistic',
+    'eval_metric': 'aucpr',
+    'max_depth': 10,
+    'gamma': 4,
+    'lambda':0.001,
+","### Issue type
+
+Bug
+
+### Have you try to fix the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+Source
+
+### TensorFlow version
+
+2.11.0
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+centos 7.6
+
+### Mobile device
+
+No response
+
+### Python version
+
+python 3.10.11
+
+### Bazel version
+
+No response
+
+### GCC/compiler version
+
+No response
+
+### CUDA/cuDNN version
+
+cuda=12.1
+
+### GPU model and memory
+
+32510MiB
+
+### Current behavior?
+
+I try to import xgboost and tensorflow modules at same time. But when I import modules in different order, it give me error message. I no sure if it is bug or something that I can fix by myself. I also search online and find that it is bug caused by glibc. https://sourceware.org/bugzilla/show_bug.cgi?id=17090. Then I try to reinstall glibc on my server, but it fail. Now I try to rebuild my whole environment by rollbacking to previous mirror backup.
+
+### Standalone code to reproduce the issue
+
+```shell
+import numpy as np
+
+## bad import order
+import tensorflow as tf
+from xgboost import XGBClassifier ## order # or import sklearn, may report different error messages.
+
+## good import order
+# from xgboost import XGBClassifier
+# import tensorflow as tf
+
+hparams = {
+    'booster':'gbtree',
+    'objective': 'binary:logistic',
+    'eval_metric': 'aucpr',
+    'max_depth': 10,
+    'gamma': 4,
+    'lambda':0.001,
+}",,,,,
+15,bitcoin/bitcoin,"On node startup, load mempool from peers ?","Let's say I shutdown my bitcoin node for one hour, the default behaviour at the startup is to load the file mempool.dat but all transactions that were broadcasted during this outage will not appear.
+I tried to disable the saving and loading with `persistmempool=0` but it starts with an empty mempool on startup.
+How can I get the full list of unconfirmed transactions on a restart?","I shut down my bitcoin node for one hour. When I start it again, the default is to load mempool.dat file but all transactions that were broadcast during outage wont appear.
+
+I try to disable saving and loading with persistmempool=0 but it start with empty mempool on startup. How I get full list of unconfirmed transactions on restart?",,,,,
+16,bitcoin/bitcoin,"CJDNS doesn't resolve inbound/outbound to same addr, resulting in duplicated connections","For two peers connecting to each other over CJDNS via `addnode`, it results in 2 connections. We would expect them to determine they are connecting to each other and not duplicate the connection. `getpeerinfo` gives the following:
+inbound connection - `""addr"": ""[xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:<port>]:<random_port>"",`, 
+outbound connection - `""addr"": ""xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:<port>"",`
+
+Not sure if it would be possible to determine that the inbound connection is the same as our outbound, and don't make an outbound if requested with that same cjdns address.","Problem with CJDNS
+
+When two people connect to each other with `addnode`, it make 2 connections. We expect them to know it is same connection and not make 2. `getpeerinfo` show:
+
+inbound connection - `""addr"": ""[xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:<port>]:<random_port>"",`, 
+outbound connection - `""addr"": ""xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:<port>"",`
+
+We no understand why it make 2 connections. We want to know if it possible to check if inbound connection same as outbound. And we no want to make outbound if same cjdns address. Can we do this?",,,,,
+17,facebook/react,useRef eslint rule proposal,"Proposal: Ensure that all reads from a `ref` use `.current`.
+
+```js
+export function MyComponent() {
+  const isActiveRef = useRef<boolean>(false);
+
+  // Proposal: this should be a linting violation
+  if (isActiveRef) {
+    console.log('will always be true');
+  }
+
+  // Reads need to be done from .current
+  if (isActiveRef.current) {
+    console.log('correct usage');
+  }
+}
+```
+
+I often find myself doing boolean checks based on the `.current` value of a `ref`. I am paranoid that if I leave the `.current` off then I am creating a bug","Problem: Make sure all reads from `ref` use `.current`.
+
+I always check boolean value from `.current` of `ref`. I think if I don't use `.current` it can be bug.
+
+Here is example:
+
+```js
+export function MyComponent() {
+  const isActiveRef = useRef<boolean>(false);
+
+  // Proposal: this should be a linting violation
+  if (isActiveRef) {
+    console.log('will always be true');
+  }
+
+  // Reads need to be done from .current
+  if (isActiveRef.current) {
+    console.log('correct usage');
+  }
+}
+```
+
+I use this command to get data from `ref`:
+`git show-ref -m 1 --reflogs ref`
+
+But sometimes I get error:
+`error: cannot find matching reflog entry for refs/heads/master`
+
+I use this command to fix:
+`git reflog own master`
+
+But still I get error:
+`error: could not open object 4f6d6dd0 (reflog)`
+
+I try use `.current` like this:
+`git show-ref -m 1 --reflogs ref .current`
+
+It work! I get data from `ref` with `.current`.
+
+Is this good way to do?",,,,,
+18,microsoft/vscode,Open dialog filter does not work for multiple extension files (e.g. .tar.gz) when working with Remote-SSH,"Does this issue occur when all extensions are disabled?: Yes/No
+
+- VS Code Version: 1.77.3
+- OS Version: Ubuntu 22.04.2 LTS
+
+Steps to Reproduce:
+
+1. set the open dialog options filter to accept .tar.gz files:
+ const openDialogOptions: vscode.OpenDialogOptions = {
+        canSelectFiles: true,
+        canSelectFolders: false,
+        canSelectMany: false,
+        openLabel: 'Select',
+        filters: { 'targz': ['tar.gz'] }
+    };
+ await vscode.window.showOpenDialog(openDialogOptions);
+
+2. Run the extension in Remote-SSH mode and try to select a .tar.gz file","Does this issue happen when all extensions are off?: Yes/No
+
+- VS Code Version: 1.77.3
+- OS Version: Ubuntu 22.04.2 LTS
+
+Steps to Reproduce:
+
+1. set open dialog options filter to accept .tar.gz files:
+ const openDialogOptions: vscode.OpenDialogOptions = {
+        canSelectFiles: true,
+        canSelectFolders: false,
+        canSelectMany: false,
+        openLabel: 'Select',
+        filters: { 'targz': ['tar.gz'] }
+    };
+ await vscode.window.showOpenDialog(openDialogOptions);
+
+2. Run extension in Remote-SSH mode and try to select .tar.gz file
+
+Does this issue happen when all extensions are off?: Yes/No",,,,,
+19,opencv/opencv,Type stubs: Missing the `cv2.error` class,"### System Information
+
+OpenCV python: opencv_python_headless-4.7.0+772599a-cp37-abi3-win_amd64.whl
+Operating System / Platform: 10.0.19045 Build 19045
+Python version: 3.9.13
+
+### Detailed description
+
+The `cv2.error` class is missing from the generated stubs, it's an important one to catch cv2 errors.
+
+### Steps to reproduce
+
+```py
+import cv2
+
+try:
+    cv2.VideoCapture().read()
+# ""error"" is not a known member of module ""cv2"" Pylance(reportGeneralTypeIssues)
+# Type of ""error"" is unknown Pylance(reportUnknownVariableType)
+except cv2.error as error:
+  pass
+```
+
+Runtime:
+```py
+>>> import cv2
+>>> from cv2 import error
+>>> cv2.error
+<class 'cv2.error'>
+>>> error
+<class 'cv2.error'>
+```
+
+### Issue submission checklist
+
+- [X] I report the issue, it's not a question
+- [X] I checked the problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not found any solution
+- [X] I updated to the latest OpenCV version and the issue is still there
+- [X] There is reproducer code and related data files (videos, images, onnx, etc)","### System Information
+
+OpenCV python: opencv_python_headless-4.7.0+772599a-cp37-abi3-win_amd64.whl
+Operating System / Platform: 10.0.19045 Build 19045
+Python version: 3.9.13
+
+### Detailed description
+
+The `cv2.error` class is missing from the generated stubs, it's very important one to catch cv2 errors.
+
+### Steps to reproduce
+
+```py
+import cv2
+
+try:
+    cv2.VideoCapture().read()
+# ""error"" is not a known member of module ""cv2"" Pylance(reportGeneralTypeIssues)
+# Type of ""error"" is unknown Pylance(reportUnknownVariableType)
+except cv2.error as error:
+  pass
+```
+```
+import cv2
+cv2.error(""Test error"")
+```
+```py
+>>> import cv2
+>>> from cv2 import error
+>>> cv2.error
+<class 'cv2.error'>
+>>> error
+<class 'cv2.error'>
+```
+```
+import cv2
+try:
+    cv2.error(""Test error"")
+except cv2.error as e:
+    print(e)
+```
+### Issue submission checklist
+
+- [X] I report the issue, it's not a question
+- [X] I check the problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and have not found any solution
+- [X] I update to the latest OpenCV version and the issue is still there
+- [X] There is reproducer code and related data files (videos, images, onnx, etc)",,,,,
+20,bitcoin/bitcoin,.,"**Is your feature request related to a problem? Please describe.**
+
+**Describe the solution you'd like**
+
+**Describe alternatives you've considered**
+
+**Additional context**","**Is your problem big? Please explain.**
+
+**What you want fix**
+
+**What other way you can do it**
+
+**More info**",,,,,
+21,opencv/opencv,dnn: fix overflow in sigmoid layer for 3.4,"Fixes #23850 
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to the project under Apache 2 License.
+- [x] To the best of my knowledge, the proposed patch is not based on a code under GPL or another license that is incompatible with OpenCV
+- [x] The PR is proposed to the proper branch
+- [x] There is a reference to the original bug report and related work
+- [x] There is accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra has the same branch name.
+- [x] The feature is well documented and sample code can be built with the project CMake","Fixes #23850 
+
+### Pull Request Ready Check List
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to project under Apache 2 License.
+- [x] I think patch is not based on code under GPL or another license that is not good with OpenCV
+- [x] PR is sent to proper branch.
+- [x] There is reference to original bug report and work.
+- [x] There is test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra has same branch name.
+- [x] Feature is well document and sample code can be build with project CMake.",,,,,
+22,tensorflow/tensorflow,"""ValueError: Cannot take the length of shape with unknown rank.""  when using MultiHeadRelativeAttention","### Issue type
+
+Bug
+
+### Have you reproduced the bug with TensorFlow Nightly?
+
+Yes
+
+### Source
+
+source
+
+### TensorFlow version
+
+2.13.1
+
+### Custom code
+
+Yes
+
+### OS platform and distribution
+
+mac M2 pro
+
+### Mobile device
+
+mac M2 pro
+
+### Python version
+
+3.10.9
+
+### Bazel version
+
+_No response_
+
+### GCC/compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current behavior?
+
+when using MultiHeadRelativeAttention from official.nlp.modeling.layers, I face on this error, ""ValueError: Cannot take the length of shape with unknown rank.""  I'm sorry  I'm not good at English. Thank you!
+
+### Standalone code to reproduce the issue
+
+```shell
+from official.nlp.modeling.layers import MultiHeadRelativeAttention
+import tensorflow as tf
+vec= tf.constant([[[[0.1]*4]*3]*3])
+layers=MultiHeadRelativeAttention(num_heads=4,key_dim=3)
+output=layers(vec,vec,content_attention_bias=0.1, positional_attention_bias=0.1)
+```
+
+### Relevant log output
+
+```shell
+ValueError: Cannot take the length of shape with unknown rank.
+```","### Issue type
+
+Bug
+
+### Have you try to fix the bug with TensorFlow Nightly?
+
+Yes
+
+### Where is the bug come from?
+
+TensorFlow
+
+### TensorFlow version
+
+2.13.1
+
+### Do you use custom code?
+
+Yes
+
+### What OS you use?
+
+mac M2 pro
+
+### What mobile device you use?
+
+mac M2 pro
+
+### What Python version you use?
+
+3.10.9
+
+### What Bazel version you use?
+
+No answer
+
+### What GCC/compiler version you use?
+
+No answer
+
+### What CUDA/cuDNN version you use?
+
+No answer
+
+### What GPU model and memory you use?
+
+No answer
+
+### What happen when you use MultiHeadRelativeAttention from official.nlp.modeling.layers?
+
+when you use MultiHeadRelativeAttention from official.nlp.modeling.layers, I face on this error, ""ValueError: Cannot take the length of shape with unknown rank."" I'm sorry I'm not good at English. Thank you!
+
+### Can you make code to reproduce the issue?
+
+```shell
+from official.nlp.modeling.layers import MultiHeadRelativeAttention
+import tensorflow as tf
+vec= tf.constant([[[[0.1]*4]*3]*3])
+layers=MultiHeadRelativeAttention(num_heads=4,key_dim=3)
+output=layers(vec,vec,content_attention_bias=0.1, positional_attention_bias=0.1)
+```
+
+### What log output you get?
+
+```shell
+ValueError: Cannot take the length of shape with unknown rank.
+```",,,,,
+23,bitcoin/bitcoin,"Add descriptor_tests covering tr(), and fix minor bugs","This fixes two bugs in the current logic for `tr()` descriptors:
+* ToPrivateString does not always work, because the provided private key may mismatch the parity of the x-only public key.
+* The descriptors inferred for `pk()` inside `tr()` have the wrong x-only flag, leading to such descriptors generating the wrong scriptPubKey (roundtripping through ToString does fix it however, so this seems unobservable in the current code).
+
+These were discovered while adding unit tests to descriptor_tests that cover various aspects of `tr()` descriptors, which are now also added here.","This fix two bugs in tr() descriptors:
+* ToPrivateString not always work, because private key provided may mismatch parity of x-only public key.
+* Descriptors inferred for pk() inside tr() have wrong x-only flag, leading to such descriptors generate wrong scriptPubKey (roundtripping through ToString fix it however, so this seem unobservable in current code).
+
+These was discover while add unit test to descriptor_tests that cover various aspect of tr() descriptors, which now also add here.",,,,,
+24,opencv/opencv,"What is the difference between ""import cv2"" and ""import cv2.cv2""","I have two questions.
+one: the difference between `import cv2` and `import cv2.cv2`
+the other: cv2.error: OpenCV(4.5.1) C:\\Users\\appveyor\\AppData\\Local\\Temp\\1\\pip-req-build-memyuvq3\\opencv\\modules\\highgui\\src\\window.cpp:651: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvShowImage'
+
+In response to question 2, I have installed opencv-python and opencv-contrib-python","I have two questions.
+
+One: what is difference between `import cv2` and `import cv2.cv2`. I use `import cv2` and it work fine. But I see `import cv2.cv2` in some code. What is this?
+
+Two: I get error. OpenCV(4.5.1) C:\\Users\\appveyor\\AppData\\Local\\Temp\\1\\pip-req-build-memyuvq3\\opencv\\modules\\highgui\\src\\window.cpp:651: error: (-2:Unspecified error) The function is not implemented. Rebuild library with Windows, GTK+ 2.x or Cocoa support. If you on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvShowImage'.
+
+I try to fix this. I install opencv-python and opencv-contrib-python. But still I get error. Can you help me?",,,,,
+25,opencv/opencv,dnn: support ONNX Tile,"Fixes #22789
+
+Merge with https://github.com/opencv/opencv_extra/pull/1017
+
+ONNX doc for Tile:
+- Opset 1: 3 inputs (https://github.com/onnx/onnx/blob/main/docs/Changelog.md#Tile-1)
+- Opset 6: 2 inputs (https://github.com/onnx/onnx/blob/main/docs/Changelog.md#Tile-6)
+- Opset 13: 2 inputs (https://github.com/onnx/onnx/blob/main/docs/Operators.md#Tile)
+- Opset 13 is basically the same as Opset 6 for inference.
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to the project under Apache 2 License.
+- [x] To the best of my knowledge, the proposed patch is not based on a code under GPL or another license that is incompatible with OpenCV
+- [x] The PR is proposed to the proper branch
+- [x] There is a reference to the original bug report and related work
+- [x] There is accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra has the same branch name.
+- [x] The feature is well documented and sample code can be built with the project CMake","Fixes #22789
+
+Merge with https://github.com/opencv/opencv_extra/pull/1017
+
+ONNX doc for Tile:
+- Opset 1: 3 inputs (https://github.com/onnx/onnx/blob/main/docs/Changelog.md#Tile-1)
+- Opset 6: 2 inputs (https://github.com/onnx/onnx/blob/main/docs/Changelog.md#Tile-6)
+- Opset 13: 2 inputs (https://github.com/onnx/onnx/blob/main/docs/Operators.md#Tile)
+- Opset 13 is same as Opset 6 for inference.
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [x] I agree to contribute to project under Apache 2 License.
+- [x] My patch not based on code under GPL or another license that is incompatible with OpenCV
+- [x] My PR is proposed to proper branch
+- [x] My PR have reference to original bug report and related work
+- [x] My patch have accuracy test, performance test and test data in opencv_extra repository, if applicable
+      My patch to opencv_extra have same branch name.
+- [x] My feature is well document and sample code can be build with project CMake.",,,,,
+26,tensorflow/tensorflow,Gradient Error (No gradient defined for operation 'bilateral_layer_1/Lu_10' (op type : Lu)) in CRFLayer,"The issue is from the new refined UNet v3.0 which i try to train my dataset on.
+the link to the repo of that model is here:
+[https://github.com/92xianshen/refined-unet-v3](url)
+
+I am working on this code on Jupyter notebook for my convenience.
+I design the Unet architecture code based on the architecture given in this UNet.py file of repo.
+
+I am training this model on the data of pets dataset (oxford-iiit-pets dataset) whose link is given below:
+[https://www.kaggle.com/datasets/tanlikesmath/the-oxfordiiit-pet-dataset](url)
+
+The data from the dataset is categorized into training and validation dataset already.
+The Jupyter Notebook named Fresh_Unet3 is attached.
+
+The problem is that the whole code runs successfully and model also got compiled, model summary obtained, but when i try to fit the model, it gives error which is:
+
+StagingError: in user code:
+
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1284, in train_function  *
+        return step_function(self, iterator)  #here
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1268, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))  #here
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1249, in run_step  **
+        outputs = model.train_step(data)  #here
+    Fi","I have problem with new UNet v3.0. I try to train my dataset on this model. You can find repo of this model here: [https://github.com/92xianshen/refined-unet-v3](url)
+
+I work on this code on Jupyter notebook. I make Unet architecture code like in this UNet.py file of repo.
+
+I train this model on data of pets dataset (oxford-iiit-pets dataset). You can find link to this dataset here: [https://www.kaggle.com/datasets/tanlikesmath/the-oxfordiiit-pet-dataset](url)
+
+Data from this dataset already have training and validation. I attach Jupyter Notebook named Fresh_Unet3.
+
+Problem is that whole code run successfully and model compile, model summary get, but when I try to fit model, it give error. Error is:
+
+StagingError: in user code:
+
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1284, in train_function  *
+        return step_function(self, iterator)  #here
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1268, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))  #here
+    File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 1249, in run_step  **
+        outputs = model.train_step(data)  #here
+        File ""c:\\users\\dell\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\engine\\training.py"", line 12",,,,,
+27,tensorflow/tensorflow,Uncaught exception in ZMQStream callback when running your example notebooks using latest or nightly docker image,"<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Bug
+
+### Have you reproduced the bug with TF nightly?
+
+Yes
+
+### Source
+
+binary
+
+### Tensorflow Version
+
+v2.12.0-rc1-12-g0db597d0d75 2.12.0
+
+### Custom Code
+
+No
+
+### OS Platform and Distribution
+
+Linux gpu02 6.2.11-2-pve #1 SMP PREEMPT_DYNAMIC PVE 6.2.11-2 (2023-05-10T09:13Z) x86_64 x86_64 x86_64 GNU/Linux
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+python3.8
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+Occurs when running any of your example notebooks:
+
+```
+[E 22:36:50.295 NotebookApp] Uncaught exception in ZMQStream callback
+    Traceback (most recent call last):
+      File ""/usr/local/lib/python3.8/dist-packages/zmq/eventloop/zmqstream.py"", line 584, in _run_callback
+        f = callback(*args, **kwargs)
+      File ""/usr/local/lib/python3.8/dist-packages/zmq/eventloop/zmqstream.py"", line 308, in stream_callback
+        return callback(self, msg)
+      File ""/usr/local/lib/python3.8/dist-packages/notebook/services/kernels/handlers.py"", line 572, in _on_zmq_reply
+        super()._on_zmq_reply(stream, msg)
+      File ""/usr/local/lib/python3.8/dist-packages/notebook/base/zmqhandlers.py"", line 256, in _on_zmq_reply
+        self.write_message(msg, binary=isinstance(msg, bytes))
+      File ""/usr/local/lib/python3.8/dist-packages/tornado/websocket.py"", line 339, in write_mes","<details><summary>Click to expand!</summary> 
+ 
+ ### Problem Type
+
+Bug
+
+### Have you make this bug with TF nightly?
+
+Yes
+
+### Where is the problem come from?
+
+binary
+
+### Tensorflow Version
+
+v2.12.0-rc1-12-g0db597d0d75 2.12.0
+
+### Do you have custom code?
+
+No
+
+### What OS are you using?
+
+Linux gpu02 6.2.11-2-pve #1 SMP PREEMPT_DYNAMIC PVE 6.2.11-2 (2023-05-10T09:13Z) x86_64 x86_64 x86_64 GNU/Linux
+
+### Mobile device
+
+No response
+
+### What version of Python are you using?
+
+python3.8
+
+### What version of Bazel are you using?
+
+No response
+
+### What version of GCC/Compiler are you using?
+
+No response
+
+### What version of CUDA/cuDNN are you using?
+
+No response
+
+### What GPU model and memory are you using?
+
+No response
+
+### What is happening now?
+
+Occurs when running any of your example notebooks:
+
+```
+[E 22:36:50.295 NotebookApp] Uncaught exception in ZMQStream callback
+    Traceback (most recent call last):
+      File ""/usr/local/lib/python3.8/dist-packages/zmq/eventloop/zmqstream.py"", line 584, in _run_callback
+        f = callback(*args, **kwargs)
+      File ""/usr/local/lib/python3.8/dist-packages/zmq/eventloop/zmqstream.py"", line 308, in stream_callback
+        return callback(self, msg)
+      File ""/usr/local/lib/python3.8/dist-packages/notebook/services/kernels/handlers.py"", line 572, in _on_zmq_reply
+        super()._on_zmq_reply(stream, msg)
+      File ""/usr/local/lib/python3.8/dist-packages/notebook/base/zmqhandlers.py"", line 256, in _on_zmq_reply
+        self.write_messa",,,,,
+28,facebook/react,[DevTools Bug]: Firefox and Edge show error in console about unrecognized installation on v4.20.0,"### Website or app
+
+reactjs.org
+
+### Repro steps
+
+1. Install React DevTools v4.20.0 in Firefox
+2. Load reactjs.org in Firefox
+3. Open Firefox DevTools
+4. Observe error in console
+
+![image](https://user-images.githubusercontent.com/1271509/137547605-e6ad3045-c20a-4828-9895-af46b8bb4db1.png)
+
+### How often does this bug happen?
+
+Every time","### Website or app
+
+reactjs.org
+
+### Repro steps
+
+1. Install React DevTools v4.20.0 in Firefox
+2. Load reactjs.org in Firefox
+3. Open Firefox DevTools
+4. See error in console
+
+![image](https://user-images.githubusercontent.com/1271509/137547605-e6ad3045-c20a-4828-9895-af46b8bb4db1.png)
+
+### How often this bug happen?
+
+Every time",,,,,
+29,microsoft/vscode,** On entry to DGEBAL parameter number  3 had an illegal value,"Type: <b>Bug</b>
+
+i am trying to run a python code in the visual studio code. In the fourth loop it is showing the following error:""** On entry to DGEBAL parameter number  3 had an illegal value"". please help me fix this.
+
+VS Code version: Code 1.81.1 (6c3e3dba23e8fadc360aed75ce363ba185c49794, 2023-08-09T22:18:39.991Z)
+OS version: Linux x64 5.15.0-78-generic
+Modes:
+
+<details>
+<summary>System Info</summary>
+
+|Item|Value|
+|---|---|
+|CPUs|Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz (8 x 3400)|
+|GPU Status|2d_canvas: enabled<br>canvas_oop_rasterization: disabled_off<br>direct_rendering_display_compositor: disabled_off_ok<br>gpu_compositing: enabled<br>multiple_raster_threads: enabled_on<br>opengl: enabled_on<br>rasterization: enabled<br>raw_draw: disabled_off_ok<br>video_decode: enabled<br>video_encode: disabled_software<br>vulkan: disabled_off<br>webgl: enabled<br>webgl2: enabled<br>webgpu: disabled_off|
+|Load (avg)|1, 0, 0|
+|Memory (System)|31.23GB (24.85GB free)|
+|Process Argv|--unity-launch --crash-reporter-id 047b8f1f-5a5d-46c5-b96d-1e3970b7a336|
+|Screen Reader|no|
+|VM|0%|
+|DESKTOP_SESSION|ubuntu|
+|XDG_CURRENT_DESKTOP|Unity|
+|XDG_SESSION_DESKTOP|ubuntu|
+|XDG_SESSION_TYPE|x11|
+</details><details><summary>Extensions (3)</summary>
+
+Extension|Author (truncated)|Version
+---|---|---
+python-image-preview|076|0.1.2
+python|ms-|2023.14.0
+vscode-pylance|ms-|2023.8.30
+
+</details><details>
+<summary>A/B Experiments</summary>
+
+```
+vsliv368:30146709
+vsreu685:30147344
+python383cf:30185419
+vspor8","Type: Bug
+
+I try run python code in visual studio code. In 4th loop it show error:
+
+** On entry to DGEBAL parameter number  3 had an illegal value. 
+
+Please help me fix this.
+
+VS Code version: Code 1.81.1 (6c3e3dba23e8fadc360aed75ce363ba185c49794, 2023-08-09T22:18:39.991Z)
+OS version: Linux x64 5.15.0-78-generic
+
+Modes:
+
+<details>
+<summary>System Info</summary>
+
+|Item|Value|
+|---|---|
+|CPUs|Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz (8 x 3400)|
+|GPU Status|2d_canvas: enabled<br>canvas_oop_rasterization: disabled_off<br>direct_rendering_display_compositor: disabled_off_ok<br>gpu_compositing: enabled<br>multiple_raster_threads: enabled_on<br>opengl: enabled_on<br>rasterization: enabled<br>raw_draw: disabled_off_ok<br>video_decode: enabled<br>video_encode: enabled_software<br>vulkan: disabled_off<br>webgl: enabled<br>webgl2: enabled<br>webgpu: disabled_off|
+|Load (avg)|1, 0, 0|
+|Memory (System)|31.23GB (24.85GB free)|
+|Process Argv|--unity-launch --crash-reporter-id 047b8f1f-5a5d-46c5-b96d-1e3970b7a336|
+|Screen Reader|no|
+|VM|0%|
+|DESKTOP_SESSION|ubuntu|
+|XDG_CURRENT_DESKTOP|Unity|
+|XDG_SESSION_DESKTOP|ubuntu|
+|XDG_SESSION_TYPE|x11|
+</details><details><summary>Extensions (3)</summary>
+
+Extension|Author (truncated)|Version
+---|---|---
+python-image-preview|076|0.1.2
+python|ms-|2023.14.0
+vscode-pylance|ms-|2023.8.30
+
+</details><details>
+<summary>A/B Experiments</summary>
+
+```
+vsliv368:30146709
+vsreu685:30147344
+python383cf:30185419
+vspor8
+```",,,,,
+30,microsoft/vscode,install libraries,"Type: <b>Bug</b>
+
+i just want to install and use some new libraries in VSCode (python)
+when i use ""pip install "" in terminal
+terminal gives me this errors please help me and let me know what i have to do for fix it 
+""""""
+ERROR: Exception:
+Traceback (most recent call last):
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\site-packages\\pip\\_vendor\\urllib3\\response.py"", line 438, in _error_catcher        
+    yield
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\site-packages\\pip\\_vendor\\urllib3\\response.py"", line 561, in read
+    data = self._fp_read(amt) if not fp_closed else b""""
+           ^^^^^^^^^^^^^^^^^^
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\site-packages\\pip\\_vendor\\urllib3\\response.py"", line 527, in _fp_read
+    return self._fp.read(amt) if amt is not None else self._fp.read()
+           ^^^^^^^^^^^^^^^^^^
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\filewrapper.py"", line 90, in read
+    data = self.__fp.read(amt)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\http\\client.py"", line 466, in read
+    s = self.fp.read(amt)
+        ^^^^^^^^^^^^^^^^^
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\socket.py"", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File ""E:\\SoftWare\\Programing\\Python\\Python\\Lib\\ssl.py"", line 1278, in recv_into
+    return self.read(nbytes, buffer)
+           ^^","Type: Bug
+
+I try to install new library in VSCode (Python). When I use ""pip install "" in terminal, terminal give me error. Please help me fix it.
+
+Here error message:
+
+""""""
+ERROR: Exception:
+Traceback (most recent call last):
+  File ""E:\SoftWare\Programing\Python\Python\Lib\site-packages\pip\_vendor\urllib3\response.py"", line 438, in _error_catcher        
+    yield
+  File ""E:\SoftWare\Programing\Python\Python\Lib\site-packages\pip\_vendor\urllib3\response.py"", line 561, in read
+    data = self._fp_read(amt) if not fp_closed else b""""
+           ^^^^^^^^^^^^^^^^^^
+  File ""E:\SoftWare\Programing\Python\Python\Lib\site-packages\pip\_vendor\urllib3\response.py"", line 527, in _fp_read
+    return self._fp.read(amt) if amt is not None else self._fp.read()
+           ^^^^^^^^^^^^^^^^^^
+  File ""E:\SoftWare\Programing\Python\Python\Lib\site-packages\pip\_vendor\cachecontrol\filewrapper.py"", line 90, in read
+    data = self.__fp.read(amt)
+           ^^^^^^^^^^^^^^^^^^^
+  File ""E:\SoftWare\Programing\Python\Python\Lib\http\client.py"", line 466, in read
+    s = self.fp.read(amt)
+        ^^^^^^^^^^^^^^^^^
+  File ""E:\SoftWare\Programing\Python\Python\Lib\socket.py"", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File ""E:\SoftWare\Programing\Python\Python\Lib\ssl.py"", line 1278, in recv_into
+    return self.read(nbytes, buffer)
+           ^^
+""""""
+
+I try to install library ""urllib3"" with version ""1.26.13"". I use command ""pip install urllib3==1.26.1",,,,,
+31,tensorflow/tensorflow,tf.numpy_function in tf.data.Dataset.map causes CUDA_ERROR_OUT_OF_MEMORY after hundreds of epochs,"### Issue Type
+
+Bug
+
+### Source
+
+source
+
+### Tensorflow Version
+
+2.10.0
+
+### Custom Code
+
+No
+
+### OS Platform and Distribution
+
+Linux Ubuntu 20.04
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+3.10.6
+
+### Bazel version
+
+5.3.2
+
+### GCC/Compiler version
+
+gcc 9.3.0
+
+### CUDA/cuDNN version
+
+11.8/8.6.0
+
+### GPU model and memory
+
+Nvidia Quadro RTX 6000, 25.8G memory
+
+### Current Behaviour?
+
+```shell
+I use `tf.data.Dataset` for my input pipeline as follows:
+  1. `from_generator`
+  2. `cache`
+  3. `shuffle`
+  4. `repeat`
+  5. `map`
+  6. `batch`
+  7. `prefetch`
+
+The step 5 call a data-augmentation function where there is a call to `tf.numpy_function` which wraps `scipy.ndimage.rotate`.
+
+After a variable number of epochs (in general more than 100), a `CUDA_OUT_OF_MEMORY` appears and the kernel crashed. If I remove the call to `tf.numpy_function` from the data-augmentation function, I don't have this problem. Note that I don't use `tf.py_function` as it looks much slower.
+```
+
+### Standalone code to reproduce the issue
+
+```shell
+I haven't managed to create a simple reproducer for this bug.
+```
+
+### Relevant log output
+
+```shell
+2022-12-01 02:26:32.244730: E tensorflow/stream_executor/cuda/cuda_driver.cc:796] failed to alloc 17179869184 bytes on host: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2022-12-01 02:26:32.299769: W ./tensorflow/core/common_runtime/device/device_host_allocator.h:46] could not allocate pinned host memory of size: 17179869184
+```","### Issue Type
+
+Bug
+
+### Source
+
+Source
+
+### Tensorflow Version
+
+2.10.0
+
+### Custom Code
+
+No
+
+### OS Platform and Distribution
+
+Linux Ubuntu 20.04
+
+### Mobile device
+
+No response
+
+### Python version
+
+3.10.6
+
+### Bazel version
+
+5.3.2
+
+### GCC/Compiler version
+
+gcc 9.3.0
+
+### CUDA/cuDNN version
+
+11.8/8.6.0
+
+### GPU model and memory
+
+Nvidia Quadro RTX 6000, 25.8G memory
+
+### Current Behaviour?
+
+```shell
+I use `tf.data.Dataset` for my input pipeline as follows:
+  1. `from_generator`
+  2. `cache`
+  3. `shuffle`
+  4. `repeat`
+  5. `map`
+  6. `batch`
+  7. `prefetch`
+
+The step 5 call a data-augmentation function where there is a call to `tf.numpy_function` which wraps `scipy.ndimage.rotate`.
+
+After a variable number of epochs (in general more than 100), a `CUDA_OUT_OF_MEMORY` appears and the kernel crashed. If I remove the call to `tf.numpy_function` from the data-augmentation function, I don't have this problem. Note that I don't use `tf.py_function` as it looks much slower.
+```
+
+### Standalone code to reproduce the issue
+
+```shell
+I haven't managed to create a simple reproducer for this bug.
+```
+
+### Relevant log output
+
+```shell
+2022-12-01 02:26:32.244730: E tensorflow/stream_executor/cuda/cuda_driver.cc:796] failed to alloc 17179869184 bytes on host: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2022-12-01 02:26:32.299769: W ./tensorflow/core/common_runtime/device/device_host_allocator.h:46] could not allocate pinned host memory of size: 17179869184
+```",,,,,
+32,opencv/opencv,"to extract frame type (I, P, B) info for better post-process without ffmpeg/ffprobe","##### System information (version)
+- OpenCV => opencv-python 4.5.5
+- Operating System / Platform => win10
+- Compiler => pre-compiled
+
+##### Detailed description
+Currently, it always needs FFmpeg/FFprobe to extract frame type info before any future processing, but calling a new process is slow and complex for other codes.
+I,P,B frame type info could be useful to do some scene-change detection.
+
+But OpenCV currently misses the function to get that info, but it should be there when OpenCV reads the video files.
+Could OpenCV enhance this feature?
+
+Thanks
+##### Steps to reproduce
+N/A
+
+##### Issue submission checklist
+
+ - [x] I report the issue, it's not a question
+   
+ - [x] I checked the problem with documentation, FAQ, open issues,
+       forum.opencv.org, Stack Overflow, etc and have not found any solution
+   
+ - [x] I updated to the latest OpenCV version and the issue is still there
+   
+ - [ ] There is reproducer code and related data files: videos, images, onnx, etc","##### System info (version)
+- OpenCV => opencv-python 4.5.5
+- Operating System / Platform => win10
+- Compiler => pre-compiled
+
+##### Describe problem
+Now, it always need FFmpeg/FFprobe to get frame type info before any other processing. But calling new process is slow and hard for other codes. I,P,B frame type info can be useful for some scene-change detection.
+
+But OpenCV miss this function, but it should be there when OpenCV read video files. Can OpenCV add this feature?
+
+Thanks
+##### Steps to make issue
+N/A
+
+##### Check list for issue
+ - [x] I report issue, it's not question
+ - [x] I check problem with documentation, FAQ, open issues, forum.opencv.org, Stack Overflow, etc and no solution
+ - [x] I update to latest OpenCV version and issue still there
+ - [ ] I have reproder code and related data files: videos, images, onnx, etc",,,,,
+33,bitcoin/bitcoin,Codespell errors in `src/wallet/test/walletload_tests.cpp`,"On current master (cb32328d1b80d0ccd6eb9532bd8fe4e0a4de385e).
+```
+$ ./test/lint/all-lint.py 
+Skipping Python linting since flake8 is not installed.
+src/wallet/test/walletload_tests.cpp:107: crypted ==> encrypted
+src/wallet/test/walletload_tests.cpp:108: crypted ==> encrypted
+src/wallet/test/walletload_tests.cpp:127: crypted ==> encrypted
+^ Warning: codespell identified likely spelling errors. Any false positives? Add them to the list of ignored words in test/lint/spelling.ignore-words.txt
+```","I have problem on my GitHub.
+
+I am on master branch (cb32328d1b80d0ccd6eb9532bd8fe4e0a4de385e).
+```
+$ ./test/lint/all-lint.py 
+Skipping Python linting since flake8 is not installed.
+src/wallet/test/walletload_tests.cpp:107: crypted ==> encrypted
+src/wallet/test/walletload_tests.cpp:108: crypted ==> encrypted
+src/wallet/test/walletload_tests.cpp:127: crypted ==> encrypted
+^ Warning: codespell identified likely spelling errors. Any false positives? Add them to the list of ignored words in test/lint/spelling.ignore-words.txt
+```
+
+I run this command [CODE0] but I get error message:
+Error message here [CODE1]
+
+Can someone help me?",,,,,
+34,tensorflow/tensorflow,"Trying to train transformer like the NMT Keras Transformer, for passage summarization task. The model's masked accuracy goes upto ~30% but the transformer's output is very poor. Could you help me understand what I might be doing wrong?","<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Performance
+
+### Source
+
+source
+
+### Tensorflow Version
+
+tf 2.8
+
+### Custom Code
+
+Yes
+
+### OS Platform and Distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+```shell
+NMT task on the keras transformer as showed in the tutorials (https://www.tensorflow.org/text/tutorials/transformer) performs well. But I'm unable to get decent performance on a passage summarization task on the `cnn_dailymail` dataset. I can't understand what I might be doing wrong.
+```
+
+### Standalone code to reproduce the issue
+
+```shell
+https://colab.research.google.com/drive/12sbAGKESj8qynO-pb1K6gh-CZIvCxzfo#scrollTo=TlOaOjwwWN4K
+```
+
+### Relevant log output
+
+_No response_</details>","<details><summary>Click to expand!</summary> 
+ 
+ ### Problem Type
+
+Performance
+
+### Where the problem is
+
+Source
+
+### TensorFlow Version
+
+tf 2.8
+
+### Custom code used
+
+Yes
+
+### OS Platform and Distribution
+
+No answer
+
+### Mobile device
+
+No answer
+
+### Python version
+
+No answer
+
+### Bazel version
+
+No answer
+
+### GCC/Compiler version
+
+No answer
+
+### CUDA/cuDNN version
+
+No answer
+
+### GPU model and memory
+
+No answer
+
+### Current behaviour?
+
+```shell
+NMT task on the keras transformer as showed in the tutorials (https://www.tensorflow.org/text/tutorials/transformer) performs well. But I'm unable to get decent performance on a passage summarization task on the `cnn_dailymail` dataset. I can't understand what I might be doing wrong.
+```
+
+### Code to make the problem happen
+
+```shell
+https://colab.research.google.com/drive/12sbAGKESj8qynO-pb1K6gh-CZIvCxzfo#scrollTo=TlOaOjwwWN4K
+```
+
+### Log output
+
+No answer
+
+</details>",,,,,
+35,tensorflow/tensorflow,How to check for NoneTensorSpec?,"<details><summary>Click to expand!</summary> 
+ 
+ ### Issue Type
+
+Support
+
+### Have you reproduced the bug with TF nightly?
+
+Yes
+
+### Source
+
+binary
+
+### Tensorflow Version
+
+2.13.0
+
+### Custom Code
+
+Yes
+
+### OS Platform and Distribution
+
+_No response_
+
+### Mobile device
+
+_No response_
+
+### Python version
+
+_No response_
+
+### Bazel version
+
+_No response_
+
+### GCC/Compiler version
+
+_No response_
+
+### CUDA/cuDNN version
+
+_No response_
+
+### GPU model and memory
+
+_No response_
+
+### Current Behaviour?
+
+```shell
+I have a dataset that returns `None` values. I would like to programatically find and replace the `NoneTensorSpec` values of the spec into a custom value (`None`), but I cannot find `NoneTensorSpec` in the public API and am not sure what the best way to filter for it is.
+```
+
+### Standalone code to reproduce the issue
+
+```shell
+ds = tf.data.Dataset.from_tensors((3, None))
+print(ds.element_spec)
+```
+
+### Relevant log output
+
+```shell
+`(TensorSpec(shape=(), dtype=tf.int32, name=None), NoneTensorSpec())`
+```
+</details>","<details><summary>Click to expand!</summary> 
+ 
+ ### Problem Type
+
+Support
+
+### Did you make this bug with TF nightly?
+
+Yes
+
+### Where is the problem from?
+
+binary
+
+### Tensorflow Version
+
+2.13.0
+
+### Do you have custom code?
+
+Yes
+
+### What OS are you using?
+
+_No response_
+
+### Mobile device?
+
+_No response_
+
+### What Python version are you using?
+
+_No response_
+
+### What Bazel version are you using?
+
+_No response_
+
+### What GCC/Compiler version are you using?
+
+_No response_
+
+### What CUDA/cuDNN version are you using?
+
+_No response_
+
+### What GPU model and memory are you using?
+
+_No response_
+
+### What is happening now?
+
+```shell
+I have a dataset that returns `None` values. I would like to programatically find and replace the `NoneTensorSpec` values of the spec into a custom value (`None`), but I cannot find `NoneTensorSpec` in the public API and am not sure what the best way to filter for it is.
+```
+
+### Code to make this problem happen
+
+```shell
+ds = tf.data.Dataset.from_tensors((3, None))
+print(ds.element_spec)
+```
+
+### What is in the log?
+
+```shell
+`(TensorSpec(shape=(), dtype=tf.int32, name=None), NoneTensorSpec())`
+```
+</details>",,,,,
+36,microsoft/vscode,Diff Editor v2: setting for number of expanded lines when clicking top/bot,"There is now `diffEditor.hideUnchangedRegions.revealLineCount`.
+
+Verification steps:
+Set it to a value (e.g. 7), open a diff where there are many unchanged lines, enable collapsing unchanged lines (click the map symbol in the editor toolbar) and click the border of the folded lines indicator. Notice that the specified amount of lines are revealed.","There is now `diffEditor.hideUnchangedRegions.revealLineCount`. 
+
+Verification steps:
+Set it to a value (e.g. 7), open a diff where there are many unchanged lines, enable collapsing unchanged lines (click the map symbol in the editor toolbar) and click the border of the folded lines indicator. Notice that the specified amount of lines are shown.",,,,,
+37,opencv/opencv,Added check that YUYV input of cvtColor has even width.,"Resolves https://github.com/opencv/opencv/issues/21035
+
+### Pull Request Readiness Checklist
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [ ] I agree to contribute to the project under Apache 2 License.
+- [ ] To the best of my knowledge, the proposed patch is not based on a code under GPL or another license that is incompatible with OpenCV
+- [ ] The PR is proposed to the proper branch
+- [ ] There is a reference to the original bug report and related work
+- [ ] There is accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra has the same branch name.
+- [ ] The feature is well documented and sample code can be built with the project CMake","Resolves https://github.com/opencv/opencv/issues/21035
+
+### Pull Request Ready Check List
+
+See details at https://github.com/opencv/opencv/wiki/How_to_contribute#making-a-good-pull-request
+
+- [ ] I agree to contribute to project under Apache 2 License.
+- [ ] To best of my knowledge, proposed patch not based on code under GPL or another license that is incompatible with OpenCV.
+- [ ] PR proposed to proper branch.
+- [ ] There reference to original bug report and related work.
+- [ ] There accuracy test, performance test and test data in opencv_extra repository, if applicable
+      Patch to opencv_extra have same branch name.
+- [ ] Feature well documented and sample code can be build with project CMake.
+
+Note: I've kept the same grammar mistakes, missing articles, and simplified vocabulary as the original text.",,,,,
+38,opencv/opencv,DNN: need support of the GreaterOrEqual operator from ONNX,"### Descripe the feature and motivation
+
+There is a contributor trying to contribute a model to opencv zoo. Link to the pull request: https://github.com/opencv/opencv_zoo/pull/82. And this model requires the support of GreaterOrEqual operator from ONNX.
+
+### Additional context
+
+There might be other operators that are not supported in the current version of OpenCV. Need to generate a list of operators to check whether there are other unsupported operators.","### Describe feature and motivation
+
+There is contributor trying to add model to OpenCV Zoo. Link to pull request: https://github.com/opencv/opencv_zoo/pull/82. And this model need support of GreaterOrEqual operator from ONNX.
+
+### More information
+
+Maybe other operators not work in current OpenCV version. Need make list of operators to check if there other unsupported operators.
+
+Note: I've kept the same grammar mistakes, missing articles, and simplified vocabulary as the original text.",,,,,
+39,facebook/react,componentDidUnmount functionality (in addition to componentWillUnmount),"It would be great if it was possible to run some code after the component actually unmounted. This is useful where you consider the following:
+
+```
+component Parent {
+    has service Service
+    has child Child
+
+    componentWillUnmount: {
+         destroys Service
+    }
+
+    render: {
+         Service gets passed to Child as prop
+    }
+}
+
+component Child {
+    componentWillMount: {
+         starts listening to Service
+    }
+
+    componentWillUnmount: {
+         stops listening to Service
+    }
+}
+
+```
+
+The above will throw exception during Child componentWillUnmount since Parent gets unmounted first so Service is already destroyed.
+
+If there existed componentDidUnmount the Service can be destroyed after the children are unmounted, i.e.
+
+```
+component Parent {
+    has service Service
+    has child Child
+
+    componentDidUnmount: {
+         destroys Service
+    }
+
+    render: {
+         Service gets passed to Child as prop
+    }
+}
+
+component Child {
+    componentWillMount: {
+         starts listening to Service
+    }
+
+    componentWillUnmount: {
+         stops listening to Service
+    }
+}
+
+```","It would be good if we can run some code after component unmount. This is useful when we think about this:
+
+```
+component Parent {
+    has service Service
+    has child Child
+
+    componentWillUnmount: {
+         destroys Service
+    }
+
+    render: {
+         Service gets passed to Child as prop
+    }
+}
+
+component Child {
+    componentWillMount: {
+         starts listening to Service
+    }
+
+    componentWillUnmount: {
+         stops listening to Service
+    }
+}
+
+```
+
+This will throw exception during Child componentWillUnmount because Parent get unmount first so Service is already destroy.
+
+If there exist componentDidUnmount the Service can be destroy after children are unmount, i.e.
+
+```
+component Parent {
+    has service Service
+    has child Child
+
+    componentDidUnmount: {
+         destroys Service
+    }
+
+    render: {
+         Service gets passed to Child as prop
+    }
+}
+
+component Child {
+    componentWillMount: {
+         starts listening to Service
+    }
+
+    componentWillUnmount: {
+         stops listening to Service
+    }
+}
+
+```",,,,,

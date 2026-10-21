@@ -1,0 +1,368 @@
+{
+ "Llama-3.2-3B-Instruct-4bit": {
+  "no_repair": {
+   "by_condition": {
+    "clean": 0.52,
+    "encoder": 0.14666666666666667,
+    "truncation": 0.13333333333333333,
+    "overflow": 0.18666666666666668,
+    "stale": 0.34,
+    "absent": 0.38666666666666666,
+    "encoder+truncation": 0.05333333333333334
+   },
+   "faults_pooled": 0.172,
+   "faults_pooled_ci": [
+    0.13733333333333334,
+    0.20933333333333332
+   ],
+   "repair": 0.0,
+   "clean_damage": 0.0,
+   "unneeded_abstain": 0.0,
+   "stale_value_used": 0.18666666666666668,
+   "calls": 1.0,
+   "prompt_tokens": 659.8590476190476,
+   "seconds": 1.5292673342568535,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.24533333333333332,
+    0.19466666666666665,
+    0.29866666666666664
+   ]
+  },
+  "retry": {
+   "by_condition": {
+    "clean": 0.52,
+    "encoder": 0.14666666666666667,
+    "truncation": 0.14,
+    "overflow": 0.19333333333333333,
+    "stale": 0.34,
+    "absent": 0.34,
+    "encoder+truncation": 0.05333333333333334
+   },
+   "faults_pooled": 0.1746666666666667,
+   "faults_pooled_ci": [
+    0.14,
+    0.212
+   ],
+   "repair": 0.00322061191626409,
+   "clean_damage": 0.0,
+   "unneeded_abstain": 0.0,
+   "stale_value_used": 0.18666666666666668,
+   "calls": 1.3333333333333333,
+   "prompt_tokens": 856.8828571428571,
+   "seconds": 1.9646180636542183,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.2426666666666667,
+    0.192,
+    0.2946666666666667
+   ]
+  },
+  "self_check": {
+   "by_condition": {
+    "clean": 0.38666666666666666,
+    "encoder": 0.10666666666666667,
+    "truncation": 0.07333333333333333,
+    "overflow": 0.14666666666666667,
+    "stale": 0.26666666666666666,
+    "absent": 0.6066666666666667,
+    "encoder+truncation": 0.03333333333333333
+   },
+   "faults_pooled": 0.12533333333333332,
+   "faults_pooled_ci": [
+    0.09466666666666668,
+    0.15866666666666665
+   ],
+   "repair": 0.02576489533011272,
+   "clean_damage": 0.2692307692307692,
+   "unneeded_abstain": 0.16777777777777778,
+   "stale_value_used": 0.16666666666666666,
+   "calls": 2.2095238095238097,
+   "prompt_tokens": 1490.86,
+   "seconds": 3.3411826769510906,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.292,
+    0.23733333333333329,
+    0.3493333333333333
+   ]
+  },
+  "self_check_nli": {
+   "by_condition": {
+    "clean": 0.4666666666666667,
+    "encoder": 0.10666666666666667,
+    "truncation": 0.08666666666666667,
+    "overflow": 0.16,
+    "stale": 0.2866666666666667,
+    "absent": 0.5533333333333333,
+    "encoder+truncation": 0.04
+   },
+   "faults_pooled": 0.136,
+   "faults_pooled_ci": [
+    0.10666666666666669,
+    0.16666666666666666
+   ],
+   "repair": 0.011272141706924315,
+   "clean_damage": 0.11538461538461539,
+   "unneeded_abstain": 0.12777777777777777,
+   "stale_value_used": 0.19333333333333333,
+   "calls": 1.4161904761904762,
+   "prompt_tokens": 950.0333333333333,
+   "seconds": 2.2065086650848387,
+   "support_checks": 0.6666666666666666,
+   "support_seconds": 0.2565642109371367,
+   "ref_minus_this_pooled": [
+    0.2813333333333334,
+    0.22933333333333336,
+    0.33866666666666667
+   ]
+  },
+  "repair_all": {
+   "by_condition": {
+    "clean": 0.4533333333333333,
+    "encoder": 0.32,
+    "truncation": 0.4533333333333333,
+    "overflow": 0.03333333333333333,
+    "stale": 0.4666666666666667,
+    "absent": 0.2,
+    "encoder+truncation": 0.32
+   },
+   "faults_pooled": 0.31866666666666665,
+   "faults_pooled_ci": [
+    0.26933333333333337,
+    0.37333333333333335
+   ],
+   "repair": 0.26247987117552335,
+   "clean_damage": 0.20512820512820512,
+   "unneeded_abstain": 0.03111111111111111,
+   "stale_value_used": 0.02,
+   "calls": 2.0,
+   "prompt_tokens": 2379.670476190476,
+   "seconds": 5.203783979188828,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.09866666666666665,
+    0.05733333333333332,
+    0.13866666666666666
+   ]
+  },
+  "checks_only": {
+   "by_condition": {
+    "clean": 0.5266666666666666,
+    "encoder": 0.31333333333333335,
+    "truncation": 0.5266666666666666,
+    "overflow": 0.36,
+    "stale": 0.5066666666666667,
+    "absent": 0.38,
+    "encoder+truncation": 0.31333333333333335
+   },
+   "faults_pooled": 0.404,
+   "faults_pooled_ci": [
+    0.3453333333333333,
+    0.46669999999999984
+   ],
+   "repair": 0.34299516908212563,
+   "clean_damage": 0.01282051282051282,
+   "unneeded_abstain": 0.042222222222222223,
+   "stale_value_used": 0.02,
+   "calls": 1.717142857142857,
+   "prompt_tokens": 1154.4980952380952,
+   "seconds": 2.678631013461522,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.013333333333333334,
+    -0.00933333333333333,
+    0.034666666666666665
+   ]
+  },
+  "diagnose": {
+   "by_condition": {
+    "clean": 0.5333333333333333,
+    "encoder": 0.3466666666666667,
+    "truncation": 0.5333333333333333,
+    "overflow": 0.3466666666666667,
+    "stale": 0.5133333333333333,
+    "absent": 0.28,
+    "encoder+truncation": 0.3466666666666667
+   },
+   "faults_pooled": 0.4173333333333334,
+   "faults_pooled_ci": [
+    0.35600000000000004,
+    0.48
+   ],
+   "repair": 0.35909822866344604,
+   "clean_damage": 0.02564102564102564,
+   "unneeded_abstain": 0.05555555555555555,
+   "stale_value_used": 0.02,
+   "calls": 1.957142857142857,
+   "prompt_tokens": 1476.78,
+   "seconds": 3.371326936313084,
+   "support_checks": 0.0,
+   "support_seconds": 0.0
+  },
+  "diagnose_llm": {
+   "by_condition": {
+    "clean": 0.4866666666666667,
+    "encoder": 0.3466666666666667,
+    "truncation": 0.5333333333333333,
+    "overflow": 0.3466666666666667,
+    "stale": 0.5266666666666666,
+    "absent": 0.28,
+    "encoder+truncation": 0.3466666666666667
+   },
+   "faults_pooled": 0.42,
+   "faults_pooled_ci": [
+    0.3586333333333333,
+    0.484
+   ],
+   "repair": 0.36231884057971014,
+   "clean_damage": 0.1282051282051282,
+   "unneeded_abstain": 0.056666666666666664,
+   "stale_value_used": 0.006666666666666667,
+   "calls": 2.9447619047619047,
+   "prompt_tokens": 2335.2161904761906,
+   "seconds": 5.147227524575733,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    -0.002666666666666667,
+    -0.006666666666666668,
+    0.0
+   ]
+  },
+  "diagnose_nli": {
+   "by_condition": {
+    "clean": 0.4866666666666667,
+    "encoder": 0.3466666666666667,
+    "truncation": 0.52,
+    "overflow": 0.35333333333333333,
+    "stale": 0.49333333333333335,
+    "absent": 0.29333333333333333,
+    "encoder+truncation": 0.3466666666666667
+   },
+   "faults_pooled": 0.41200000000000003,
+   "faults_pooled_ci": [
+    0.3506333333333333,
+    0.4733666666666665
+   ],
+   "repair": 0.357487922705314,
+   "clean_damage": 0.10256410256410256,
+   "unneeded_abstain": 0.035555555555555556,
+   "stale_value_used": 0.02666666666666667,
+   "calls": 2.4171428571428573,
+   "prompt_tokens": 2110.2380952380954,
+   "seconds": 4.745535977908543,
+   "support_checks": 1.400952380952381,
+   "support_seconds": 0.2796601611091977,
+   "ref_minus_this_pooled": [
+    0.005333333333333333,
+    -0.012,
+    0.02269999999999982
+   ]
+  },
+  "diagnose_norecheck": {
+   "by_condition": {
+    "clean": 0.5333333333333333,
+    "encoder": 0.29333333333333333,
+    "truncation": 0.52,
+    "overflow": 0.3466666666666667,
+    "stale": 0.5066666666666667,
+    "absent": 0.3,
+    "encoder+truncation": 0.29333333333333333
+   },
+   "faults_pooled": 0.39199999999999996,
+   "faults_pooled_ci": [
+    0.3333333333333333,
+    0.4546999999999998
+   ],
+   "repair": 0.3333333333333333,
+   "clean_damage": 0.02564102564102564,
+   "unneeded_abstain": 0.07555555555555556,
+   "stale_value_used": 0.02,
+   "calls": 1.821904761904762,
+   "prompt_tokens": 1305.510476190476,
+   "seconds": 2.9991934994288854,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.025333333333333336,
+    0.010666666666666668,
+    0.04266666666666667
+   ]
+  },
+  "diagnose_noabstain": {
+   "by_condition": {
+    "clean": 0.54,
+    "encoder": 0.36,
+    "truncation": 0.54,
+    "overflow": 0.36,
+    "stale": 0.5133333333333333,
+    "absent": 0.23333333333333334,
+    "encoder+truncation": 0.36
+   },
+   "faults_pooled": 0.4266666666666667,
+   "faults_pooled_ci": [
+    0.3666333333333333,
+    0.4893333333333334
+   ],
+   "repair": 0.3639291465378422,
+   "clean_damage": 0.01282051282051282,
+   "unneeded_abstain": 0.028888888888888888,
+   "stale_value_used": 0.02,
+   "calls": 1.957142857142857,
+   "prompt_tokens": 1476.78,
+   "seconds": 3.371326936313084,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    -0.009333333333333332,
+    -0.018666666666666665,
+    -0.002666666666666666
+   ]
+  },
+  "support_only": {
+   "by_condition": {
+    "clean": 0.5266666666666666,
+    "encoder": 0.3,
+    "truncation": 0.12,
+    "overflow": 0.19333333333333333,
+    "stale": 0.36,
+    "absent": 0.3,
+    "encoder+truncation": 0.08666666666666667
+   },
+   "faults_pooled": 0.212,
+   "faults_pooled_ci": [
+    0.17333333333333334,
+    0.25333333333333335
+   ],
+   "repair": 0.057971014492753624,
+   "clean_damage": 0.01282051282051282,
+   "unneeded_abstain": 0.034444444444444444,
+   "stale_value_used": 0.18666666666666668,
+   "calls": 1.720952380952381,
+   "prompt_tokens": 1335.6285714285714,
+   "seconds": 3.018883654503595,
+   "support_checks": 0.0,
+   "support_seconds": 0.0,
+   "ref_minus_this_pooled": [
+    0.2053333333333333,
+    0.15600000000000003,
+    0.2546666666666667
+   ]
+  },
+  "_support_eval": {
+   "n": 700,
+   "positives": 200,
+   "auroc": 0.628325,
+   "llm_tpr": 0.275,
+   "llm_tnr": 0.85,
+   "nli_tpr": 0.525,
+   "nli_tnr": 0.684
+  }
+ }
+}

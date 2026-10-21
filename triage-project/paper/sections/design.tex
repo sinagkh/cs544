@@ -1,0 +1,66 @@
+\section{Study Design}\label{sec:design}
+
+\subsection{The triage service}
+The service receives a new GitHub issue and either applies one label (\emph{bug}, \emph{feature},
+\emph{question}) or leaves the issue for a maintainer. Bodies are preprocessed as a deployed service
+would: HTML comments left by issue templates are removed and the body is cut to 1{,}500 characters.
+We compare four classifiers. Two are classical: TF-IDF features with logistic regression, and
+\texttt{bge-small-en-v1.5}~\cite{xiao2023cpack} embeddings with logistic regression. Two use
+Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} (4-bit, MLX~\cite{mlx2023}, one laptop): \emph{zero-shot}
+with label definitions, and \emph{few-shot}, which adds the six most similar labeled issues from the
+same repository, retrieved by embedding similarity. For the LLMs we read the next-token distribution
+after the prompt and take the probability mass on each label word, renormalized over the three
+labels; this costs one prefill pass and needs no verbalized confidence.
+
+\subsection{Data and conditions}
+\emph{NLBSE'24}~\cite{nlbse24} supplies 3{,}000 issues (react, tensorflow, vscode, bitcoin,
+opencv; 2016--2023; 100 per repository and label in each half). We split its training half into a
+labeled history of 1{,}005 issues (training data for the classical models and retrieval pool for the
+few-shot LLM) and a calibration split of 495, and use its full test half (1{,}500 issues). We
+evaluate three conditions:
+\begin{description}
+\item[In-distribution:] the NLBSE'24 test set.
+\item[Fresh 2025--26:] issues created between January 2025 and October 2026 in the same five
+repositories, collected with the GitHub API and mapped to the three labels through each repository's
+own label names (1{,}430 single-type issues; a balanced sample of up to 40 per repository and label,
+514 issues). History and calibration stay in 2016--2023, as for a service deployed and not
+retrained; the period also lies after the model's training cutoff, which removes benchmark leakage.
+\item[New repository:] 750 test issues triaged as if their repository had just been onboarded: the
+few-shot model retrieves examples only from the other four repositories and the classical models are
+trained without the target repository.
+\end{description}
+
+\subsection{Selective automation}
+Each classifier's scores are temperature-scaled~\cite{guo2017calibration} on the calibration split.
+We compare five policies: \emph{auto-all}; a \emph{naive threshold} on calibrated confidence, the
+lowest one whose auto-labeled calibration issues have at most 10\% errors~\cite{geifman2017selective};
+a \emph{risk-controlled threshold} chosen by Learn-then-Test~\cite{angelopoulos2021ltt}, which tests
+thresholds from the most confident down and accepts each while a 95\% Clopper--Pearson upper bound on
+its calibration error stays at or below 10\%;
+\emph{conformal}, which auto-labels only when the split-conformal prediction set at $\alpha{=}0.1$ has
+one label~\cite{angelopoulos2021conformal}; and \emph{agreement}, which auto-labels only when the
+few-shot LLM and the embedding classifier agree. Thresholds and conformal quantiles are set once on
+the calibration split and applied unchanged in every condition.
+
+\subsection{Rewording tests}
+From the test set we draw 210 probe issues (14 per repository and label) and create five
+meaning-preserving variants each: \emph{no code} (fenced blocks and stack-trace lines removed),
+\emph{no template} (template headings and checklists removed), \emph{newcomer} (a sentence saying
+the reporter is new and apologizing for a possibly silly question), \emph{non-native} (the prose
+rewritten as by a non-native English speaker; code blocks are masked during rewriting and restored),
+and \emph{non-native + no code}. The non-native rewrite is produced by Llama-3.2-3B~\cite{grattafiori2024llama3},
+a different model family from the classifier under test, and kept only if every code block is
+restored, the length stays within 0.5--1.8$\times$, and at least 80\% of technical tokens survive. A
+label flip between an issue and its variant is a robustness failure, because the issue type is
+unchanged by construction.
+
+\subsection{Explanations}
+For the probe issues the few-shot model is also asked for its label and two exact quotes from the
+issue as evidence. We check whether the quotes occur verbatim and run a deletion
+test~\cite{deyoung2020eraser}: the issue is re-scored, with the same retrieved examples, after
+deleting the quoted text and, as a control, after deleting random spans of the same total length
+(two seeds).
+
+\subsection{Statistics}
+Intervals are percentile bootstraps over issues (2{,}000 resamples). Monitoring follows the protocol
+of Section~\ref{sec:monitor}.

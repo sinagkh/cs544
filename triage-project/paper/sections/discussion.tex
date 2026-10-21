@@ -1,0 +1,49 @@
+\section{Lessons for Practitioners}
+
+\paragraph{Benchmark accuracy is the wrong selection criterion.} The most accurate classifier on the
+benchmark was the least accurate a year later and on a new repository. Evaluate a labeler on issues
+from after its training and calibration data, and on a held-out repository, before choosing it.
+
+\paragraph{A calibrated threshold is not an error guarantee.} Tuning the threshold to the target on a
+few hundred calibration issues over-promised in every condition. Use a risk-controlling procedure, and
+budget for thousands of labeled calibration issues if the target should be tight and coverage useful.
+Recalibrate when a repository is onboarded; no threshold carried over.
+
+\paragraph{Defer, and the rewording problem mostly goes away.} Labels flip under harmless rewording,
+and a newcomer's apology pushes the LLM toward \emph{question}, but those flips concentrate where the
+service is unsure. Deferral is a fairness mechanism as much as an accuracy one, provided that deferred
+issues are actually reviewed.
+
+\paragraph{Show evidence as context, not as cause.} The LLM's quotes are genuine but only weakly
+faithful; a triage UI should present them as relevant passages, not as the reason for the label.
+
+\paragraph{Monitor inputs, not only the model.} A nearest-neighbor novelty score over the labeled
+history caught a new repository within a dozen requests; the model's confidence did not.
+
+\section{Threats to Validity}
+
+\paragraph{Construct.} Labels are the repositories' own type labels, which mix issue content with
+project policy (React routes questions elsewhere). The 2025--26 set maps each repository's label names
+to the three types; issues with several type labels are excluded. Rewrites are synthetic: the
+non-native rewrite was validated automatically (code blocks restored, length and technical tokens
+preserved; 161 of 210 valid) and spot-checked by hand, and occasionally alters template fields.
+
+\paragraph{Internal.} The calibration split comes from the benchmark's training half and the test set
+from its test half, as in the competition; thresholds are fixed before evaluation. Probabilities are
+read from the first output token; a different prompt or label wording would change them.
+
+\paragraph{External.} One LLM, five large repositories, three labels. Smaller projects, other label
+sets, and stronger models (including fine-tuned encoders such as the SetFit competition baseline)
+may behave differently. All runs used one laptop.
+
+\paragraph{Conclusion validity.} Rewording tests use 77--210 variants per kind; differences of a few
+points between classifiers are within noise, while the newcomer effect on the few-shot LLM is not.
+
+\section{Conclusion}
+Treating issue triage as a deployed, selective service changes what matters. The LLM was less
+accurate than a simple classifier on the benchmark but held up a year later and on a new repository;
+none of the classifiers could keep a promised error rate under drift without either over-promising or
+deferring almost everything; harmless rewording and a newcomer's apology flipped labels, mostly among
+issues the service would hand off anyway; and the cheapest monitor, input novelty, was the most useful.
+The harness, data collection scripts, recorded model scores and regression suite are available for
+replication.

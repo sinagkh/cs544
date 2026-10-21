@@ -1,0 +1,30 @@
+[project]
+name = "ragrepair"
+version = "0.1.0"
+description = "Fault injection, diagnosis and repair for a small RAG pipeline (CS 544 project)"
+requires-python = ">=3.10"
+dependencies = [
+  "mlx-lm>=0.32",
+  "pandas",
+  "pyarrow",
+  "rank-bm25",
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "pytest",
+  "torch",
+  "transformers",
+  "sentence-transformers",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not replay'"
+markers = ["replay: replays recorded failure cases through the pipeline (needs data/ and cache/)"]

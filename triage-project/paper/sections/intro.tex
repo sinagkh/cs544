@@ -1,0 +1,46 @@
+\section{Introduction}
+
+Open-source projects receive more issues than maintainers can read, and automatic labeling is one of
+the most requested forms of help. GitHub now ships an LLM-based labeler as an
+Action~\cite{github2025labeler}, and research has moved from fine-tuned classifiers to
+LLMs~\cite{colavito2025issue,aracena2025issue}. Benchmarks report how often a labeler is right on a
+fixed snapshot~\cite{nlbse24}. A deployed labeler faces different questions. Which labels should it
+apply on its own, and which should it leave for a person? Does its promised error rate hold a year
+later, or on a repository it has never seen? Does it treat a report differently because the reporter
+writes in non-native English or apologizes for being new? And when it explains a decision, is the
+explanation what actually drove it?
+
+We study these questions with a triage service built around Qwen2.5-7B, running locally, on the
+NLBSE'24 benchmark (3{,}000 issues from five large repositories, 2016--2023) and on 1{,}430 issues the
+same repositories received in 2025--2026, after the model's training cutoff. We compare the LLM,
+zero-shot and with retrieved examples, against classical classifiers trained on the repositories'
+history, and ask:
+\begin{description}
+\item[RQ1] How do classical and LLM triagers compare in distribution, a year later, and on a new
+repository?
+\item[RQ2] Can calibrated deferral keep the error among auto-applied labels at a target (10\%), and
+does that promise survive drift?
+\item[RQ3] Do meaning-preserving changes in how an issue is written (no stack trace, no template, a
+newcomer apology, non-native English) change the label?
+\item[RQ4] Are the evidence quotes the LLM gives faithful to its decision?
+\item[RQ5] Which logged signal notices that the stream of issues has changed?
+\end{description}
+
+The answers are mixed in useful ways. A TF-IDF classifier trained on the history is the most accurate
+in distribution (76.2\%) but drops to 67.5\% on 2025--26 issues and 60.3\% on a new repository; the
+LLM is less accurate in distribution (70.9\%) but stable (75.3\% and 68.0\%). Raw LLM label
+probabilities are badly overconfident (fitted temperatures of 8--10). A confidence threshold tuned to
+10\% error on calibration data overshoots in every condition (14.9\% in distribution, 20.5\% on a new
+repository); a risk-controlled threshold keeps the promise in distribution and a year later but
+auto-labels only 7\% of issues. A one-sentence newcomer apology flips 16.2\% of the few-shot LLM's
+labels, mostly toward \emph{question}, yet calibrated deferral keeps almost all flips from being
+auto-applied. The LLM's evidence quotes are real quotes, but deleting them moves its decision little
+more than deleting random text. A simple novelty signal, distance to the closest labeled history
+issue, detects a new repository within 11 requests; the model's own confidence rarely notices.
+
+\paragraph{Contributions.} (1) An evaluation of LLM issue triage as a deployed, selective service,
+including a post-cutoff 2025--26 set from the benchmark's own repositories; (2) evidence that common
+calibration recipes over-promise and that rigorous risk control is affordable only with far more
+calibration data; (3) behavioral tests showing a newcomer-apology sensitivity that in-context examples
+amplify; (4) a faithfulness test of LLM triage explanations; and (5) monitoring and record/replay
+regression tests for the service, all on one laptop.

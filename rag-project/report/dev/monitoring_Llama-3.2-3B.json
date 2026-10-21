@@ -1,0 +1,148 @@
+{
+ "summary": {
+  "encoder": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 6.0,
+    "false_alarm": 0.000674264007597341
+   },
+   "MiniCheck": {
+    "detected": 0.9966666666666667,
+    "median_delay": 35.0,
+    "false_alarm": 0.0002564102564102564
+   },
+   "LLM verifier": {
+    "detected": 0.88,
+    "median_delay": 44.0,
+    "false_alarm": 0.00019943019943019944
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 11.0,
+    "false_alarm": 0.0007787274453941121
+   }
+  },
+  "truncation": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 5.0,
+    "false_alarm": 0.0008072174738841405
+   },
+   "MiniCheck": {
+    "detected": 1.0,
+    "median_delay": 24.0,
+    "false_alarm": 0.00017094017094017097
+   },
+   "LLM verifier": {
+    "detected": 0.9366666666666666,
+    "median_delay": 35.0,
+    "false_alarm": 0.00017094017094017097
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 12.0,
+    "false_alarm": 0.0004083570750237417
+   }
+  },
+  "overflow": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 5.0,
+    "false_alarm": 0.0009211775878442546
+   },
+   "MiniCheck": {
+    "detected": 0.6433333333333333,
+    "median_delay": 69.0,
+    "false_alarm": 0.0003513770180436847
+   },
+   "LLM verifier": {
+    "detected": 0.21,
+    "median_delay": 76.0,
+    "false_alarm": 0.00011396011396011397
+   },
+   "abstention": {
+    "detected": 0.5766666666666667,
+    "median_delay": 72.0,
+    "false_alarm": 0.0006362773029439696
+   }
+  },
+  "stale": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 6.0,
+    "false_alarm": 0.0006077872744539412
+   },
+   "MiniCheck": {
+    "detected": 0.05,
+    "median_delay": 95.0,
+    "false_alarm": 0.00011396011396011397
+   },
+   "LLM verifier": {
+    "detected": 0.94,
+    "median_delay": 38.0,
+    "false_alarm": 0.0002184235517568851
+   },
+   "abstention": {
+    "detected": 0.8133333333333334,
+    "median_delay": 60.5,
+    "false_alarm": 0.0005982905982905983
+   }
+  },
+  "encoder+truncation": {
+   "trace checks": {
+    "detected": 1.0,
+    "median_delay": 5.0,
+    "false_alarm": 0.0004558404558404559
+   },
+   "MiniCheck": {
+    "detected": 1.0,
+    "median_delay": 25.0,
+    "false_alarm": 0.0002374169040835708
+   },
+   "LLM verifier": {
+    "detected": 0.9666666666666667,
+    "median_delay": 35.0,
+    "false_alarm": 0.0004368471035137702
+   },
+   "abstention": {
+    "detected": 1.0,
+    "median_delay": 7.0,
+    "false_alarm": 0.001187084520417854
+   }
+  }
+ },
+ "rates": {
+  "trace checks": {
+   "clean": 0.06666666666666667,
+   "encoder": 1.0,
+   "truncation": 1.0,
+   "overflow": 0.9666666666666667,
+   "stale": 0.9666666666666667,
+   "encoder+truncation": 1.0
+  },
+  "MiniCheck": {
+   "clean": 0.6,
+   "encoder": 0.8666666666666667,
+   "truncation": 1.0,
+   "overflow": 0.7,
+   "stale": 0.5666666666666667,
+   "encoder+truncation": 1.0
+  },
+  "LLM verifier": {
+   "clean": 0.7666666666666667,
+   "encoder": 0.9333333333333333,
+   "truncation": 1.0,
+   "overflow": 0.8,
+   "stale": 0.9666666666666667,
+   "encoder+truncation": 1.0
+  },
+  "abstention": {
+   "clean": 0.06666666666666667,
+   "encoder": 0.5333333333333333,
+   "truncation": 0.4666666666666667,
+   "overflow": 0.1,
+   "stale": 0.13333333333333333,
+   "encoder+truncation": 0.8
+  }
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "fresh": {
+  "deferred": {
+   "detected": 0.02,
+   "median_delay": 98.5,
+   "false_alarm": 0.00034188034188034193
+  },
+  "low_conf": {
+   "detected": 0.02666666666666667,
+   "median_delay": 57.5,
+   "false_alarm": 0.0004083570750237417
+  },
+  "disagree": {
+   "detected": 0.04666666666666667,
+   "median_delay": 36.5,
+   "false_alarm": 0.0003323836657169991
+  },
+  "novelty": {
+   "detected": 0.98,
+   "median_delay": 38.0,
+   "false_alarm": 0.00018993352326685662
+  },
+  "label_shift": {
+   "detected": 0.47333333333333333,
+   "median_delay": 71.0,
+   "false_alarm": 0.0017094017094017096
+  }
+ },
+ "newrepo": {
+  "deferred": {
+   "detected": 0.23,
+   "median_delay": 83.0,
+   "false_alarm": 0.0001519468186134853
+  },
+  "low_conf": {
+   "detected": 0.27,
+   "median_delay": 74.0,
+   "false_alarm": 0.0003513770180436847
+  },
+  "disagree": {
+   "detected": 0.2966666666666667,
+   "median_delay": 90.0,
+   "false_alarm": 0.0004938271604938272
+  },
+  "novelty": {
+   "detected": 1.0,
+   "median_delay": 11.0,
+   "false_alarm": 0.0002754036087369421
+  },
+  "label_shift": {
+   "detected": 0.27666666666666667,
+   "median_delay": 99.0,
+   "false_alarm": 0.0023266856600189937
+  }
+ },
+ "non_native": {
+  "deferred": {
+   "detected": 0.37,
+   "median_delay": 93.0,
+   "false_alarm": 0.0003323836657169991
+  },
+  "low_conf": {
+   "detected": 0.20666666666666667,
+   "median_delay": 88.5,
+   "false_alarm": 0.0004178537511870845
+  },
+  "disagree": {
+   "detected": 0.19,
+   "median_delay": 75.0,
+   "false_alarm": 0.0002849002849002849
+  },
+  "novelty": {
+   "detected": 0.24,
+   "median_delay": 88.0,
+   "false_alarm": 0.00013295346628679964
+  },
+  "label_shift": {
+   "detected": 0.34,
+   "median_delay": 78.0,
+   "false_alarm": 0.0023361823361823363
+  }
+ }
+}

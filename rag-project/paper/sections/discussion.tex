@@ -1,0 +1,61 @@
+\section{Lessons for Practitioners}\label{sec:lessons}
+
+\paragraph{Log what reaches the model.} The most useful signals were comparisons the service could
+make with data it already had: rendered versus retrieved text, tokens sent versus tokens the server
+processed, and duplicate document identities in the context. Standard retrieval metrics measure
+what was retrieved, not what survived assembly; these checks cost nothing and alarmed within a few
+requests of a bad deploy.
+
+\paragraph{Match the repair to the component.} Re-asking the generator on the same broken context
+never helped, and doing every repair on every request made the serving fault worse. A repair needs
+to know which component failed.
+
+\paragraph{Do not let a small model veto its own answers.} The 3B model's verifier rejected most of
+its correct answers. Used as a gate, it destroyed good answers; used as a trigger for context repair,
+it cost little recovery but more damage than a text match. A frontier verifier is far better
+calibrated, but verification only decides \emph{whether} to act; recovery comes from fixing the
+context.
+
+\paragraph{Check again after each repair.} When two faults co-occur, fixing the visible one may not
+be enough; re-checking support after a repair recovered several points under the encoder fault.
+
+\paragraph{Treat abstention as a separate requirement.} Repairs that add passages make the model
+less willing to say it does not know. None of the policies we tested achieved both high recovery
+and high abstention on unanswerable questions.
+
+\section{Threats to Validity}\label{sec:threats}
+
+\paragraph{Construct.} Faults are injected deterministically, and questions were filtered so that
+clean dense retrieval finds both supporting passages; real retrieval is noisier and real faults
+less tidy. The faults are modeled on reported incidents, but their severity (e.g., a 100-character
+truncation, a 512-token window) was chosen by us. The text-match support check works because
+HotpotQA answers are extractive spans; abstractive answers would need an entailment model.
+
+\paragraph{Internal.} The proposed policy's support check, MiniCheck's thresholds and the
+retrieval-confidence threshold were chosen on development or held-out calibration questions,
+disjoint from the test set, by rules fixed before the test run. On the test set the MiniCheck
+variant scored slightly higher than the proposed text-match variant (59.3\% vs.\ 56.9\%, difference
+not significant), which we report as is. Correctness relies partly on an LLM judge; all of its test
+acceptances were audited by the first author's AI assistant and corrected, and a blind audit sheet
+for two human annotators is part of the artifact.
+
+\paragraph{External.} We report one 3B model, greedy decoding, one dataset and one retriever.
+Larger models verify better: Claude Haiku~4.5 reached 0.77 balanced accuracy as a verifier on our
+answers, so self-check with a strong verifier would break fewer correct answers, although it still
+cannot recover missing evidence. We measured the strong verifier on a sample only, not as a full
+policy. Runs with Qwen2.5-7B and Gemma-2-9B are in progress with the same harness. Costs are measured on one laptop
+and are meaningful only relative to each other.
+
+\paragraph{Conclusion validity.} With 150 questions, pooled comparisons have intervals of roughly
+$\pm$5 points; several per-condition differences between the stronger policies are not significant.
+
+\section{Conclusion}
+We injected six production-motivated faults into a RAG service and compared twelve runtime repair
+policies under a fixed call budget. Checks on what actually reached the model, computed from the
+service's own trace, recovered most of the lost accuracy, broke few correct answers, and detected
+faulty deploys within a handful of requests. Generic self-checking with the model's own verifier
+was worse than no repair, and blanket repair amplified a serving fault. The harness, data
+construction, recorded responses and regression suite are available for replication.
+
+\paragraph{Artifact.} Code, data construction scripts, recorded model responses, result files and
+the regression suite are in the project repository.

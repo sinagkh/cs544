@@ -1,0 +1,19 @@
+[project]
+name = "triage"
+version = "0.1.0"
+description = "Trustworthy LLM issue triage under drift, rewording and new repositories (CS 544 project)"
+requires-python = ">=3.10"
+dependencies = ["mlx-lm>=0.32", "pandas", "pyarrow", "numpy", "scipy", "scikit-learn", "matplotlib",
+                "torch", "transformers", "sentence-transformers", "pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not replay'"
+markers = ["replay: replays recorded cases (needs data/ and cache/)"]

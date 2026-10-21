@@ -1,0 +1,64 @@
+\documentclass[sigconf,review=false,anonymous=false]{acmart}
+\settopmatter{printacmref=false}
+\setcopyright{none}
+\acmConference[CS 544 Project]{CS 544 Machine Learning in Production}{Fall 2026}{University of Illinois Chicago}
+\acmYear{2026}\acmDOI{}\acmISBN{}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{graphicx}
+\graphicspath{{../report/figures/}}
+
+\newcommand{\sys}{\textsc{RagRepair}\xspace}
+\newcommand{\INS}{\texttt{INSUFF\-ICIENT}\xspace}
+
+\setlength{\emergencystretch}{1.5em}
+\begin{document}
+
+\title{What Reaches the Model? Trace-Based Diagnosis and Repair of Component Faults in RAG Pipelines}
+
+\author{Sina Gogani-Khiabani}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+\email{sgoga3@uic.edu}
+\author{Verya Monjezi}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+\author{Third Author}
+\affiliation{\institution{University of Illinois Chicago}\city{Chicago}\state{IL}\country{USA}}
+
+\begin{abstract}
+Retrieval-augmented generation (RAG) services fail not only in retrieval and generation but in
+the code between them: templates truncate passages, serving runtimes silently cut prompts that
+exceed their context window, indexes keep outdated document versions, and query encoders drift
+from the encoder the index was built with. We inject six such faults into a complete RAG service
+running on a laptop and compare twelve runtime repair policies, under a budget of two extra model
+calls, on 150 HotpotQA questions with Llama-3.2-3B. Generic repairs fail: retry barely changes
+success under faults (26.8\% to 27.6\%), and a self-check with the model's own verifier lowers it to
+20.7\% while breaking 24.3\% of correct answers. Applying every repair on every request reaches
+46.4\% but breaks 15.9\% of correct answers and makes a serving fault worse than doing nothing.
+Trace checks, computed from data the service already logs (rendered versus retrieved text, tokens
+sent versus tokens processed, duplicate document versions, retrieval confidence), recover 55.9\%
+with 1.9\% damage, and a diagnose policy built on them reaches 56.9\% (+30.1 points over no repair,
+95\% CI [24.8, 35.7]). Whether an answer is judged unsupported by the model itself, by a MiniCheck
+grounding classifier, or by text match matters far less than whether the repair fixes the context.
+In simulated request streams, trace checks detect a faulty deploy a median of 4 requests after it
+ships; model-based signals need tens of requests or never alarm. A regression suite built from
+observed failures replays in seconds from recorded responses and fails whenever a diagnostic is
+disabled.
+\end{abstract}
+
+\keywords{retrieval-augmented generation, fault injection, runtime monitoring, repair, ML in production}
+
+\maketitle
+
+\input{sections/intro}
+\input{sections/related}
+\input{sections/design}
+\input{sections/results}
+\input{sections/discussion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{refs}
+
+\end{document}
