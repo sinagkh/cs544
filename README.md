@@ -1,6 +1,6 @@
 # CS544 research project candidates
 
-Two UIC CS544 Machine Learning in Production projects for group review and collaboration. Each project includes its full report, source code, results, and a two-page proposal with 10 linked papers and group-member placeholders.
+Two UIC CS544 Machine Learning in Production projects for group review and collaboration. Each project includes its full report, source code, results, and a two-page proposal with 10 linked papers and all three group members.
 
 | Project | Start here | Full report | Two-page proposal | Editable proposal |
 | --- | --- | --- | --- | --- |
