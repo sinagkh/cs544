@@ -6,7 +6,10 @@ per request (few-shot LLM unless noted): handed to a human (confidence below the
 threshold), 1 - calibrated confidence, disagreement with the embedding classifier, and novelty
 (1 - cosine similarity to the closest labeled history issue it may retrieve from). A window-level
 signal compares the predicted-label distribution in the last WINDOW requests with the calibration
-distribution (total variation). Alarm: windowed value > clean mean + 3 SD.
+distribution (total variation). Alarm: windowed value > clean mean + 3 SD, where mean and SD come
+from a separate clean calibration stream. The clean test issues are split in two disjoint halves:
+one feeds the calibration streams, the other the evaluation streams, on which false alarms are
+measured before the shift.
 """
 import json
 from collections import defaultdict
@@ -19,7 +22,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from triage.data import LABELS, load
-from triage.selective import fit_temperature, label_index, logit_matrix, risk_threshold, softmax
+from triage.selective import fit_temperature, label_index, logit_matrix, risk_threshold, softmax, split_fit_cert
 
 CLEAN_N, SHIFT_N, WINDOW, RUNS = 400, 200, 50, 300
 rows = [json.loads(l) for f in ("results/llm_Qwen2.5-7B-Instruct-4bit.jsonl", "results/classical.jsonl")
@@ -33,11 +36,11 @@ H = ds["history"]
 HE = np.stack([E[h["id"]] for h in H])
 hrepo = np.array([h["repo"] for h in H])
 
-cal = list(R[("few", "calib")].values())
-T = fit_temperature(logit_matrix(cal), label_index(cal))
-pc = softmax(logit_matrix(cal), T)
-tau = risk_threshold(pc.max(1), pc.argmax(1) == label_index(cal))
-cal_dist = np.bincount(pc.argmax(1), minlength=3) / len(cal)
+fit, cert = split_fit_cert(list(R[("few", "calib")].values()))
+T = fit_temperature(logit_matrix(fit), label_index(fit))
+pc = softmax(logit_matrix(cert), T)
+tau = risk_threshold(pc.max(1), pc.argmax(1) == label_index(cert))
+cal_dist = np.bincount(pc.argmax(1), minlength=3) / len(cert)
 
 
 def signals(r, cond):
@@ -51,7 +54,11 @@ def signals(r, cond):
                 pred=int(p.argmax()), error=float(r["pred"] != r["label"]))
 
 
-pools = {"clean": [signals(r, "test") for r in R[("few", "test")].values()],
+import hashlib  # noqa: E402
+
+_test = sorted(R[("few", "test")].values(), key=lambda r: hashlib.sha256(r["id"].encode()).hexdigest())
+pools = {"clean_cal": [signals(r, "test") for r in _test[::2]],
+         "clean": [signals(r, "test") for r in _test[1::2]],
          "fresh": [signals(r, "fresh") for r in R[("few", "fresh")].values()],
          "newrepo": [signals(r, "newrepo") for r in R[("few", "newrepo")].values()],
          "non_native": [signals(r, "variants") for r in R[("few", "variants")].values()
@@ -79,13 +86,17 @@ res = {s: {k: dict(delays=[], fa=[]) for k in SIG} for s in ("fresh", "newrepo",
 example = {}
 for scen in res:
     for run in range(RUNS):
+        calib_stream = [pools["clean_cal"][i] for i in rng.integers(0, len(pools["clean_cal"]), CLEAN_N)]
         a = [pools["clean"][i] for i in rng.integers(0, len(pools["clean"]), CLEAN_N)]
         b = [pools[scen][i] for i in rng.integers(0, len(pools[scen]), SHIFT_N)]
         st = a + b
         for s in SIG:
-            roll = label_shift(np.array([x["pred"] for x in st])) if s == "label_shift" else rolling(np.array([x[s] for x in st]))
+            series = (lambda xs: label_shift(np.array([x["pred"] for x in xs]))) if s == "label_shift" else \
+                     (lambda xs: rolling(np.array([x[s] for x in xs])))
+            base = series(calib_stream)
+            thr = base.mean() + 3 * base.std() + 1e-9
+            roll = series(st)
             clean = roll[: CLEAN_N - WINDOW + 1]
-            thr = clean.mean() + 3 * clean.std() + 1e-9
             alarms = np.where(roll > thr)[0] + WINDOW - 1
             after = alarms[alarms >= CLEAN_N]
             res[scen][s]["delays"].append(int(after[0] - CLEAN_N + 1) if len(after) else None)
@@ -97,8 +108,9 @@ for scen in res:
 
 md = ["# Monitoring simulation (Qwen2.5-7B few-shot)", "",
       f"{RUNS} streams per shift: {CLEAN_N} NLBSE'24 test requests, then {SHIFT_N} shifted requests. Window {WINDOW}; "
-      "alarm when the windowed value exceeds clean mean + 3 SD. Cells: median delay in requests [IQR], share of runs "
-      "detected, false-alarm rate on clean windows.", "",
+      "alarm when the windowed value exceeds mean + 3 SD of a separate clean calibration stream (disjoint half of the "
+      "test issues). Cells: median delay in requests [IQR], share of runs detected, false-alarm rate on the evaluation "
+      "stream's clean windows.", "",
       "| Shift | " + " | ".join(SNAME[s] for s in SIG) + " |", "|---|" + "---:|" * len(SIG)]
 summ = {}
 for scen in res:
@@ -128,7 +140,7 @@ for ax, scen in zip(axes, res):
     for s in SIG:
         roll = example[scen][s]
         base = roll[: CLEAN_N - WINDOW + 1]
-        z = (roll - base.mean()) / (base.std() + 1e-9)  # standardized so signals share one axis
+        z = (roll - base.mean()) / (base.std() + 1e-9)  # standardized so signals share one axis (display only)
         ax.plot(np.arange(len(roll)) + WINDOW - 1, z, color=COL[s], lw=1.5, label=SNAME[s])
     ax.axhline(3, color=INK2, lw=0.8, ls=":")
     ax.axvline(CLEAN_N, color=INK2, lw=1, ls="--")

@@ -19,7 +19,7 @@ from triage.llm import Cache, MLXModel
 from triage.models import Retriever
 from triage.prompts import explain, few_shot, parse_explanation
 from triage.data import LABELS
-from triage.selective import fit_temperature, label_index, logit_matrix, softmax
+from triage.selective import fit_temperature, label_index, logit_matrix, softmax, split_fit_cert
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--model", default="mlx-community/Qwen2.5-7B-Instruct-4bit")
@@ -32,10 +32,11 @@ test = {x["id"]: x for x in ds["test"]}
 probe = [test[i] for i in ds["probe_ids"]]
 model = MLXModel(args.model, Cache("cache/llm_cache.sqlite"))
 # Raw LLM label probabilities are saturated near 0/1, so compare deletions on temperature-calibrated
-# probabilities (temperature fit on the few-shot calibration split).
+# probabilities (temperature fit on the fit third of the few-shot calibration split, as in analyze.py).
 _cal = [r for r in map(json.loads, Path(f"results/llm_{args.model.split('/')[-1]}.jsonl").read_text().splitlines())
         if r["condition"] == "calib" and r["approach"] == "few"]
-T = fit_temperature(logit_matrix(_cal), label_index(_cal))
+_fit, _ = split_fit_cert(_cal)
+T = fit_temperature(logit_matrix(_fit), label_index(_fit))
 
 
 def cal_probs(r):

@@ -27,19 +27,22 @@
 \begin{abstract}
 Issue-labeling services now apply LLM labels to open-source issues automatically. We evaluate one
 as a deployed, selective service: Qwen2.5-7B, zero-shot and with retrieved examples, against
-classical classifiers, on the NLBSE'24 benchmark and on 1{,}430 issues the same five repositories
-received in 2025--26, after the model's training cutoff. The classical TF-IDF classifier is the most
-accurate on the benchmark (76.2\%) but falls to 67.5\% on 2025--26 issues and 60.3\% on a new
-repository; the LLM is stable (70.9\%, 75.3\%, 68.0\%). Raw LLM probabilities are badly overconfident.
-A confidence threshold tuned for 10\% error among auto-labeled issues overshoots in every condition
-(14.9\% in distribution, 20.5\% on a new repository); a risk-controlled threshold keeps the target in
-distribution and a year later but auto-labels only 7\% of issues, and no threshold carries over to a
-new repository. A one-sentence newcomer apology flips 16.2\% of the few-shot LLM's labels, mostly
-toward question, and non-native English costs the zero-shot LLM up to 10 points; calibrated deferral
-keeps almost all such flips from being auto-applied. The LLM's evidence quotes are genuine (93\%
-verbatim) but deleting them moves its decision little more than deleting random text. Input novelty
-detects a new repository within 11 requests, while the model's own confidence rarely notices. A
-record/replay regression suite catches injected bugs in calibration, retrieval and preprocessing.
+classical classifiers given the same input, on the NLBSE'24 benchmark and on issues the same five
+repositories received in 2025--26, after the model's training cutoff. TF-IDF is the most accurate on
+the benchmark (75.5\%) but falls to 66.3\% on 2025--26 issues and 60.4\% on a new repository; the LLM
+is stable (70.9\%, 75.3\%, 68.0\%). A confidence threshold tuned for 10\% error among auto-labeled
+issues overshoots in every condition (up to 13.3\% in distribution, 27.6\% under shift). With
+thresholds fitted and certified on separate data, Learn-then-Test certifies 10\% error only for
+TF-IDF (11\% of issues auto-labeled); the LLM is first certified at a 20\% target, and no certificate
+carries over to a new repository. Leave-one-repository-out calibration restores conformal coverage
+but not threshold risk. Controlled rewordings show that the phrase ``sorry if this is a silly
+question'' pushes the few-shot LLM toward the label \emph{question} (+14.8 points vs.\ a neutral
+sentence), while newcomer status alone has a small effect; deferral keeps such flips from being
+auto-applied but halves the share of these reporters' issues labeled automatically. Evidence that
+the LLM's quotes drive its decisions is inconclusive. Input novelty detects a new repository within
+13 requests with under 1\% false alarms; the model's own confidence rarely notices. A record/replay
+regression suite catches injected calibration and retrieval bugs but barely catches prompt and
+preprocessing bugs.
 \end{abstract}
 
 \keywords{issue triage, large language models, selective prediction, calibration, robustness, explanations, ML in production}

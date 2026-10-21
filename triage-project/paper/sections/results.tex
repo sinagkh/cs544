@@ -1,119 +1,156 @@
 \section{Results}\label{sec:results}
 
 \begin{table}[t]
-\caption{Accuracy (\%) by condition and cross-repository F1. Tokens: prompt tokens per issue.}\label{tab:acc}
+\caption{Accuracy (\%) by condition and cross-repository F1. Tokens: LLM prompt tokens per issue.}\label{tab:acc}
 \small
 \input{tables/accuracy.tex}
 \end{table}
 
 \subsection{RQ1: Accuracy in and out of distribution}
-Table~\ref{tab:acc}. In distribution, TF-IDF with logistic regression, trained on only 1{,}005
-labeled issues, is the most accurate approach (76.2\%, 95\% CI [74.0, 78.3]); the few-shot LLM reaches
-70.9\% [68.6, 73.3] and zero-shot 68.5\%. Out of distribution the order reverses. On 2025--26 issues
-TF-IDF drops to 67.5\% and its cross-repository F1 from 0.760 to 0.584, while the few-shot LLM rises to
-75.3\%. On a new repository TF-IDF and the embedding classifier fall to 60.3\% and 58.8\%; the LLMs
-lose at most 3 points (68.0\%, 68.4\%). The classical models learn repository- and period-specific
-vocabulary; the LLM relies on general knowledge of what bugs, features and questions look like.
+Table~\ref{tab:acc}. In distribution, TF-IDF with logistic regression, trained on 1{,}005 labeled
+issues, is the most accurate approach (75.5\%); the few-shot LLM reaches 70.9\% [68.6, 73.3] and
+zero-shot 68.5\%. Out of distribution the order reverses. On 2025--26 issues TF-IDF drops to 66.3\%,
+while the few-shot LLM reaches 75.3\%. On a new repository TF-IDF and the embedding classifier fall to
+60.4\% and 57.5\%; the LLMs lose at most 3 points (68.0\%, 68.4\%). The classical models learn
+repository- and period-specific vocabulary; the LLM relies on general knowledge of what bugs, features
+and questions look like.
 
-The 2025--26 issues also serve as a leakage control: they postdate the model's training data, and the
-LLM is \emph{more} accurate on them than on the 2016--2023 benchmark, so we see no sign that benchmark
-contamination inflates LLM results here. The fresh data show a different kind of drift instead:
-label usage. React, for example, labeled 200 bugs but only 9 feature requests and 5 questions in
-2025--26, since it now routes questions elsewhere, so a labeler tuned to the benchmark's balanced
-classes faces a very different prior.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.92\textwidth]{risk_coverage.pdf}
-\caption{Risk--coverage curves: error among the most confident issues as more are auto-labeled.
-Dots: the naive threshold calibrated for 10\% error. The dashed line is the target.}\label{fig:rc}
-\end{figure*}
+Because the 2025--26 issues postdate the model's training data, they also act as a leakage control:
+the LLM is at least as accurate on them as on the 2016--2023 benchmark, so we see no sign that
+benchmark contamination inflates its results. The two samples are not directly comparable, though:
+label usage itself drifted. React, for example, labeled 200 bugs but only 9 feature requests and 5
+questions in 2025--26, as it now routes questions elsewhere.
 
 \begin{table*}[t]
-\caption{Selective automation: coverage / risk (\%), i.e., share auto-labeled / errors among them.
-Target risk: 10\%. All thresholds are set on the calibration split.}\label{tab:sel}
+\caption{Selective automation: coverage / risk (\%), i.e., share auto-labeled / errors among them;
+for the risk-controlled policy also (errors/auto-labeled). Target risk: 10\%. ``Reused'': the
+in-distribution calibration applied to the new repository; ``LORO'': leave-one-repository-out
+calibration. Conformal: auto-label singleton sets.}\label{tab:sel}
 \small
 \input{tables/selective.tex}
 \end{table*}
 
 \subsection{RQ2: Does calibrated deferral keep its promise?}
-Raw LLM label probabilities are almost always 0 or 1; temperature scaling on the calibration split
-needs $T{=}7.6$ (few-shot) and $T{=}10.1$ (zero-shot) and lowers expected calibration error from
-0.23--0.30 to 0.05--0.08. The classical models are underconfident ($T{\approx}0.6$).
+Raw LLM label probabilities are almost always 0 or 1: temperature scaling needs $T{=}7.9$ (few-shot)
+and $T{=}10.3$ (zero-shot) and lowers expected calibration error on the certification issues from
+0.23--0.30 to 0.05--0.07. The classical models are underconfident ($T{\approx}0.7$).
 
-Table~\ref{tab:sel} and Figure~\ref{fig:rc} show what happens when the scores are used to decide
-which issues to label automatically. The \emph{naive threshold} --- the lowest threshold at which the
-auto-labeled calibration issues contain at most 10\% errors --- overshoots the target in every
-condition, even in distribution (TF-IDF 12.5\%, few-shot LLM 14.9\%), and badly under shift (TF-IDF
-26.3\%, LLM 20.5\% on a new repository). Choosing a threshold on 495 calibration issues is optimistic
-by construction: the lowest feasible threshold sits where calibration noise happens to look good.
-The \emph{risk-controlled} threshold keeps the promise in distribution (3.9--5.9\% risk) and on
-2025--26 issues (0--9.4\%), but it pays with coverage: the few-shot LLM auto-labels only 6.9\% of
-issues, the zero-shot LLM none, and TF-IDF 15.6\%. On a new repository it fails for every classifier
-that auto-labels anything (11.1--18.2\%), because the guarantee assumes calibration and deployment
-data are exchangeable. In hindsight, the test data would have allowed auto-labeling 19.1\% of issues
-at 10\% error with the few-shot LLM and 45.5\% with TF-IDF; on a new repository no threshold reaches
-10\% for any trained classifier. With 495 calibration issues, the naive rule overshoots that point and
-the rigorous rule stops far short of it. Conformal prediction sets cover the true label in
-87.5--89.3\% of in-distribution cases (target 90\%); on a new repository the classical classifiers
-fall to 80.0--83.5\%, while the LLMs stay at 86--89\% in every condition. An
+\paragraph{Naive thresholds over-promise.} Table~\ref{tab:sel} and Figure~\ref{fig:rc}. A threshold
+set where the certification issues show at most 10\% errors gives 10.2--13.3\% errors on the test
+set, and under shift up to 20.1\% (TF-IDF, 2025--26) and 27.6\% (TF-IDF, new repository). The lowest
+feasible threshold sits where finite-sample noise happens to look favorable.
+
+\paragraph{Rigorous risk control certifies almost nothing at 10\%.} With 330 certification issues,
+Learn-then-Test certifies a 10\% threshold only for TF-IDF, which then auto-labels 11.3\% of test
+issues with 6 errors in 170 (3.5\%) and 6.8\% of 2025--26 issues with 2 errors in 35. For the embedding
+classifier and both LLMs no threshold passes the first test, so every issue goes to a maintainer.
+Table~\ref{tab:frontier} shows the trade-off. The few-shot LLM is first certified at a 20\% target,
+where it auto-labels 62.9\% of test issues at 19.1\% actual risk and 69.8\% of 2025--26 issues at
+17.3\%; the zero-shot LLM needs 25\%. TF-IDF jumps from 17.4\% coverage at a 15\% target to 79.9\% at
+20\%. The guarantee does not transfer to a new repository: with the reused calibration the few-shot
+LLM's 20\% threshold gives 24.3\% errors there, and LORO calibration on the other repositories
+certifies nothing below 25\%. For a new repository the most our data support is that rigorous risk
+control is unaffordable at this calibration size; at a 10\% target the reused TF-IDF threshold
+auto-labels 3 of 750 issues, too few to judge.
+
+\paragraph{Recalibration helps conformal sets, not thresholds.} Conformal prediction sets cover the
+true label in 86.9--88.0\% of test cases (target 90\%). On a new repository with reused calibration,
+coverage falls to 75.6\% (TF-IDF) and 83.5\% (embedding); LORO calibration restores it to 87.9\% and
+92.0\% (LLMs: 88.1--88.3\%). LORO calibration does not rescue the naive threshold: the few-shot LLM
+then auto-labels 19.2\% of new-repository issues at 20.8\% risk, TF-IDF 10.0\% at 24.0\%. An
 agreement gate between the LLM and the embedding classifier labels about two thirds of issues at
-17.7--26.4\% risk, far from the target.
+17.6--26.9\% risk.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{risk_coverage.pdf}
+\caption{Risk--coverage curves: error among the most confident issues as more are auto-labeled.
+Filled dots: naive threshold; open dots: risk-controlled threshold (none certified for the LLM at 10\%).
+Dashed line: target.}\label{fig:rc}
+\end{figure*}
 
 \begin{table}[t]
-\caption{Label flips (\%) under meaning-preserving rewording of 210 probe issues (\emph{n}:
-applicable variants), and accuracy change.}\label{tab:rob}
+\caption{Risk-controlled threshold certified for each target ($\delta{=}0.05$): coverage / actual
+risk (\%). 0.0 / --: no threshold certified.}\label{tab:frontier}
 \small
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{\input{tables/frontier.tex}}
+\end{table}
+
+\begin{table}[t]
+\caption{Rewording of 210 probe issues (\emph{n}: applicable variants): label flips, accuracy change,
+and share auto-labeled by the naive threshold. $^\dagger$Reduced-input conditions that may remove
+decisive evidence.}\label{tab:rob}
+\small
+\setlength{\tabcolsep}{3pt}
 \resizebox{\columnwidth}{!}{\input{tables/robustness.tex}}
 \end{table}
 
 \subsection{RQ3: Does the way an issue is written change its label?}
-Table~\ref{tab:rob} and Figure~\ref{fig:flips}. TF-IDF is the most fragile: removing code, removing
-template scaffolding or rewriting in non-native English each flips 13--17\% of its labels. The LLMs
-are more robust to style and structure, with one striking exception: a single sentence in which the
-reporter says they are new and apologizes for a possibly silly question flips 16.2\% of the few-shot
-LLM's labels, 14.8\% toward \emph{question}, against 5.7\% for zero-shot. The effect does not come
-through retrieval: 85\% of the retrieved examples are unchanged and the share of question examples
-stays at 0.33. In-context examples make the model more sensitive to the cue itself. Non-native English
-costs the zero-shot LLM 6.9 points of accuracy, and 10.1 points when the stack trace is also missing,
-which matters for reporters who rely on logs because their English is limited.
+Table~\ref{tab:rob} and Figure~\ref{fig:flips}. TF-IDF is the most fragile to style and structure:
+removing template scaffolding or rewriting in non-native English flips 12.5--13.2\% of its labels. The
+LLMs are more robust to these, but non-native English still costs the zero-shot LLM 6.9 points of
+accuracy and the few-shot LLM 4.4. Removing code is not meaning-preserving in the same sense, since a
+stack trace can be the decisive evidence for \emph{bug}; we report it as reduced input. Without code
+and in non-native English, the zero-shot LLM loses 10.1 points.
 
-Deferral absorbs almost all of this: with the naive threshold, the share of variants where both the
-original and the rewritten issue would be auto-labeled with different labels is 0--1.3\% for every
-classifier. Flips happen among issues the service was already unsure about.
+\paragraph{The newcomer sentence acts through the word ``question''.} The full newcomer sentence flips
+16.2\% of the few-shot LLM's labels, 14.8\% toward \emph{question}. The controls in
+Table~\ref{tab:cues} locate the effect. Relative to a neutral sentence, paired by issue, the phrase
+\emph{``sorry if this is a silly question''} alone moves 14.8 points [10.0, 20.0] of issues to
+\emph{question}, newcomer status alone 2.9 points [1.0, 5.2], and an apology alone nothing. The
+zero-shot LLM shows the same pattern at a smaller scale (6.7 points for the phrase). TF-IDF flips
+1.4--7.1\% under every added sentence, the neutral one included, and is not pushed toward
+\emph{question}. The LLM reads the reporter's description of their own post as evidence about the
+issue's type; newcomer status itself has a small but measurable effect.
 
-\begin{figure}[t]
+\paragraph{Deferral moves the cost to maintainers.} Under the naive threshold, the share of variants
+where both versions would be auto-labeled with \emph{different} labels is 0--1.9\% for every
+classifier: flips happen among issues the service is already unsure about. The price is review work.
+The full newcomer sentence halves the share of the few-shot LLM's auto-labeled issues (33.8\% to
+16.2\%), the ``silly question'' phrase alone cuts it to 13.3\%, and non-native rewriting lowers it
+from 35.8\% to 32.1\%. Reporters who write this way are labeled automatically less often and wait for
+a human more often.
+
+\begin{table}[t]
+\caption{Which part of the newcomer sentence matters? Flips, flips to \emph{question}, the paired
+difference in flips to \emph{question} relative to the neutral sentence (percentage points, 95\%
+bootstrap CI), and share auto-labeled (\%).}\label{tab:cues}
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{\input{tables/cues.tex}}
+\end{table}
+
+\begin{figure*}[t]
 \centering
-\includegraphics[width=\columnwidth]{flips.pdf}
-\caption{Label flips under rewording.}\label{fig:flips}
-\end{figure}
+\includegraphics[width=0.92\textwidth]{flips.pdf}
+\caption{Label flips under rewording. Right of the divider: parts of the newcomer sentence and a neutral control.}\label{fig:flips}
+\end{figure*}
 
 \subsection{RQ4: Are the explanations faithful?}
 Asked for a label and two exact quotes as evidence, the few-shot LLM quoted the issue in 178 of 210
 cases; 93.1\% of its 331 quotes occur verbatim, and the explained label matches the scored label in
-92.9\% of issues. Faithfulness is weaker. On 164 issues with locatable quotes (on average 130 of 921
-body characters), deleting the quoted evidence lowered the calibrated probability of the predicted
-label by 0.025, against 0.014 for deleting random text of the same length (Wilcoxon $p{=}0.115$); it
-changed the label in 6.1\% of issues against 3.0\% for random deletion, and lowered confidence more than
-random deletion in only 55.5\% of issues. The quotes are plausible and real, but the decision is spread
-across the issue and the retrieved examples; they should not be presented as \emph{the} reason.
+92.9\% of issues. On 164 issues with locatable quotes (on average 130 of 921 body characters), deleting
+the quoted evidence lowered the calibrated probability of the predicted label by 0.024, against 0.014
+for deleting random text of the same length (Wilcoxon $p{=}0.115$), and changed the label in 6.1\% of
+issues against 3.0\%. The evidence is inconclusive: the quotes are real, but we cannot show that they
+matter more to the decision than other text of the same length.
 
 \subsection{RQ5: Which signal notices a changed stream?}\label{sec:monitor}
 We simulate 300 streams per shift: 400 in-distribution requests, then 200 from 2025--26, from a
 repository without history, or in non-native English. A signal alarms when its rate over the last 50
-requests exceeds the in-distribution mean plus three standard deviations. Table~\ref{tab:mon} and
-Figure~\ref{fig:mon}: \emph{novelty}, one minus the cosine similarity to the closest labeled history
-issue the service may retrieve from, detects a new repository a median of 11 requests after the shift
-and 2025--26 traffic after 38 (98\% of runs), with no false alarms. The model's own signals --- share
-handed to a human, low confidence, disagreement with the embedding classifier --- detect these shifts
-in under a third of runs, and the predicted-label distribution in at most half. No signal reliably
-notices the non-native stream. Model-confidence monitoring alone would miss drift that input
-monitoring catches immediately.
+requests exceeds the mean plus three standard deviations of a separate clean calibration stream, drawn
+from a disjoint half of the test issues; false alarms are counted on the evaluation stream before the
+shift. Table~\ref{tab:mon} and Figure~\ref{fig:mon}: \emph{novelty}, one minus the cosine similarity
+to the closest labeled history issue the service may retrieve from, detects a new repository a median
+of 13 requests after the shift (all runs) and 2025--26 traffic after 44 (96\% of runs), with under 1\%
+false alarms. The model's own signals --- share handed to a human, low confidence --- detect these
+shifts in at most 27\% of runs. LLM--classifier disagreement detects a new repository in 63\% of runs
+but raises 5--7\% false alarms. No signal reliably notices the non-native stream.
 
 \begin{table}[t]
 \caption{Detection delay after a shift: median requests to the first alarm (share of 300 runs
-detected); --: detected in fewer than half.}\label{tab:mon}
+detected); --: detected in fewer than half. Last row: highest false-alarm rate across shifts.}\label{tab:mon}
 \small
 \setlength{\tabcolsep}{4pt}
 \resizebox{\columnwidth}{!}{\input{tables/monitoring.tex}}
@@ -122,14 +159,15 @@ detected); --: detected in fewer than half.}\label{tab:mon}
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{monitoring.pdf}
-\caption{Windowed signals in one simulated stream per shift, standardized against the clean segment;
-the dotted line is the alarm level.}\label{fig:mon}
+\caption{Windowed signals in one simulated stream per shift, standardized against the clean segment
+for display; the dotted line is three standard deviations.}\label{fig:mon}
 \end{figure*}
 
 \subsection{Regression tests}
 A 40-case suite (issues auto-labeled correctly, wrong predictions that must be handed off, and
-rewrites that must keep their label) replays the full pipeline from recorded model scores in about 6
-seconds. Injecting plausible bugs and replaying live: removing temperature scaling fails 14 cases
-(every must-hand-off case is then auto-labeled), retrieving examples from other repositories fails
-10, cutting the issue body to 300 characters fails 6, dropping retrieval fails 5, and removing the
-label definitions from the prompt fails only 1, a gap in the suite.
+non-native rewrites that must keep their label) replays the full pipeline from recorded model scores
+in seconds. Injecting plausible bugs and replaying live: removing temperature scaling fails 13 cases
+(must-hand-off issues that are then auto-labeled), retrieving examples from other repositories fails
+8, and dropping retrieval fails 6. Removing the label definitions from the prompt (2 cases) and
+cutting the body to 300 characters (1 case) are barely caught; the suite needs cases aimed at
+preprocessing and prompt content.

@@ -10,7 +10,7 @@ from pathlib import Path
 
 from triage.data import clean_body, load
 from triage.llm import Cache, MLXModel
-from triage.perturb import REWRITE_PROMPT, mask_code, newcomer, no_code, no_template, unmask_code, valid_rewrite
+from triage.perturb import CUES, REWRITE_PROMPT, mask_code, no_code, no_template, unmask_code, valid_rewrite, with_cue
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--rewriter", default="mlx-community/Llama-3.2-3B-Instruct-4bit")
@@ -38,7 +38,8 @@ for n, it in enumerate(probe, 1):
     stats.setdefault("attempts", []).append(attempts)
     if not ok:
         stats["invalid_rewrite"] += 1
-    kinds = {"no_code": no_code(body), "no_template": no_template(body), "newcomer": newcomer(body)}
+    kinds = {"no_code": no_code(body), "no_template": no_template(body)}
+    kinds.update({k: with_cue(body, k) for k in CUES})
     if ok:
         nn = clean_body(rewritten)
         kinds["non_native"] = nn

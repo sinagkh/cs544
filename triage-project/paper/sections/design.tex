@@ -4,8 +4,9 @@
 The service receives a new GitHub issue and either applies one label (\emph{bug}, \emph{feature},
 \emph{question}) or leaves the issue for a maintainer. Bodies are preprocessed as a deployed service
 would: HTML comments left by issue templates are removed and the body is cut to 1{,}500 characters.
-We compare four classifiers. Two are classical: TF-IDF features with logistic regression, and
-\texttt{bge-small-en-v1.5}~\cite{xiao2023cpack} embeddings with logistic regression. Two use
+We compare four classifiers, all given the same input (title and cleaned body). Two are classical:
+TF-IDF features with logistic regression, and \texttt{bge-small-en-v1.5}~\cite{xiao2023cpack}
+embeddings of the same text with logistic regression. Two use
 Qwen2.5-7B-Instruct~\cite{qwen2025qwen25} (4-bit, MLX~\cite{mlx2023}, one laptop): \emph{zero-shot}
 with label definitions, and \emph{few-shot}, which adds the six most similar labeled issues from the
 same repository, retrieved by embedding similarity. For the LLMs we read the next-token distribution
@@ -27,32 +28,42 @@ own label names (1{,}430 single-type issues; a balanced sample of up to 40 per r
 retrained; the period also lies after the model's training cutoff, which removes benchmark leakage.
 \item[New repository:] 750 test issues triaged as if their repository had just been onboarded: the
 few-shot model retrieves examples only from the other four repositories and the classical models are
-trained without the target repository.
+trained without the target repository. We calibrate this condition two ways: by \emph{reusing} the
+in-distribution calibration (what a service does if it onboards a repository without recalibrating),
+and by \emph{leave-one-repository-out} (LORO) calibration on the calibration issues of the other four
+repositories, each scored by the same cross-repository pipeline.
 \end{description}
 
 \subsection{Selective automation}
-Each classifier's scores are temperature-scaled~\cite{guo2017calibration} on the calibration split.
-We compare five policies: \emph{auto-all}; a \emph{naive threshold} on calibrated confidence, the
-lowest one whose auto-labeled calibration issues have at most 10\% errors~\cite{geifman2017selective};
-a \emph{risk-controlled threshold} chosen by Learn-then-Test~\cite{angelopoulos2021ltt}, which tests
-thresholds from the most confident down and accepts each while a 95\% Clopper--Pearson upper bound on
-its calibration error stays at or below 10\%;
-\emph{conformal}, which auto-labels only when the split-conformal prediction set at $\alpha{=}0.1$ has
-one label~\cite{angelopoulos2021conformal}; and \emph{agreement}, which auto-labels only when the
-few-shot LLM and the embedding classifier agree. Thresholds and conformal quantiles are set once on
-the calibration split and applied unchanged in every condition.
+We split each classifier's calibration issues, balanced within repository and label, into a
+\emph{fit} part (one third, 165 issues) and a \emph{certification} part (two thirds, 330). The fit part
+sets the temperature~\cite{guo2017calibration} and a grid of candidate thresholds (its confidence
+quantiles at coverage levels 10\%, 12.5\%, \dots, 100\%); the certification part is used only to choose
+or test thresholds. We compare five policies: \emph{auto-all}; a \emph{naive threshold}, the lowest
+confidence at which the auto-labeled certification issues have at most 10\% errors~\cite{geifman2017selective};
+a \emph{risk-controlled threshold} from Learn-then-Test~\cite{angelopoulos2021ltt}, which tests the
+pre-specified grid in order (most confident first) with an exact binomial test of
+$H_0$: risk $>$ target at $\delta{=}0.05$ and stops at the first failure;
+\emph{conformal}, which auto-labels only when the split-conformal prediction set at $\alpha{=}0.1$
+(quantile from the certification part) has one label~\cite{angelopoulos2021conformal}; and
+\emph{agreement}, which auto-labels only when the few-shot LLM and the embedding classifier agree. We
+also report the risk-controlled threshold for targets of 15\%, 20\% and 25\%.
 
 \subsection{Rewording tests}
-From the test set we draw 210 probe issues (14 per repository and label) and create five
-meaning-preserving variants each: \emph{no code} (fenced blocks and stack-trace lines removed),
-\emph{no template} (template headings and checklists removed), \emph{newcomer} (a sentence saying
-the reporter is new and apologizing for a possibly silly question), \emph{non-native} (the prose
-rewritten as by a non-native English speaker; code blocks are masked during rewriting and restored),
-and \emph{non-native + no code}. The non-native rewrite is produced by Llama-3.2-3B~\cite{grattafiori2024llama3},
+From the test set we draw 210 probe issues (14 per repository and label) and create variants:
+\emph{no template} (template headings and checklists removed), \emph{non-native} (the prose rewritten
+as by a non-native English speaker; code blocks are masked during rewriting and restored), a
+\emph{newcomer sentence} prepended to the body (\emph{``Hi everyone, I'm new to this project and not
+very experienced, so sorry if this is a silly question or the wrong place to ask.''}), and four
+controls that separate its parts: newcomer status only, an apology only (\emph{``sorry if this is the
+wrong place to post this''}), the words \emph{``sorry if this is a silly question''} only, and a neutral
+sentence of similar length. \emph{No code} (fenced blocks and stack-trace lines removed) and
+\emph{non-native + no code} remove information that may decide the label; we report them as
+reduced-input conditions, not as invariance tests. The non-native rewrite is produced by Llama-3.2-3B~\cite{grattafiori2024llama3},
 a different model family from the classifier under test, and kept only if every code block is
-restored, the length stays within 0.5--1.8$\times$, and at least 80\% of technical tokens survive. A
-label flip between an issue and its variant is a robustness failure, because the issue type is
-unchanged by construction.
+restored, the length stays within 0.5--1.8$\times$, and at least 80\% of technical tokens survive
+(161 of 210 after up to four attempts). For the meaning-preserving variants a label flip is a
+robustness failure; human validation of label preservation is pending (Section~\ref{sec:threats}).
 
 \subsection{Explanations}
 For the probe issues the few-shot model is also asked for its label and two exact quotes from the

@@ -1,127 +1,151 @@
 {
  "calibration": {
   "tfidf": {
-   "T": 0.5791439542713531,
-   "tau": 0.7613600935515049,
-   "tau_ltt": 0.9753691569325138,
-   "qhat": 0.7778285571350991,
-   "n": 495,
-   "acc": 0.7696969696969697,
-   "ece_raw": 0.11344326116435985,
-   "ece_cal": 0.031106757477508906
+   "T": 0.6945312357337042,
+   "n_fit": 165,
+   "n_cert": 330,
+   "acc": 0.7909090909090909,
+   "tau_naive": 0.67312992446471,
+   "tau_ltt": {
+    "0.1": 0.9713016752570827,
+    "0.15": 0.9435751342824865,
+    "0.2": 0.5521086520095927,
+    "0.25": 0.35219174270594134
+   },
+   "qhat": 0.7117618257743501,
+   "ece_raw": 0.13744387468232852,
+   "ece_cal": 0.07157834381788389
   },
   "emb": {
-   "T": 0.6375782414201868,
-   "tau": 0.8027106380904614,
-   "tau_ltt": 0.9095334705012776,
-   "qhat": 0.7946674139563855,
-   "n": 495,
-   "acc": 0.6868686868686869,
-   "ece_raw": 0.08953800482732412,
-   "ece_cal": 0.03955962785927681
+   "T": 0.70189760368304,
+   "n_fit": 165,
+   "n_cert": 330,
+   "acc": 0.7151515151515152,
+   "tau_naive": 0.7783219193933026,
+   "tau_ltt": {
+    "0.1": Infinity,
+    "0.15": Infinity,
+    "0.2": 0.7443682395796127,
+    "0.25": 0.5932699659523019
+   },
+   "qhat": 0.7725194897554294,
+   "ece_raw": 0.11154455886698285,
+   "ece_cal": 0.08359736275583798
   },
   "zero": {
-   "T": 10.113212214063815,
-   "tau": 0.831079171108891,
-   "tau_ltt": Infinity,
-   "qhat": 0.872572390662529,
-   "n": 495,
-   "acc": 0.6828282828282828,
-   "ece_raw": 0.2960251581514267,
-   "ece_cal": 0.05022447404797934
+   "T": 10.34797648377442,
+   "n_fit": 165,
+   "n_cert": 330,
+   "acc": 0.6787878787878788,
+   "tau_naive": 0.8255054460813265,
+   "tau_ltt": {
+    "0.1": Infinity,
+    "0.15": Infinity,
+    "0.2": Infinity,
+    "0.25": 0.6743625724757578
+   },
+   "qhat": 0.8622527785782413,
+   "ece_raw": 0.30274708113331245,
+   "ece_cal": 0.04561195611349972
   },
   "few": {
-   "T": 7.6085485963261545,
-   "tau": 0.8143049837753784,
-   "tau_ltt": 0.9210830031135396,
-   "qhat": 0.8511198158622022,
-   "n": 495,
-   "acc": 0.7333333333333333,
-   "ece_raw": 0.23342538780029845,
-   "ece_cal": 0.0758827182732542
+   "T": 7.858477589238987,
+   "n_fit": 165,
+   "n_cert": 330,
+   "acc": 0.7454545454545455,
+   "tau_naive": 0.8274096660730894,
+   "tau_ltt": {
+    "0.1": Infinity,
+    "0.15": Infinity,
+    "0.2": 0.7051148321544566,
+    "0.25": 0.5949723051506887
+   },
+   "qhat": 0.8309354669399773,
+   "ece_raw": 0.23203377460539334,
+   "ece_cal": 0.07409708400217484
   }
  },
  "accuracy": {
   "tfidf": {
    "test": {
     "n": 1500,
-    "acc": 0.762,
+    "acc": 0.7553333333333333,
     "ci": [
-     0.74,
-     0.7833333333333333
+     0.734,
+     0.776
     ],
-    "macro_f1": 0.7617176554137636,
-    "xrepo_f1": 0.7598279033668196,
-    "ece": 0.0419605613271099,
+    "macro_f1": 0.7551614104716102,
+    "xrepo_f1": 0.7537319971329172,
+    "ece": 0.03232649548502637,
     "prompt_tokens": 0.0,
-    "seconds": 0.0005272162755330403
+    "seconds": 0.0005660758018493652
    },
    "fresh": {
     "n": 514,
-    "acc": 0.6750972762645915,
+    "acc": 0.6634241245136187,
     "ci": [
-     0.6361867704280155,
-     0.7178988326848249
+     0.6244649805447471,
+     0.7042801556420234
     ],
-    "macro_f1": 0.6697677055043335,
-    "xrepo_f1": 0.5842138701503832,
-    "ece": 0.08108957412819795,
+    "macro_f1": 0.6600354714750222,
+    "xrepo_f1": 0.5827329346030672,
+    "ece": 0.054076733552106786,
     "prompt_tokens": 0.0,
-    "seconds": 0.00045745845898579994
+    "seconds": 0.0005014095788799835
    },
    "newrepo": {
     "n": 750,
-    "acc": 0.6026666666666667,
+    "acc": 0.604,
     "ci": [
      0.5666666666666667,
-     0.6373333333333333
+     0.636
     ],
-    "macro_f1": 0.5955880250303371,
-    "xrepo_f1": 0.5892893618077935,
-    "ece": 0.0656085282990656,
+    "macro_f1": 0.5988051809871235,
+    "xrepo_f1": 0.5919995421702572,
+    "ece": 0.03776911575981614,
     "prompt_tokens": 0.0,
-    "seconds": 0.0004253934224446615
+    "seconds": 0.0004840211868286133
    }
   },
   "emb": {
    "test": {
     "n": 1500,
-    "acc": 0.696,
+    "acc": 0.6933333333333334,
     "ci": [
-     0.6726666666666666,
-     0.7186666666666667
+     0.67,
+     0.716
     ],
-    "macro_f1": 0.6946668093162202,
-    "xrepo_f1": 0.6937718546749807,
-    "ece": 0.026175442737721752,
+    "macro_f1": 0.6916997281991467,
+    "xrepo_f1": 0.6912037878894173,
+    "ece": 0.0169607483312782,
     "prompt_tokens": 0.0,
-    "seconds": 8.628813425699869e-05
+    "seconds": 9.690984090169271e-05
    },
    "fresh": {
     "n": 514,
-    "acc": 0.6809338521400778,
+    "acc": 0.6848249027237354,
     "ci": [
-     0.6419747081712063,
-     0.7217898832684825
+     0.6439202334630351,
+     0.7237354085603113
     ],
-    "macro_f1": 0.6687344018570077,
-    "xrepo_f1": 0.6396768871621784,
-    "ece": 0.03707133252994083,
+    "macro_f1": 0.6701561070453267,
+    "xrepo_f1": 0.6299664860237228,
+    "ece": 0.05031882161429412,
     "prompt_tokens": 0.0,
-    "seconds": 7.685056456332077e-05
+    "seconds": 8.294183456480271e-05
    },
    "newrepo": {
     "n": 750,
-    "acc": 0.588,
+    "acc": 0.5746666666666667,
     "ci": [
-     0.552,
-     0.624
+     0.5386666666666666,
+     0.6120333333333331
     ],
-    "macro_f1": 0.583087757460541,
-    "xrepo_f1": 0.5762820085055063,
-    "ece": 0.08766261770776311,
+    "macro_f1": 0.5689415711704365,
+    "xrepo_f1": 0.5610607916707218,
+    "ece": 0.06832403808057243,
     "prompt_tokens": 0.0,
-    "seconds": 8.078543345133463e-05
+    "seconds": 8.50521723429362e-05
    }
   },
   "zero": {
@@ -134,7 +158,7 @@
     ],
     "macro_f1": 0.6688522154960964,
     "xrepo_f1": 0.6633574152734629,
-    "ece": 0.03555453988522282,
+    "ece": 0.042762398952744654,
     "prompt_tokens": 413.70933333333335,
     "seconds": 2.4721952732404073
    },
@@ -147,7 +171,7 @@
     ],
     "macro_f1": 0.6696108406190738,
     "xrepo_f1": 0.6501698443469465,
-    "ece": 0.06272292387312116,
+    "ece": 0.07868761894937248,
     "prompt_tokens": 476.82684824902725,
     "seconds": 2.9759997904068767
    },
@@ -160,7 +184,7 @@
     ],
     "macro_f1": 0.6680599830467204,
     "xrepo_f1": 0.6613022894164666,
-    "ece": 0.03587928560508717,
+    "ece": 0.04094867847574618,
     "prompt_tokens": 409.412,
     "seconds": 2.454393090565999
    }
@@ -175,7 +199,7 @@
     ],
     "macro_f1": 0.6959348423822856,
     "xrepo_f1": 0.6941918829468529,
-    "ece": 0.04926290877763164,
+    "ece": 0.0413579927576809,
     "prompt_tokens": 1062.3726666666666,
     "seconds": 5.907589284737905
    },
@@ -188,7 +212,7 @@
     ],
     "macro_f1": 0.7229188441562994,
     "xrepo_f1": 0.6820078997552087,
-    "ece": 0.03418633758126456,
+    "ece": 0.03451719363458797,
     "prompt_tokens": 1136.8579766536966,
     "seconds": 6.9028480642036705
    },
@@ -201,81 +225,141 @@
     ],
     "macro_f1": 0.6624375402225083,
     "xrepo_f1": 0.6572915271543072,
-    "ece": 0.06130600524277527,
+    "ece": 0.054842218446746756,
     "prompt_tokens": 1087.536,
     "seconds": 5.7957560227712
    }
   }
+ },
+ "fresh_label_mix": {
+  "bug": 188,
+  "feature": 169,
+  "question": 157
  },
  "selective": {
   "tfidf": {
    "test": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.238,
-     "auto_errors_per_100": 23.799999999999997
+     "risk": 0.24466666666666667,
+     "auto_errors_per_100": 24.46666666666667,
+     "n_auto": 1500,
+     "errors": 367
     },
-    "threshold": {
-     "coverage": 0.5486666666666666,
-     "risk": 0.12515188335358446,
-     "auto_errors_per_100": 6.866666666666667
+    "naive threshold": {
+     "coverage": 0.6013333333333334,
+     "risk": 0.12527716186252771,
+     "auto_errors_per_100": 7.533333333333333,
+     "n_auto": 902,
+     "errors": 113
     },
     "risk-controlled": {
-     "coverage": 0.156,
-     "risk": 0.042735042735042736,
-     "auto_errors_per_100": 0.6666666666666667
+     "coverage": 0.11333333333333333,
+     "risk": 0.03529411764705882,
+     "auto_errors_per_100": 0.4,
+     "n_auto": 170,
+     "errors": 6
     },
-    "conformal_set_coverage": 0.8926666666666667,
+    "conformal_set_coverage": 0.8746666666666667,
     "conformal": {
-     "coverage": 0.6193333333333333,
-     "risk": 0.14531754574811626,
-     "auto_errors_per_100": 9.0
+     "coverage": 0.6806666666666666,
+     "risk": 0.15670910871694418,
+     "auto_errors_per_100": 10.666666666666668,
+     "n_auto": 1021,
+     "errors": 160
     }
    },
    "fresh": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.32490272373540857,
-     "auto_errors_per_100": 32.490272373540854
+     "risk": 0.33657587548638135,
+     "auto_errors_per_100": 33.65758754863813,
+     "n_auto": 514,
+     "errors": 173
     },
-    "threshold": {
-     "coverage": 0.4883268482490272,
-     "risk": 0.19123505976095617,
-     "auto_errors_per_100": 9.33852140077821
+    "naive threshold": {
+     "coverage": 0.5311284046692607,
+     "risk": 0.20146520146520147,
+     "auto_errors_per_100": 10.700389105058365,
+     "n_auto": 273,
+     "errors": 55
     },
     "risk-controlled": {
-     "coverage": 0.1245136186770428,
-     "risk": 0.09375,
-     "auto_errors_per_100": 1.1673151750972763
+     "coverage": 0.06809338521400778,
+     "risk": 0.05714285714285714,
+     "auto_errors_per_100": 0.38910505836575876,
+     "n_auto": 35,
+     "errors": 2
     },
-    "conformal_set_coverage": 0.8268482490272373,
+    "conformal_set_coverage": 0.7996108949416343,
     "conformal": {
-     "coverage": 0.6070038910505836,
-     "risk": 0.23717948717948717,
-     "auto_errors_per_100": 14.396887159533073
+     "coverage": 0.6789883268482491,
+     "risk": 0.2349570200573066,
+     "auto_errors_per_100": 15.953307392996107,
+     "n_auto": 349,
+     "errors": 82
     }
    },
    "newrepo": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.3973333333333333,
-     "auto_errors_per_100": 39.733333333333334
+     "risk": 0.396,
+     "auto_errors_per_100": 39.6,
+     "n_auto": 750,
+     "errors": 297
     },
-    "threshold": {
-     "coverage": 0.33466666666666667,
-     "risk": 0.26294820717131473,
-     "auto_errors_per_100": 8.799999999999999
+    "naive threshold": {
+     "coverage": 0.392,
+     "risk": 0.2755102040816326,
+     "auto_errors_per_100": 10.8,
+     "n_auto": 294,
+     "errors": 81
     },
     "risk-controlled": {
-     "coverage": 0.014666666666666666,
-     "risk": 0.18181818181818182,
-     "auto_errors_per_100": 0.26666666666666666
+     "coverage": 0.004,
+     "risk": 0.3333333333333333,
+     "auto_errors_per_100": 0.13333333333333333,
+     "n_auto": 3,
+     "errors": 1
     },
-    "conformal_set_coverage": 0.8,
+    "conformal_set_coverage": 0.756,
     "conformal": {
-     "coverage": 0.4653333333333333,
-     "risk": 0.28939828080229224,
-     "auto_errors_per_100": 13.466666666666665
+     "coverage": 0.5826666666666667,
+     "risk": 0.32036613272311215,
+     "auto_errors_per_100": 18.666666666666668,
+     "n_auto": 437,
+     "errors": 140
+    }
+   },
+   "newrepo_loro": {
+    "auto-all": {
+     "coverage": 1.0,
+     "risk": 0.396,
+     "auto_errors_per_100": 39.6,
+     "n_auto": 750,
+     "errors": 297
+    },
+    "naive threshold": {
+     "coverage": 0.1,
+     "risk": 0.24,
+     "auto_errors_per_100": 2.4,
+     "n_auto": 75,
+     "errors": 18
+    },
+    "risk-controlled": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "conformal_set_coverage": 0.8786666666666667,
+    "conformal": {
+     "coverage": 0.25066666666666665,
+     "risk": 0.2393617021276596,
+     "auto_errors_per_100": 6.0,
+     "n_auto": 188,
+     "errors": 45
     }
    }
   },
@@ -283,70 +367,125 @@
    "test": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.304,
-     "auto_errors_per_100": 30.4
+     "risk": 0.30666666666666664,
+     "auto_errors_per_100": 30.666666666666664,
+     "n_auto": 1500,
+     "errors": 460
     },
-    "threshold": {
-     "coverage": 0.33666666666666667,
-     "risk": 0.11287128712871287,
-     "auto_errors_per_100": 3.8
+    "naive threshold": {
+     "coverage": 0.31933333333333336,
+     "risk": 0.1022964509394572,
+     "auto_errors_per_100": 3.266666666666666,
+     "n_auto": 479,
+     "errors": 49
     },
     "risk-controlled": {
-     "coverage": 0.13533333333333333,
-     "risk": 0.059113300492610835,
-     "auto_errors_per_100": 0.8
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.888,
+    "conformal_set_coverage": 0.88,
     "conformal": {
-     "coverage": 0.4766666666666667,
-     "risk": 0.15664335664335666,
-     "auto_errors_per_100": 7.466666666666668
+     "coverage": 0.48933333333333334,
+     "risk": 0.16348773841961853,
+     "auto_errors_per_100": 8.0,
+     "n_auto": 734,
+     "errors": 120
     }
    },
    "fresh": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.31906614785992216,
-     "auto_errors_per_100": 31.906614785992215
+     "risk": 0.3151750972762646,
+     "auto_errors_per_100": 31.517509727626457,
+     "n_auto": 514,
+     "errors": 162
     },
-    "threshold": {
-     "coverage": 0.29766536964980544,
-     "risk": 0.13725490196078433,
-     "auto_errors_per_100": 4.085603112840467
+    "naive threshold": {
+     "coverage": 0.2782101167315175,
+     "risk": 0.11888111888111888,
+     "auto_errors_per_100": 3.3073929961089497,
+     "n_auto": 143,
+     "errors": 17
     },
     "risk-controlled": {
-     "coverage": 0.11478599221789883,
-     "risk": 0.05084745762711865,
-     "auto_errors_per_100": 0.5836575875486382
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.877431906614786,
+    "conformal_set_coverage": 0.8793774319066148,
     "conformal": {
-     "coverage": 0.4474708171206226,
-     "risk": 0.1826086956521739,
-     "auto_errors_per_100": 8.171206225680933
+     "coverage": 0.44163424124513617,
+     "risk": 0.18061674008810572,
+     "auto_errors_per_100": 7.976653696498054,
+     "n_auto": 227,
+     "errors": 41
     }
    },
    "newrepo": {
     "auto-all": {
      "coverage": 1.0,
-     "risk": 0.412,
-     "auto_errors_per_100": 41.199999999999996
+     "risk": 0.42533333333333334,
+     "auto_errors_per_100": 42.53333333333333,
+     "n_auto": 750,
+     "errors": 319
     },
-    "threshold": {
-     "coverage": 0.22266666666666668,
-     "risk": 0.2275449101796407,
-     "auto_errors_per_100": 5.066666666666666
+    "naive threshold": {
+     "coverage": 0.20533333333333334,
+     "risk": 0.22077922077922077,
+     "auto_errors_per_100": 4.533333333333333,
+     "n_auto": 154,
+     "errors": 34
     },
     "risk-controlled": {
-     "coverage": 0.08,
-     "risk": 0.11666666666666667,
-     "auto_errors_per_100": 0.9333333333333335
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
     "conformal_set_coverage": 0.8346666666666667,
     "conformal": {
-     "coverage": 0.38533333333333336,
-     "risk": 0.28719723183391005,
-     "auto_errors_per_100": 11.066666666666666
+     "coverage": 0.38133333333333336,
+     "risk": 0.2867132867132867,
+     "auto_errors_per_100": 10.933333333333334,
+     "n_auto": 286,
+     "errors": 82
+    }
+   },
+   "newrepo_loro": {
+    "auto-all": {
+     "coverage": 1.0,
+     "risk": 0.42533333333333334,
+     "auto_errors_per_100": 42.53333333333333,
+     "n_auto": 750,
+     "errors": 319
+    },
+    "naive threshold": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "risk-controlled": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "conformal_set_coverage": 0.92,
+    "conformal": {
+     "coverage": 0.17066666666666666,
+     "risk": 0.1953125,
+     "auto_errors_per_100": 3.3333333333333335,
+     "n_auto": 128,
+     "errors": 25
     }
    }
   },
@@ -355,69 +494,124 @@
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.31533333333333335,
-     "auto_errors_per_100": 31.533333333333335
+     "auto_errors_per_100": 31.533333333333335,
+     "n_auto": 1500,
+     "errors": 473
     },
-    "threshold": {
-     "coverage": 0.13133333333333333,
-     "risk": 0.1218274111675127,
-     "auto_errors_per_100": 1.6
+    "naive threshold": {
+     "coverage": 0.124,
+     "risk": 0.12365591397849462,
+     "auto_errors_per_100": 1.5333333333333332,
+     "n_auto": 186,
+     "errors": 23
     },
     "risk-controlled": {
      "coverage": 0.0,
      "risk": NaN,
-     "auto_errors_per_100": 0.0
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.8813333333333333,
+    "conformal_set_coverage": 0.8766666666666667,
     "conformal": {
-     "coverage": 0.29533333333333334,
-     "risk": 0.17832957110609482,
-     "auto_errors_per_100": 5.266666666666667
+     "coverage": 0.3313333333333333,
+     "risk": 0.19114688128772636,
+     "auto_errors_per_100": 6.333333333333334,
+     "n_auto": 497,
+     "errors": 95
     }
    },
    "fresh": {
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.28793774319066145,
-     "auto_errors_per_100": 28.793774319066145
+     "auto_errors_per_100": 28.793774319066145,
+     "n_auto": 514,
+     "errors": 148
     },
-    "threshold": {
-     "coverage": 0.2490272373540856,
-     "risk": 0.078125,
-     "auto_errors_per_100": 1.9455252918287937
+    "naive threshold": {
+     "coverage": 0.23735408560311283,
+     "risk": 0.08196721311475409,
+     "auto_errors_per_100": 1.9455252918287937,
+     "n_auto": 122,
+     "errors": 10
     },
     "risk-controlled": {
      "coverage": 0.0,
      "risk": NaN,
-     "auto_errors_per_100": 0.0
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.8871595330739299,
+    "conformal_set_coverage": 0.8852140077821011,
     "conformal": {
-     "coverage": 0.39299610894941633,
-     "risk": 0.11386138613861387,
-     "auto_errors_per_100": 4.474708171206226
+     "coverage": 0.4377431906614786,
+     "risk": 0.12444444444444444,
+     "auto_errors_per_100": 5.447470817120623,
+     "n_auto": 225,
+     "errors": 28
     }
    },
    "newrepo": {
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.316,
-     "auto_errors_per_100": 31.6
+     "auto_errors_per_100": 31.6,
+     "n_auto": 750,
+     "errors": 237
     },
-    "threshold": {
-     "coverage": 0.10933333333333334,
-     "risk": 0.14634146341463414,
-     "auto_errors_per_100": 1.6
+    "naive threshold": {
+     "coverage": 0.10533333333333333,
+     "risk": 0.13924050632911392,
+     "auto_errors_per_100": 1.4666666666666666,
+     "n_auto": 79,
+     "errors": 11
     },
     "risk-controlled": {
      "coverage": 0.0,
      "risk": NaN,
-     "auto_errors_per_100": 0.0
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.8853333333333333,
+    "conformal_set_coverage": 0.8826666666666667,
     "conformal": {
-     "coverage": 0.27066666666666667,
-     "risk": 0.1724137931034483,
-     "auto_errors_per_100": 4.666666666666667
+     "coverage": 0.30533333333333335,
+     "risk": 0.18777292576419213,
+     "auto_errors_per_100": 5.733333333333333,
+     "n_auto": 229,
+     "errors": 43
+    }
+   },
+   "newrepo_loro": {
+    "auto-all": {
+     "coverage": 1.0,
+     "risk": 0.316,
+     "auto_errors_per_100": 31.6,
+     "n_auto": 750,
+     "errors": 237
+    },
+    "naive threshold": {
+     "coverage": 0.13066666666666665,
+     "risk": 0.15306122448979592,
+     "auto_errors_per_100": 2.0,
+     "n_auto": 98,
+     "errors": 15
+    },
+    "risk-controlled": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "conformal_set_coverage": 0.8813333333333333,
+    "conformal": {
+     "coverage": 0.31466666666666665,
+     "risk": 0.19915254237288135,
+     "auto_errors_per_100": 6.266666666666667,
+     "n_auto": 236,
+     "errors": 47
     }
    }
   },
@@ -426,84 +620,635 @@
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.29133333333333333,
-     "auto_errors_per_100": 29.133333333333333
+     "auto_errors_per_100": 29.133333333333333,
+     "n_auto": 1500,
+     "errors": 437
     },
-    "threshold": {
-     "coverage": 0.42933333333333334,
-     "risk": 0.14906832298136646,
-     "auto_errors_per_100": 6.4
+    "naive threshold": {
+     "coverage": 0.366,
+     "risk": 0.13296903460837886,
+     "auto_errors_per_100": 4.866666666666666,
+     "n_auto": 549,
+     "errors": 73
     },
     "risk-controlled": {
-     "coverage": 0.06866666666666667,
-     "risk": 0.038834951456310676,
-     "auto_errors_per_100": 0.26666666666666666
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.8753333333333333,
+    "conformal_set_coverage": 0.8686666666666667,
     "conformal": {
-     "coverage": 0.528,
-     "risk": 0.17929292929292928,
-     "auto_errors_per_100": 9.466666666666667
+     "coverage": 0.572,
+     "risk": 0.1853146853146853,
+     "auto_errors_per_100": 10.6,
+     "n_auto": 858,
+     "errors": 159
     },
     "agreement": {
-     "coverage": 0.67,
-     "risk": 0.1781094527363184,
-     "auto_errors_per_100": 11.933333333333334
+     "coverage": 0.674,
+     "risk": 0.18199802176063304,
+     "auto_errors_per_100": 12.266666666666666,
+     "n_auto": 1011,
+     "errors": 184
     }
    },
    "fresh": {
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.24708171206225682,
-     "auto_errors_per_100": 24.708171206225682
+     "auto_errors_per_100": 24.708171206225682,
+     "n_auto": 514,
+     "errors": 127
     },
-    "threshold": {
-     "coverage": 0.519455252918288,
-     "risk": 0.14232209737827714,
-     "auto_errors_per_100": 7.392996108949417
+    "naive threshold": {
+     "coverage": 0.4455252918287938,
+     "risk": 0.10043668122270742,
+     "auto_errors_per_100": 4.474708171206226,
+     "n_auto": 229,
+     "errors": 23
     },
     "risk-controlled": {
-     "coverage": 0.07976653696498054,
-     "risk": 0.0,
-     "auto_errors_per_100": 0.0
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.877431906614786,
+    "conformal_set_coverage": 0.8638132295719845,
     "conformal": {
-     "coverage": 0.5953307392996109,
-     "risk": 0.16339869281045752,
-     "auto_errors_per_100": 9.72762645914397
+     "coverage": 0.6361867704280155,
+     "risk": 0.1712538226299694,
+     "auto_errors_per_100": 10.894941634241246,
+     "n_auto": 327,
+     "errors": 56
     },
     "agreement": {
-     "coverage": 0.7140077821011673,
-     "risk": 0.1771117166212534,
-     "auto_errors_per_100": 12.645914396887159
+     "coverage": 0.7276264591439688,
+     "risk": 0.17647058823529413,
+     "auto_errors_per_100": 12.840466926070038,
+     "n_auto": 374,
+     "errors": 66
     }
    },
    "newrepo": {
     "auto-all": {
      "coverage": 1.0,
      "risk": 0.32,
-     "auto_errors_per_100": 32.0
+     "auto_errors_per_100": 32.0,
+     "n_auto": 750,
+     "errors": 240
     },
-    "threshold": {
-     "coverage": 0.4026666666666667,
-     "risk": 0.2052980132450331,
-     "auto_errors_per_100": 8.266666666666666
+    "naive threshold": {
+     "coverage": 0.32,
+     "risk": 0.19166666666666668,
+     "auto_errors_per_100": 6.133333333333333,
+     "n_auto": 240,
+     "errors": 46
     },
     "risk-controlled": {
-     "coverage": 0.012,
-     "risk": 0.1111111111111111,
-     "auto_errors_per_100": 0.13333333333333333
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
     },
-    "conformal_set_coverage": 0.8626666666666667,
+    "conformal_set_coverage": 0.8426666666666667,
     "conformal": {
-     "coverage": 0.5053333333333333,
-     "risk": 0.22691292875989447,
-     "auto_errors_per_100": 11.466666666666667
+     "coverage": 0.5533333333333333,
+     "risk": 0.2385542168674699,
+     "auto_errors_per_100": 13.200000000000001,
+     "n_auto": 415,
+     "errors": 99
     },
     "agreement": {
-     "coverage": 0.636,
-     "risk": 0.2641509433962264,
-     "auto_errors_per_100": 16.8
+     "coverage": 0.62,
+     "risk": 0.26881720430107525,
+     "auto_errors_per_100": 16.666666666666664,
+     "n_auto": 465,
+     "errors": 125
+    }
+   },
+   "newrepo_loro": {
+    "auto-all": {
+     "coverage": 1.0,
+     "risk": 0.32,
+     "auto_errors_per_100": 32.0,
+     "n_auto": 750,
+     "errors": 240
+    },
+    "naive threshold": {
+     "coverage": 0.192,
+     "risk": 0.20833333333333334,
+     "auto_errors_per_100": 4.0,
+     "n_auto": 144,
+     "errors": 30
+    },
+    "risk-controlled": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "conformal_set_coverage": 0.8826666666666667,
+    "conformal": {
+     "coverage": 0.38533333333333336,
+     "risk": 0.20069204152249134,
+     "auto_errors_per_100": 7.733333333333333,
+     "n_auto": 289,
+     "errors": 58
+    }
+   }
+  }
+ },
+ "frontier": {
+  "tfidf": {
+   "0.1": {
+    "test": {
+     "coverage": 0.11333333333333333,
+     "risk": 0.03529411764705882,
+     "auto_errors_per_100": 0.4,
+     "n_auto": 170,
+     "errors": 6
+    },
+    "fresh": {
+     "coverage": 0.06809338521400778,
+     "risk": 0.05714285714285714,
+     "auto_errors_per_100": 0.38910505836575876,
+     "n_auto": 35,
+     "errors": 2
+    },
+    "newrepo": {
+     "coverage": 0.004,
+     "risk": 0.3333333333333333,
+     "auto_errors_per_100": 0.13333333333333333,
+     "n_auto": 3,
+     "errors": 1
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.15": {
+    "test": {
+     "coverage": 0.174,
+     "risk": 0.0421455938697318,
+     "auto_errors_per_100": 0.7333333333333333,
+     "n_auto": 261,
+     "errors": 11
+    },
+    "fresh": {
+     "coverage": 0.14396887159533073,
+     "risk": 0.0945945945945946,
+     "auto_errors_per_100": 1.3618677042801557,
+     "n_auto": 74,
+     "errors": 7
+    },
+    "newrepo": {
+     "coverage": 0.017333333333333333,
+     "risk": 0.15384615384615385,
+     "auto_errors_per_100": 0.26666666666666666,
+     "n_auto": 13,
+     "errors": 2
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.2": {
+    "test": {
+     "coverage": 0.7986666666666666,
+     "risk": 0.19616026711185308,
+     "auto_errors_per_100": 15.666666666666668,
+     "n_auto": 1198,
+     "errors": 235
+    },
+    "fresh": {
+     "coverage": 0.6964980544747081,
+     "risk": 0.2346368715083799,
+     "auto_errors_per_100": 16.342412451361866,
+     "n_auto": 358,
+     "errors": 84
+    },
+    "newrepo": {
+     "coverage": 0.6226666666666667,
+     "risk": 0.3233404710920771,
+     "auto_errors_per_100": 20.133333333333333,
+     "n_auto": 467,
+     "errors": 151
+    },
+    "newrepo_loro": {
+     "coverage": 0.021333333333333333,
+     "risk": 0.125,
+     "auto_errors_per_100": 0.26666666666666666,
+     "n_auto": 16,
+     "errors": 2
+    }
+   },
+   "0.25": {
+    "test": {
+     "coverage": 0.9986666666666667,
+     "risk": 0.24365821094793058,
+     "auto_errors_per_100": 24.333333333333336,
+     "n_auto": 1498,
+     "errors": 365
+    },
+    "fresh": {
+     "coverage": 1.0,
+     "risk": 0.33657587548638135,
+     "auto_errors_per_100": 33.65758754863813,
+     "n_auto": 514,
+     "errors": 173
+    },
+    "newrepo": {
+     "coverage": 0.996,
+     "risk": 0.3962516733601071,
+     "auto_errors_per_100": 39.46666666666667,
+     "n_auto": 747,
+     "errors": 296
+    },
+    "newrepo_loro": {
+     "coverage": 0.176,
+     "risk": 0.2727272727272727,
+     "auto_errors_per_100": 4.8,
+     "n_auto": 132,
+     "errors": 36
+    }
+   }
+  },
+  "emb": {
+   "0.1": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.15": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.2": {
+    "test": {
+     "coverage": 0.38133333333333336,
+     "risk": 0.12937062937062938,
+     "auto_errors_per_100": 4.933333333333334,
+     "n_auto": 572,
+     "errors": 74
+    },
+    "fresh": {
+     "coverage": 0.33852140077821014,
+     "risk": 0.16091954022988506,
+     "auto_errors_per_100": 5.447470817120623,
+     "n_auto": 174,
+     "errors": 28
+    },
+    "newrepo": {
+     "coverage": 0.2786666666666667,
+     "risk": 0.22966507177033493,
+     "auto_errors_per_100": 6.4,
+     "n_auto": 209,
+     "errors": 48
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.25": {
+    "test": {
+     "coverage": 0.684,
+     "risk": 0.22417153996101363,
+     "auto_errors_per_100": 15.333333333333332,
+     "n_auto": 1026,
+     "errors": 230
+    },
+    "fresh": {
+     "coverage": 0.6381322957198443,
+     "risk": 0.24085365853658536,
+     "auto_errors_per_100": 15.369649805447471,
+     "n_auto": 328,
+     "errors": 79
+    },
+    "newrepo": {
+     "coverage": 0.5613333333333334,
+     "risk": 0.334916864608076,
+     "auto_errors_per_100": 18.8,
+     "n_auto": 421,
+     "errors": 141
+    },
+    "newrepo_loro": {
+     "coverage": 0.030666666666666665,
+     "risk": 0.21739130434782608,
+     "auto_errors_per_100": 0.6666666666666667,
+     "n_auto": 23,
+     "errors": 5
+    }
+   }
+  },
+  "zero": {
+   "0.1": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.15": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.2": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.028,
+     "risk": 0.047619047619047616,
+     "auto_errors_per_100": 0.13333333333333333,
+     "n_auto": 21,
+     "errors": 1
+    }
+   },
+   "0.25": {
+    "test": {
+     "coverage": 0.5893333333333334,
+     "risk": 0.2319004524886878,
+     "auto_errors_per_100": 13.666666666666666,
+     "n_auto": 884,
+     "errors": 205
+    },
+    "fresh": {
+     "coverage": 0.7159533073929961,
+     "risk": 0.20108695652173914,
+     "auto_errors_per_100": 14.396887159533073,
+     "n_auto": 368,
+     "errors": 74
+    },
+    "newrepo": {
+     "coverage": 0.576,
+     "risk": 0.2361111111111111,
+     "auto_errors_per_100": 13.600000000000001,
+     "n_auto": 432,
+     "errors": 102
+    },
+    "newrepo_loro": {
+     "coverage": 0.22666666666666666,
+     "risk": 0.2647058823529412,
+     "auto_errors_per_100": 6.0,
+     "n_auto": 170,
+     "errors": 45
+    }
+   }
+  },
+  "few": {
+   "0.1": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.15": {
+    "test": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "fresh": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.2": {
+    "test": {
+     "coverage": 0.6293333333333333,
+     "risk": 0.1906779661016949,
+     "auto_errors_per_100": 12.0,
+     "n_auto": 944,
+     "errors": 180
+    },
+    "fresh": {
+     "coverage": 0.6984435797665369,
+     "risk": 0.17270194986072424,
+     "auto_errors_per_100": 12.062256809338521,
+     "n_auto": 359,
+     "errors": 62
+    },
+    "newrepo": {
+     "coverage": 0.6026666666666667,
+     "risk": 0.24336283185840707,
+     "auto_errors_per_100": 14.666666666666666,
+     "n_auto": 452,
+     "errors": 110
+    },
+    "newrepo_loro": {
+     "coverage": 0.0,
+     "risk": NaN,
+     "auto_errors_per_100": 0.0,
+     "n_auto": 0,
+     "errors": 0
+    }
+   },
+   "0.25": {
+    "test": {
+     "coverage": 0.78,
+     "risk": 0.22393162393162394,
+     "auto_errors_per_100": 17.466666666666665,
+     "n_auto": 1170,
+     "errors": 262
+    },
+    "fresh": {
+     "coverage": 0.8210116731517509,
+     "risk": 0.1966824644549763,
+     "auto_errors_per_100": 16.147859922178988,
+     "n_auto": 422,
+     "errors": 83
+    },
+    "newrepo": {
+     "coverage": 0.78,
+     "risk": 0.26666666666666666,
+     "auto_errors_per_100": 20.8,
+     "n_auto": 585,
+     "errors": 156
+    },
+    "newrepo_loro": {
+     "coverage": 0.116,
+     "risk": 0.2413793103448276,
+     "auto_errors_per_100": 2.8000000000000003,
+     "n_auto": 87,
+     "errors": 21
     }
    }
   }
@@ -512,51 +1257,75 @@
   "tfidf": {
    "no_code": {
     "n": 77,
-    "flip": 0.12987012987012986,
+    "flip": 0.11688311688311688,
     "flip_ci": [
-     0.06493506493506493,
-     0.2077922077922078
+     0.05194805194805195,
+     0.19480519480519481
     ],
     "auto_flip": 0.012987012987012988,
-    "acc_orig": 0.7662337662337663,
+    "acc_orig": 0.7792207792207793,
     "acc_var": 0.7532467532467533,
-    "to_question": 0.03896103896103896
+    "to_question": 0.025974025974025976,
+    "auto_orig": 0.6363636363636364,
+    "auto_var": 0.6103896103896104,
+    "auto_drop_ci": [
+     -0.05194805194805195,
+     0.1038961038961039
+    ]
    },
    "no_template": {
     "n": 112,
-    "flip": 0.13392857142857142,
+    "flip": 0.125,
     "flip_ci": [
      0.07142857142857142,
-     0.20535714285714285
+     0.1875
     ],
     "auto_flip": 0.0,
-    "acc_orig": 0.7589285714285714,
-    "acc_var": 0.8035714285714286,
-    "to_question": 0.0625
+    "acc_orig": 0.7678571428571429,
+    "acc_var": 0.7767857142857143,
+    "to_question": 0.044642857142857144,
+    "auto_orig": 0.7053571428571429,
+    "auto_var": 0.6517857142857143,
+    "auto_drop_ci": [
+     -0.03571428571428571,
+     0.1341517857142845
+    ]
    },
    "newcomer": {
     "n": 210,
-    "flip": 0.07142857142857142,
+    "flip": 0.06190476190476191,
     "flip_ci": [
-     0.0380952380952381,
-     0.10476190476190476
+     0.03333333333333333,
+     0.09523809523809523
     ],
     "auto_flip": 0.0,
     "acc_orig": 0.7857142857142857,
     "acc_var": 0.7571428571428571,
-    "to_question": 0.004761904761904762
+    "to_question": 0.023809523809523808,
+    "auto_orig": 0.5952380952380952,
+    "auto_var": 0.5523809523809524,
+    "auto_drop_ci": [
+     0.009523809523809525,
+     0.07630952380952316
+    ]
    },
    "non_native": {
     "n": 159,
     "flip": 0.1320754716981132,
     "flip_ci": [
      0.08176100628930817,
-     0.18238993710691823
+     0.18867924528301888
     ],
     "auto_flip": 0.0,
-    "acc_orig": 0.779874213836478,
-    "acc_var": 0.7735849056603774,
-    "to_question": 0.09433962264150944
+    "acc_orig": 0.7861635220125787,
+    "acc_var": 0.7421383647798742,
+    "to_question": 0.09433962264150944,
+    "auto_orig": 0.6289308176100629,
+    "auto_var": 0.5974842767295597,
+    "auto_drop_ci": [
+     -0.031446540880503145,
+     0.0880503144654088
+    ]
    },
    "non_native+no_code": {
     "n": 159,
@@ -565,10 +1334,88 @@
      0.11320754716981132,
      0.22641509433962265
     ],
-    "auto_flip": 0.006289308176100629,
-    "acc_orig": 0.779874213836478,
-    "acc_var": 0.7421383647798742,
-    "to_question": 0.11949685534591195
+    "auto_flip": 0.018867924528301886,
+    "acc_orig": 0.7861635220125787,
+    "acc_var": 0.7169811320754716,
+    "to_question": 0.1320754716981132,
+    "auto_orig": 0.6289308176100629,
+    "auto_var": 0.6163522012578616,
+    "auto_drop_ci": [
+     -0.050314465408805034,
+     0.07547169811320754
+    ]
+   },
+   "cue_newcomer_only": {
+    "n": 210,
+    "flip": 0.014285714285714285,
+    "flip_ci": [
+     0.0,
+     0.03333333333333333
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7857142857142857,
+    "acc_var": 0.7761904761904762,
+    "to_question": 0.0,
+    "auto_orig": 0.5952380952380952,
+    "auto_var": 0.5761904761904761,
+    "auto_drop_ci": [
+     -0.004761904761904762,
+     0.047619047619047616
+    ]
+   },
+   "cue_apology_only": {
+    "n": 210,
+    "flip": 0.06666666666666667,
+    "flip_ci": [
+     0.03333333333333333,
+     0.1
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7857142857142857,
+    "acc_var": 0.7666666666666667,
+    "to_question": 0.009523809523809525,
+    "auto_orig": 0.5952380952380952,
+    "auto_var": 0.5952380952380952,
+    "auto_drop_ci": [
+     -0.0380952380952381,
+     0.0380952380952381
+    ]
+   },
+   "cue_question_word": {
+    "n": 210,
+    "flip": 0.0380952380952381,
+    "flip_ci": [
+     0.014285714285714285,
+     0.06666666666666667
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7857142857142857,
+    "acc_var": 0.7666666666666667,
+    "to_question": 0.03333333333333333,
+    "auto_orig": 0.5952380952380952,
+    "auto_var": 0.5904761904761905,
+    "auto_drop_ci": [
+     -0.023809523809523808,
+     0.03333333333333333
+    ]
+   },
+   "cue_neutral": {
+    "n": 210,
+    "flip": 0.07142857142857142,
+    "flip_ci": [
+     0.0380952380952381,
+     0.10488095238095173
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7857142857142857,
+    "acc_var": 0.7476190476190476,
+    "to_question": 0.06666666666666667,
+    "auto_orig": 0.5952380952380952,
+    "auto_var": 0.5904761904761905,
+    "auto_drop_ci": [
+     -0.03333333333333333,
+     0.04285714285714286
+    ]
    }
   },
   "emb": {
@@ -582,55 +1429,157 @@
     "auto_flip": 0.0,
     "acc_orig": 0.6493506493506493,
     "acc_var": 0.5974025974025974,
-    "to_question": 0.025974025974025976
+    "to_question": 0.03896103896103896,
+    "auto_orig": 0.3246753246753247,
+    "auto_var": 0.42857142857142855,
+    "auto_drop_ci": [
+     -0.19480519480519481,
+     -0.025974025974025976
+    ]
    },
    "no_template": {
     "n": 112,
-    "flip": 0.125,
+    "flip": 0.14285714285714285,
     "flip_ci": [
-     0.0625,
-     0.1875
+     0.08035714285714286,
+     0.21428571428571427
     ],
     "auto_flip": 0.0,
     "acc_orig": 0.7053571428571429,
     "acc_var": 0.7053571428571429,
-    "to_question": 0.044642857142857144
+    "to_question": 0.0625,
+    "auto_orig": 0.375,
+    "auto_var": 0.39285714285714285,
+    "auto_drop_ci": [
+     -0.08035714285714286,
+     0.044642857142857144
+    ]
    },
    "newcomer": {
     "n": 210,
-    "flip": 0.06190476190476191,
+    "flip": 0.08571428571428572,
     "flip_ci": [
-     0.02857142857142857,
-     0.09523809523809523
+     0.05238095238095238,
+     0.12380952380952381
     ],
     "auto_flip": 0.0,
     "acc_orig": 0.7285714285714285,
     "acc_var": 0.7571428571428571,
-    "to_question": 0.03333333333333333
+    "to_question": 0.05714285714285714,
+    "auto_orig": 0.35714285714285715,
+    "auto_var": 0.3761904761904762,
+    "auto_drop_ci": [
+     -0.05714285714285714,
+     0.01904761904761905
+    ]
    },
    "non_native": {
     "n": 159,
-    "flip": 0.08176100628930817,
+    "flip": 0.10062893081761007,
     "flip_ci": [
-     0.0440251572327044,
-     0.12578616352201258
+     0.05660377358490566,
+     0.1509433962264151
     ],
     "auto_flip": 0.0,
-    "acc_orig": 0.710691823899371,
-    "acc_var": 0.6855345911949685,
-    "to_question": 0.031446540880503145
+    "acc_orig": 0.7169811320754716,
+    "acc_var": 0.6918238993710691,
+    "to_question": 0.05660377358490566,
+    "auto_orig": 0.3270440251572327,
+    "auto_var": 0.3333333333333333,
+    "auto_drop_ci": [
+     -0.050314465408805034,
+     0.0440251572327044
+    ]
    },
    "non_native+no_code": {
     "n": 159,
-    "flip": 0.09433962264150944,
+    "flip": 0.1069182389937107,
     "flip_ci": [
-     0.050314465408805034,
-     0.14465408805031446
+     0.06289308176100629,
+     0.15723270440251572
     ],
     "auto_flip": 0.0,
-    "acc_orig": 0.710691823899371,
+    "acc_orig": 0.7169811320754716,
     "acc_var": 0.6729559748427673,
-    "to_question": 0.0440251572327044
+    "to_question": 0.06289308176100629,
+    "auto_orig": 0.3270440251572327,
+    "auto_var": 0.389937106918239,
+    "auto_drop_ci": [
+     -0.12578616352201258,
+     0.0
+    ]
+   },
+   "cue_newcomer_only": {
+    "n": 210,
+    "flip": 0.08571428571428572,
+    "flip_ci": [
+     0.047619047619047616,
+     0.12380952380952381
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7285714285714285,
+    "acc_var": 0.7380952380952381,
+    "to_question": 0.05238095238095238,
+    "auto_orig": 0.35714285714285715,
+    "auto_var": 0.3761904761904762,
+    "auto_drop_ci": [
+     -0.05714285714285714,
+     0.014285714285714285
+    ]
+   },
+   "cue_apology_only": {
+    "n": 210,
+    "flip": 0.05238095238095238,
+    "flip_ci": [
+     0.023809523809523808,
+     0.08571428571428572
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7285714285714285,
+    "acc_var": 0.7428571428571429,
+    "to_question": 0.02857142857142857,
+    "auto_orig": 0.35714285714285715,
+    "auto_var": 0.36666666666666664,
+    "auto_drop_ci": [
+     -0.0380952380952381,
+     0.01904761904761905
+    ]
+   },
+   "cue_question_word": {
+    "n": 210,
+    "flip": 0.06190476190476191,
+    "flip_ci": [
+     0.03333333333333333,
+     0.1
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7285714285714285,
+    "acc_var": 0.7380952380952381,
+    "to_question": 0.047619047619047616,
+    "auto_orig": 0.35714285714285715,
+    "auto_var": 0.3523809523809524,
+    "auto_drop_ci": [
+     -0.023809523809523808,
+     0.03333333333333333
+    ]
+   },
+   "cue_neutral": {
+    "n": 210,
+    "flip": 0.08095238095238096,
+    "flip_ci": [
+     0.047619047619047616,
+     0.11904761904761904
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7285714285714285,
+    "acc_var": 0.7333333333333333,
+    "to_question": 0.05238095238095238,
+    "auto_orig": 0.35714285714285715,
+    "auto_var": 0.36666666666666664,
+    "auto_drop_ci": [
+     -0.04285714285714286,
+     0.023809523809523808
+    ]
    }
   },
   "zero": {
@@ -644,7 +1593,13 @@
     "auto_flip": 0.0,
     "acc_orig": 0.7012987012987013,
     "acc_var": 0.6623376623376623,
-    "to_question": 0.012987012987012988
+    "to_question": 0.012987012987012988,
+    "auto_orig": 0.16883116883116883,
+    "auto_var": 0.15584415584415584,
+    "auto_drop_ci": [
+     -0.025974025974025976,
+     0.05227272727272551
+    ]
    },
    "no_template": {
     "n": 112,
@@ -656,7 +1611,13 @@
     "auto_flip": 0.0,
     "acc_orig": 0.6607142857142857,
     "acc_var": 0.6607142857142857,
-    "to_question": 0.0
+    "to_question": 0.0,
+    "auto_orig": 0.16071428571428573,
+    "auto_var": 0.13392857142857142,
+    "auto_drop_ci": [
+     -0.03571428571428571,
+     0.08035714285714286
+    ]
    },
    "newcomer": {
     "n": 210,
@@ -668,19 +1629,31 @@
     "auto_flip": 0.0,
     "acc_orig": 0.7,
     "acc_var": 0.6761904761904762,
-    "to_question": 0.047619047619047616
+    "to_question": 0.047619047619047616,
+    "auto_orig": 0.1,
+    "auto_var": 0.04285714285714286,
+    "auto_drop_ci": [
+     0.02857142857142857,
+     0.09047619047619047
+    ]
    },
    "non_native": {
     "n": 159,
     "flip": 0.06918238993710692,
     "flip_ci": [
      0.031446540880503145,
-     0.10707547169811235
+     0.1069182389937107
     ],
     "auto_flip": 0.0,
     "acc_orig": 0.710691823899371,
     "acc_var": 0.6415094339622641,
-    "to_question": 0.031446540880503145
+    "to_question": 0.031446540880503145,
+    "auto_orig": 0.1069182389937107,
+    "auto_var": 0.11949685534591195,
+    "auto_drop_ci": [
+     -0.0440251572327044,
+     0.025157232704402517
+    ]
    },
    "non_native+no_code": {
     "n": 159,
@@ -692,7 +1665,85 @@
     "auto_flip": 0.0,
     "acc_orig": 0.710691823899371,
     "acc_var": 0.610062893081761,
-    "to_question": 0.0440251572327044
+    "to_question": 0.0440251572327044,
+    "auto_orig": 0.1069182389937107,
+    "auto_var": 0.0880503144654088,
+    "auto_drop_ci": [
+     -0.018867924528301886,
+     0.05660377358490566
+    ]
+   },
+   "cue_newcomer_only": {
+    "n": 210,
+    "flip": 0.01904761904761905,
+    "flip_ci": [
+     0.004761904761904762,
+     0.0380952380952381
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7,
+    "acc_var": 0.6904761904761905,
+    "to_question": 0.004761904761904762,
+    "auto_orig": 0.1,
+    "auto_var": 0.1,
+    "auto_drop_ci": [
+     -0.01904761904761905,
+     0.01904761904761905
+    ]
+   },
+   "cue_apology_only": {
+    "n": 210,
+    "flip": 0.014285714285714285,
+    "flip_ci": [
+     0.0,
+     0.03333333333333333
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7,
+    "acc_var": 0.6857142857142857,
+    "to_question": 0.0,
+    "auto_orig": 0.1,
+    "auto_var": 0.09523809523809523,
+    "auto_drop_ci": [
+     -0.009523809523809525,
+     0.01904761904761905
+    ]
+   },
+   "cue_question_word": {
+    "n": 210,
+    "flip": 0.0761904761904762,
+    "flip_ci": [
+     0.04285714285714286,
+     0.11428571428571428
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7,
+    "acc_var": 0.6666666666666666,
+    "to_question": 0.06666666666666667,
+    "auto_orig": 0.1,
+    "auto_var": 0.0380952380952381,
+    "auto_drop_ci": [
+     0.02857142857142857,
+     0.09523809523809523
+    ]
+   },
+   "cue_neutral": {
+    "n": 210,
+    "flip": 0.01904761904761905,
+    "flip_ci": [
+     0.004761904761904762,
+     0.0380952380952381
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7,
+    "acc_var": 0.680952380952381,
+    "to_question": 0.0,
+    "auto_orig": 0.1,
+    "auto_var": 0.10476190476190476,
+    "auto_drop_ci": [
+     -0.023809523809523808,
+     0.014285714285714285
+    ]
    }
   },
   "few": {
@@ -706,7 +1757,13 @@
     "auto_flip": 0.0,
     "acc_orig": 0.6883116883116883,
     "acc_var": 0.6883116883116883,
-    "to_question": 0.025974025974025976
+    "to_question": 0.025974025974025976,
+    "auto_orig": 0.36363636363636365,
+    "auto_var": 0.2987012987012987,
+    "auto_drop_ci": [
+     0.0,
+     0.12987012987012986
+    ]
    },
    "no_template": {
     "n": 112,
@@ -718,19 +1775,31 @@
     "auto_flip": 0.0,
     "acc_orig": 0.7053571428571429,
     "acc_var": 0.6875,
-    "to_question": 0.03571428571428571
+    "to_question": 0.03571428571428571,
+    "auto_orig": 0.44642857142857145,
+    "auto_var": 0.41964285714285715,
+    "auto_drop_ci": [
+     -0.03571428571428571,
+     0.08928571428571429
+    ]
    },
    "newcomer": {
     "n": 210,
     "flip": 0.1619047619047619,
     "flip_ci": [
      0.11428571428571428,
-     0.20952380952380953
+     0.21428571428571427
     ],
     "auto_flip": 0.0,
     "acc_orig": 0.7333333333333333,
     "acc_var": 0.7,
-    "to_question": 0.14761904761904762
+    "to_question": 0.14761904761904762,
+    "auto_orig": 0.3380952380952381,
+    "auto_var": 0.1619047619047619,
+    "auto_drop_ci": [
+     0.12380952380952381,
+     0.22857142857142856
+    ]
    },
    "non_native": {
     "n": 159,
@@ -742,7 +1811,13 @@
     "auto_flip": 0.0,
     "acc_orig": 0.7421383647798742,
     "acc_var": 0.6981132075471698,
-    "to_question": 0.031446540880503145
+    "to_question": 0.031446540880503145,
+    "auto_orig": 0.3584905660377358,
+    "auto_var": 0.32075471698113206,
+    "auto_drop_ci": [
+     -0.006289308176100629,
+     0.0880503144654088
+    ]
    },
    "non_native+no_code": {
     "n": 159,
@@ -754,7 +1829,415 @@
     "auto_flip": 0.0,
     "acc_orig": 0.7421383647798742,
     "acc_var": 0.6918238993710691,
-    "to_question": 0.031446540880503145
+    "to_question": 0.031446540880503145,
+    "auto_orig": 0.3584905660377358,
+    "auto_var": 0.29559748427672955,
+    "auto_drop_ci": [
+     0.006289308176100629,
+     0.11949685534591195
+    ]
+   },
+   "cue_newcomer_only": {
+    "n": 210,
+    "flip": 0.06190476190476191,
+    "flip_ci": [
+     0.02857142857142857,
+     0.09523809523809523
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7333333333333333,
+    "acc_var": 0.719047619047619,
+    "to_question": 0.04285714285714286,
+    "auto_orig": 0.3380952380952381,
+    "auto_var": 0.29523809523809524,
+    "auto_drop_ci": [
+     0.004761904761904762,
+     0.08095238095238096
+    ]
+   },
+   "cue_apology_only": {
+    "n": 210,
+    "flip": 0.0380952380952381,
+    "flip_ci": [
+     0.014285714285714285,
+     0.06666666666666667
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7333333333333333,
+    "acc_var": 0.7238095238095238,
+    "to_question": 0.014285714285714285,
+    "auto_orig": 0.3380952380952381,
+    "auto_var": 0.30952380952380953,
+    "auto_drop_ci": [
+     -0.009523809523809525,
+     0.07142857142857142
+    ]
+   },
+   "cue_question_word": {
+    "n": 210,
+    "flip": 0.17142857142857143,
+    "flip_ci": [
+     0.12380952380952381,
+     0.22380952380952382
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7333333333333333,
+    "acc_var": 0.6857142857142857,
+    "to_question": 0.1619047619047619,
+    "auto_orig": 0.3380952380952381,
+    "auto_var": 0.13333333333333333,
+    "auto_drop_ci": [
+     0.1523809523809524,
+     0.2619047619047619
+    ]
+   },
+   "cue_neutral": {
+    "n": 210,
+    "flip": 0.04285714285714286,
+    "flip_ci": [
+     0.01904761904761905,
+     0.07142857142857142
+    ],
+    "auto_flip": 0.0,
+    "acc_orig": 0.7333333333333333,
+    "acc_var": 0.7,
+    "to_question": 0.014285714285714285,
+    "auto_orig": 0.3380952380952381,
+    "auto_var": 0.3238095238095238,
+    "auto_drop_ci": [
+     -0.023809523809523808,
+     0.05238095238095238
+    ]
+   }
+  }
+ },
+ "cue_controls": {
+  "tfidf": {
+   "newcomer": {
+    "flip": 0.06190476190476191,
+    "d_flip": -0.009523809523809525,
+    "d_flip_ci": [
+     -0.04285714285714286,
+     0.023809523809523808
+    ],
+    "to_question": 0.023809523809523808,
+    "d_q": -0.04285714285714286,
+    "d_q_ci": [
+     -0.07142857142857142,
+     -0.01904761904761905
+    ],
+    "auto": 0.5523809523809524,
+    "auto_orig": 0.5952380952380952
+   },
+   "cue_newcomer_only": {
+    "flip": 0.014285714285714285,
+    "d_flip": -0.05714285714285714,
+    "d_flip_ci": [
+     -0.09047619047619047,
+     -0.023809523809523808
+    ],
+    "to_question": 0.0,
+    "d_q": -0.06666666666666667,
+    "d_q_ci": [
+     -0.1,
+     -0.0380952380952381
+    ],
+    "auto": 0.5761904761904761,
+    "auto_orig": 0.5952380952380952
+   },
+   "cue_apology_only": {
+    "flip": 0.06666666666666667,
+    "d_flip": -0.004761904761904762,
+    "d_flip_ci": [
+     -0.04285714285714286,
+     0.03333333333333333
+    ],
+    "to_question": 0.009523809523809525,
+    "d_q": -0.05714285714285714,
+    "d_q_ci": [
+     -0.09523809523809523,
+     -0.02857142857142857
+    ],
+    "auto": 0.5952380952380952,
+    "auto_orig": 0.5952380952380952
+   },
+   "cue_question_word": {
+    "flip": 0.0380952380952381,
+    "d_flip": -0.03333333333333333,
+    "d_flip_ci": [
+     -0.05714285714285714,
+     -0.009523809523809525
+    ],
+    "to_question": 0.03333333333333333,
+    "d_q": -0.03333333333333333,
+    "d_q_ci": [
+     -0.05714285714285714,
+     -0.009523809523809525
+    ],
+    "auto": 0.5904761904761905,
+    "auto_orig": 0.5952380952380952
+   },
+   "cue_neutral": {
+    "flip": 0.07142857142857142,
+    "d_flip": 0.0,
+    "d_flip_ci": [
+     0.0,
+     0.0
+    ],
+    "to_question": 0.06666666666666667,
+    "d_q": 0.0,
+    "d_q_ci": [
+     0.0,
+     0.0
+    ],
+    "auto": 0.5904761904761905,
+    "auto_orig": 0.5952380952380952
+   }
+  },
+  "emb": {
+   "newcomer": {
+    "flip": 0.08571428571428572,
+    "d_flip": 0.004761904761904762,
+    "d_flip_ci": [
+     -0.02857142857142857,
+     0.0380952380952381
+    ],
+    "to_question": 0.05714285714285714,
+    "d_q": 0.004761904761904762,
+    "d_q_ci": [
+     -0.023809523809523808,
+     0.03333333333333333
+    ],
+    "auto": 0.3761904761904762,
+    "auto_orig": 0.35714285714285715
+   },
+   "cue_newcomer_only": {
+    "flip": 0.08571428571428572,
+    "d_flip": 0.004761904761904762,
+    "d_flip_ci": [
+     -0.014285714285714285,
+     0.023809523809523808
+    ],
+    "to_question": 0.05238095238095238,
+    "d_q": 0.0,
+    "d_q_ci": [
+     -0.014285714285714285,
+     0.014285714285714285
+    ],
+    "auto": 0.3761904761904762,
+    "auto_orig": 0.35714285714285715
+   },
+   "cue_apology_only": {
+    "flip": 0.05238095238095238,
+    "d_flip": -0.02857142857142857,
+    "d_flip_ci": [
+     -0.05238095238095238,
+     -0.009523809523809525
+    ],
+    "to_question": 0.02857142857142857,
+    "d_q": -0.023809523809523808,
+    "d_q_ci": [
+     -0.047619047619047616,
+     -0.004761904761904762
+    ],
+    "auto": 0.36666666666666664,
+    "auto_orig": 0.35714285714285715
+   },
+   "cue_question_word": {
+    "flip": 0.06190476190476191,
+    "d_flip": -0.01904761904761905,
+    "d_flip_ci": [
+     -0.047619047619047616,
+     0.004761904761904762
+    ],
+    "to_question": 0.047619047619047616,
+    "d_q": -0.004761904761904762,
+    "d_q_ci": [
+     -0.02857142857142857,
+     0.01904761904761905
+    ],
+    "auto": 0.3523809523809524,
+    "auto_orig": 0.35714285714285715
+   },
+   "cue_neutral": {
+    "flip": 0.08095238095238096,
+    "d_flip": 0.0,
+    "d_flip_ci": [
+     0.0,
+     0.0
+    ],
+    "to_question": 0.05238095238095238,
+    "d_q": 0.0,
+    "d_q_ci": [
+     0.0,
+     0.0
+    ],
+    "auto": 0.36666666666666664,
+    "auto_orig": 0.35714285714285715
+   }
+  },
+  "zero": {
+   "newcomer": {
+    "flip": 0.05714285714285714,
+    "d_flip": 0.0380952380952381,
+    "d_flip_ci": [
+     0.009523809523809525,
+     0.07142857142857142
+    ],
+    "to_question": 0.047619047619047616,
+    "d_q": 0.047619047619047616,
+    "d_q_ci": [
+     0.01904761904761905,
+     0.0761904761904762
+    ],
+    "auto": 0.04285714285714286,
+    "auto_orig": 0.1
+   },
+   "cue_newcomer_only": {
+    "flip": 0.01904761904761905,
+    "d_flip": 0.0,
+    "d_flip_ci": [
+     -0.01904761904761905,
+     0.01904761904761905
+    ],
+    "to_question": 0.004761904761904762,
+    "d_q": 0.004761904761904762,
+    "d_q_ci": [
+     0.0,
+     0.014285714285714285
+    ],
+    "auto": 0.1,
+    "auto_orig": 0.1
+   },
+   "cue_apology_only": {
+    "flip": 0.014285714285714285,
+    "d_flip": -0.004761904761904762,
+    "d_flip_ci": [
+     -0.023809523809523808,
+     0.009523809523809525
+    ],
+    "to_question": 0.0,
+    "d_q": 0.0,
+    "d_q_ci": [
+     0.0,
+     0.0
+    ],
+    "auto": 0.09523809523809523,
+    "auto_orig": 0.1
+   },
+   "cue_question_word": {
+    "flip": 0.0761904761904762,
+    "d_flip": 0.05714285714285714,
+    "d_flip_ci": [
+     0.01904761904761905,
+     0.1
+    ],
+    "to_question": 0.06666666666666667,
+    "d_q": 0.06666666666666667,
+    "d_q_ci": [
+     0.03333333333333333,
+     0.10476190476190476
+    ],
+    "auto": 0.0380952380952381,
+    "auto_orig": 0.1
+   },
+   "cue_neutral": {
+    "flip": 0.01904761904761905,
+    "d_flip": 0.0,
+    "d_flip_ci": [
+     0.0,
+     0.0
+    ],
+    "to_question": 0.0,
+    "d_q": 0.0,
+    "d_q_ci": [
+     0.0,
+     0.0
+    ],
+    "auto": 0.10476190476190476,
+    "auto_orig": 0.1
+   }
+  },
+  "few": {
+   "newcomer": {
+    "flip": 0.1619047619047619,
+    "d_flip": 0.11904761904761904,
+    "d_flip_ci": [
+     0.07142857142857142,
+     0.16666666666666666
+    ],
+    "to_question": 0.14761904761904762,
+    "d_q": 0.13333333333333333,
+    "d_q_ci": [
+     0.09047619047619047,
+     0.18571428571428572
+    ],
+    "auto": 0.1619047619047619,
+    "auto_orig": 0.3380952380952381
+   },
+   "cue_newcomer_only": {
+    "flip": 0.06190476190476191,
+    "d_flip": 0.01904761904761905,
+    "d_flip_ci": [
+     0.0,
+     0.04285714285714286
+    ],
+    "to_question": 0.04285714285714286,
+    "d_q": 0.02857142857142857,
+    "d_q_ci": [
+     0.009523809523809525,
+     0.05238095238095238
+    ],
+    "auto": 0.29523809523809524,
+    "auto_orig": 0.3380952380952381
+   },
+   "cue_apology_only": {
+    "flip": 0.0380952380952381,
+    "d_flip": -0.004761904761904762,
+    "d_flip_ci": [
+     -0.03333333333333333,
+     0.023809523809523808
+    ],
+    "to_question": 0.014285714285714285,
+    "d_q": 0.0,
+    "d_q_ci": [
+     -0.01916666666666666,
+     0.023809523809523808
+    ],
+    "auto": 0.30952380952380953,
+    "auto_orig": 0.3380952380952381
+   },
+   "cue_question_word": {
+    "flip": 0.17142857142857143,
+    "d_flip": 0.12857142857142856,
+    "d_flip_ci": [
+     0.08095238095238096,
+     0.18095238095238095
+    ],
+    "to_question": 0.1619047619047619,
+    "d_q": 0.14761904761904762,
+    "d_q_ci": [
+     0.1,
+     0.2
+    ],
+    "auto": 0.13333333333333333,
+    "auto_orig": 0.3380952380952381
+   },
+   "cue_neutral": {
+    "flip": 0.04285714285714286,
+    "d_flip": 0.0,
+    "d_flip_ci": [
+     0.0,
+     0.0
+    ],
+    "to_question": 0.014285714285714285,
+    "d_q": 0.0,
+    "d_q_ci": [
+     0.0,
+     0.0
+    ],
+    "auto": 0.3238095238095238,
+    "auto_orig": 0.3380952380952381
    }
   }
  }

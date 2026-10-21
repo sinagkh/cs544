@@ -15,10 +15,9 @@ This Git checkout contains source, tests, reports, proposals, and audit sheets. 
 
 ## Current status and next work
 
-The full report contains the current Qwen2.5-7B and classical-classifier measurements. The two-page proposal includes planned methodological validation. Existing numerical results describe the current implementation; those validation changes remain to be completed.
+The revised seven-page report uses separate temperature/threshold fitting and statistical certification, matched classifier inputs, wording controls, and independent clean monitoring streams. The 10% risk target is certified only for TF-IDF at low automation coverage; the few-shot LLM is first certified at a 20% target. The explanation deletion test is inconclusive. The mutation results detect all five injected bugs, with little redundancy for prompt-definition removal and body truncation.
 
-Before final submission, separate temperature fitting from statistical certification, use source-only calibration for held-out repositories, complete the human rewrite audit, and add controls for the newcomer sentence's question-like wording. Include changes in human-review workload in the fairness analysis and evaluate false alarms on independent clean traffic. Small selected subsets need uncertainty intervals.
-
+Review follow-ups remain: exclude the target repository from every step of the new-repository calibration-score construction; complete the 40-pair human rewrite audit; report monitoring false alarms both per window and per clean stream; and include `calib_xrepo` explicitly when rebuilding the LLM scores. The two-page proposal is the earlier project plan. The full report, README, and result files contain the revised measurements.
 
 ## Environment and validation
 

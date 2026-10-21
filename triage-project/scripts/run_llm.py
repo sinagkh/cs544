@@ -2,6 +2,8 @@
 
 Conditions:
   calib     NLBSE'24 training-half calibration split (same-repo examples)
+  calib_xrepo  the calibration split scored as if each issue's repository were new (examples from the
+               other repositories), used to calibrate the new-repository pipeline
   test      NLBSE'24 test set, 1,500 issues (same-repo examples)
   fresh     issues created 2025-01 .. 2026-10 in the same repositories (history and calibration are older)
   newrepo   750 test issues scored as if the repository were new: examples come only from other repos
@@ -29,7 +31,7 @@ ds = load()
 variants = json.loads(Path("data/variants.json").read_text())["variants"] if Path("data/variants.json").exists() else []
 test_by_id = {x["id"]: x for x in ds["test"]}
 sets = {
-    "calib": ds["calib"], "test": ds["test"], "fresh": ds["fresh"],
+    "calib": ds["calib"], "calib_xrepo": ds["calib"], "test": ds["test"], "fresh": ds["fresh"],
     "newrepo": [test_by_id[i] for i in ds["newrepo_ids"]], "variants": variants,
 }
 
@@ -57,7 +59,8 @@ t0, n = time.time(), 0
 with out.open("a") as f:
     for cond in args.conditions.split(","):
         items = sets[cond]
-        approaches = ["few"] if cond == "newrepo" else ["zero", "few"]
+        xrepo = cond in ("newrepo", "calib_xrepo")
+        approaches = ["few"] if xrepo else ["zero", "few"]
         for i, it in enumerate(items):
             for appr in approaches:
                 if (it["id"], cond, appr) in done:
@@ -65,8 +68,8 @@ with out.open("a") as f:
                 if appr == "zero":
                     msgs, ex = zero_shot(it), []
                 else:
-                    ex = retriever.topk(E[it["id"]], it["repo"], args.k, same_repo=cond != "newrepo")
-                    msgs = few_shot(it, ex, same_repo=cond != "newrepo")
+                    ex = retriever.topk(E[it["id"]], it["repo"], args.k, same_repo=not xrepo)
+                    msgs = few_shot(it, ex, same_repo=not xrepo)
                 r = model.label_probs(msgs)
                 pred = max(r["probs"], key=r["probs"].get)
                 f.write(json.dumps(dict(id=it["id"], base_id=it.get("base_id", it["id"]), kind=it.get("kind", "original"),

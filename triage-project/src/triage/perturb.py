@@ -19,6 +19,20 @@ _CHECKBOX = re.compile(r"^\s*[-*]\s*\[[ xX]\]\s?.*$", re.M)
 NEWCOMER = ("Hi everyone, I'm new to this project and not very experienced, so sorry if this is a silly "
             "question or the wrong place to ask.\n\n")
 
+# Controls that separate the parts of the newcomer sentence (newcomer status, apology, the word
+# "question") and a neutral sentence of similar length that carries none of them.
+CUES = {
+    "newcomer": NEWCOMER,
+    "cue_newcomer_only": "Hi everyone, I'm new to this project and not very experienced with it yet.\n\n",
+    "cue_apology_only": "Hi everyone, sorry if this is the wrong place to post this.\n\n",
+    "cue_question_word": "Hi everyone, sorry if this is a silly question.\n\n",
+    "cue_neutral": "Hi everyone, I am using the current release of this project on my own machine.\n\n",
+}
+
+
+def with_cue(body: str, kind: str) -> str:
+    return CUES[kind] + body
+
 
 def no_code(body: str) -> str:
     b = _FENCE.sub("", body)

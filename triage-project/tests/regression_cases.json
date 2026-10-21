@@ -1,218 +1,218 @@
 {
  "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
- "temperature": 7.6085485963261545,
- "threshold": 0.8143049837753784,
+ "temperature": 7.858477589238987,
+ "threshold": 0.8274096660730894,
  "k": 6,
  "cases": [
   {
-   "id": "nlbse-test-685",
+   "id": "nlbse-test-974",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-1187",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-153",
+   "id": "nlbse-test-464",
    "kind": "auto_correct",
    "label": "feature"
   },
   {
-   "id": "nlbse-test-735",
-   "kind": "auto_correct",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-684",
+   "id": "nlbse-test-64",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-80",
+   "id": "nlbse-test-489",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-909",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-761",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-457",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-946",
+   "kind": "auto_correct",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-1135",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-24",
+   "id": "nlbse-test-41",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-1065",
-   "kind": "auto_correct",
-   "label": "question"
-  },
-  {
-   "id": "nlbse-test-1052",
-   "kind": "auto_correct",
-   "label": "question"
-  },
-  {
-   "id": "nlbse-test-1413",
-   "kind": "auto_correct",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-54",
+   "id": "nlbse-test-1287",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-1110",
+   "id": "nlbse-test-12",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-760",
-   "kind": "auto_correct",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-569",
+   "id": "nlbse-test-558",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-105",
-   "kind": "auto_correct",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-22",
+   "id": "nlbse-test-555",
    "kind": "auto_correct",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-403",
-   "kind": "must_defer",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-817",
+   "id": "nlbse-test-1029",
    "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-928",
-   "kind": "must_defer",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-259",
+   "id": "nlbse-test-212",
    "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-907",
+   "id": "nlbse-test-897",
    "kind": "must_defer",
-   "label": "feature"
+   "label": "question"
   },
   {
-   "id": "nlbse-test-1155",
+   "id": "nlbse-test-828",
+   "kind": "must_defer",
+   "label": "question"
+  },
+  {
+   "id": "nlbse-test-545",
    "kind": "must_defer",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-186",
-   "kind": "must_defer",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-1091",
+   "id": "nlbse-test-1336",
    "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-1014",
-   "kind": "must_defer",
-   "label": "question"
-  },
-  {
-   "id": "nlbse-test-277",
-   "kind": "must_defer",
-   "label": "question"
-  },
-  {
-   "id": "nlbse-test-1123",
+   "id": "nlbse-test-1115",
    "kind": "must_defer",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-335",
+   "id": "nlbse-test-265",
    "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-888",
+   "id": "nlbse-test-1319",
    "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-883",
-   "kind": "must_defer",
-   "label": "question"
-  },
-  {
-   "id": "nlbse-test-951",
+   "id": "nlbse-test-130",
    "kind": "must_defer",
    "label": "feature"
   },
   {
-   "id": "nlbse-test-397::non_native",
-   "base_id": "nlbse-test-397",
-   "kind": "stable_rewording",
+   "id": "nlbse-test-386",
+   "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-990::non_native",
-   "base_id": "nlbse-test-990",
-   "kind": "stable_rewording",
+   "id": "nlbse-test-789",
+   "kind": "must_defer",
    "label": "feature"
   },
   {
-   "id": "nlbse-test-1485::non_native",
-   "base_id": "nlbse-test-1485",
-   "kind": "stable_rewording",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-438::non_native",
-   "base_id": "nlbse-test-438",
-   "kind": "stable_rewording",
-   "label": "feature"
-  },
-  {
-   "id": "nlbse-test-1348::non_native",
-   "base_id": "nlbse-test-1348",
-   "kind": "stable_rewording",
+   "id": "nlbse-test-886",
+   "kind": "must_defer",
    "label": "question"
   },
   {
-   "id": "nlbse-test-538::non_native",
-   "base_id": "nlbse-test-538",
+   "id": "nlbse-test-249",
+   "kind": "must_defer",
+   "label": "question"
+  },
+  {
+   "id": "nlbse-test-884",
+   "kind": "must_defer",
+   "label": "question"
+  },
+  {
+   "id": "nlbse-test-1264::non_native",
+   "base_id": "nlbse-test-1264",
    "kind": "stable_rewording",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-676::non_native",
-   "base_id": "nlbse-test-676",
+   "id": "nlbse-test-1167::non_native",
+   "base_id": "nlbse-test-1167",
    "kind": "stable_rewording",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-1482::non_native",
-   "base_id": "nlbse-test-1482",
+   "id": "nlbse-test-1290::non_native",
+   "base_id": "nlbse-test-1290",
+   "kind": "stable_rewording",
+   "label": "bug"
+  },
+  {
+   "id": "nlbse-test-791::non_native",
+   "base_id": "nlbse-test-791",
    "kind": "stable_rewording",
    "label": "feature"
   },
   {
-   "id": "nlbse-test-628::non_native",
-   "base_id": "nlbse-test-628",
+   "id": "nlbse-test-921::non_native",
+   "base_id": "nlbse-test-921",
+   "kind": "stable_rewording",
+   "label": "feature"
+  },
+  {
+   "id": "nlbse-test-1256::non_native",
+   "base_id": "nlbse-test-1256",
    "kind": "stable_rewording",
    "label": "bug"
   },
   {
-   "id": "nlbse-test-1347::non_native",
-   "base_id": "nlbse-test-1347",
+   "id": "nlbse-test-1054::non_native",
+   "base_id": "nlbse-test-1054",
    "kind": "stable_rewording",
    "label": "question"
+  },
+  {
+   "id": "nlbse-test-621::non_native",
+   "base_id": "nlbse-test-621",
+   "kind": "stable_rewording",
+   "label": "bug"
+  },
+  {
+   "id": "nlbse-test-644::non_native",
+   "base_id": "nlbse-test-644",
+   "kind": "stable_rewording",
+   "label": "bug"
+  },
+  {
+   "id": "nlbse-test-757::non_native",
+   "base_id": "nlbse-test-757",
+   "kind": "stable_rewording",
+   "label": "feature"
   }
  ]
 }

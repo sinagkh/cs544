@@ -6,8 +6,8 @@ import pytest
 from triage.data import clean_body
 from triage.perturb import mask_code, newcomer, no_code, no_template, unmask_code, valid_rewrite
 from triage.prompts import parse_explanation
-from triage.selective import (conformal_qhat, conformal_sets, ece, fit_temperature, macro_f1, risk_threshold,
-                              softmax)
+from triage.selective import (conformal_qhat, conformal_sets, ece, fit_temperature, ltt_fixed_sequence, macro_f1,
+                              risk_threshold, softmax, split_fit_cert, threshold_grid)
 
 BODY = """### Describe the bug
 The app crashes on start.
@@ -82,3 +82,22 @@ def test_risk_threshold_and_conformal():
 def test_macro_f1():
     y = np.array([0, 1, 2, 0])
     assert macro_f1(y, y) == pytest.approx(1.0)
+
+
+def test_split_fit_cert_is_balanced_and_disjoint():
+    rows = [dict(id=f"x{i}", repo=f"r{i % 2}", label=["bug", "feature", "question"][i % 3]) for i in range(60)]
+    fit, cert = split_fit_cert(rows)
+    assert len(fit) + len(cert) == 60 and not ({r["id"] for r in fit} & {r["id"] for r in cert})
+    assert 15 <= len(fit) <= 25
+
+
+def test_ltt_fixed_sequence_controls_risk():
+    rng = np.random.default_rng(1)
+    conf = rng.random(3000)
+    correct = rng.random(3000) < 0.4 + 0.6 * conf  # error falls with confidence
+    grid = threshold_grid(conf[:1000])
+    assert grid == sorted(grid, reverse=True)
+    tau = ltt_fixed_sequence(conf[1000:2000], correct[1000:2000], grid, target=0.15)
+    auto = conf[2000:] >= tau
+    assert auto.any() and (~correct[2000:][auto]).mean() <= 0.18
+    assert ltt_fixed_sequence(conf[1000:2000], correct[1000:2000], grid, target=0.001) == float("inf")

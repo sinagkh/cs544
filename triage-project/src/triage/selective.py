@@ -87,6 +87,55 @@ def ltt_threshold(conf: np.ndarray, correct: np.ndarray, target: float = TARGET_
     return best
 
 
+def split_fit_cert(rows: list[dict], frac_fit: float = 1 / 3) -> tuple[list[dict], list[dict]]:
+    """Deterministic split of calibration rows, balanced within (repo, label) cells.
+
+    The fit part sets the temperature and the candidate threshold grid; the certification part
+    is used only to test thresholds and compute conformal quantiles, so certification is done on
+    data independent of everything that was tuned.
+    """
+    import hashlib
+    from collections import defaultdict
+
+    cells = defaultdict(list)
+    for r in rows:
+        cells[(r["repo"], r["label"])].append(r)
+    fit, cert = [], []
+    for k in sorted(cells):
+        c = sorted(cells[k], key=lambda r: hashlib.sha256(r["id"].encode()).hexdigest())
+        n_fit = int(round(len(c) * frac_fit))
+        fit += c[:n_fit]
+        cert += c[n_fit:]
+    return fit, cert
+
+
+def threshold_grid(conf_fit: np.ndarray, start: float = 0.10, step: float = 0.025) -> list[float]:
+    """Candidate thresholds from the fit split, at coverage levels start, start+step, ..., 1 (descending)."""
+    levels = np.arange(start, 1.0 + 1e-9, step)
+    return [float(np.quantile(conf_fit, 1 - c)) for c in levels]
+
+
+def ltt_fixed_sequence(conf: np.ndarray, correct: np.ndarray, grid: list[float], target: float = TARGET_RISK,
+                       delta: float = 0.05) -> float:
+    """Learn-then-Test with fixed-sequence testing over a pre-specified grid (Angelopoulos et al.).
+
+    For each threshold in order, test H0: risk > target with the exact binomial p-value
+    P(Bin(n, target) <= k), where n issues on the certification split pass the threshold and k of
+    them are wrong. Certify while p <= delta; stop at the first failure. Returns the lowest certified
+    threshold, or inf if none is certified.
+    """
+    from scipy.stats import binom
+
+    best = float("inf")
+    for t in grid:
+        auto = conf >= t
+        n, k = int(auto.sum()), int((auto & ~correct).sum())
+        if n == 0 or binom.cdf(k, n, target) > delta:
+            break
+        best = t
+    return best
+
+
 def conformal_qhat(p: np.ndarray, y: np.ndarray, alpha: float = ALPHA) -> float:
     """Split conformal with the LAC score 1 - p(true label)."""
     s = 1 - p[np.arange(len(y)), y]

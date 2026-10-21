@@ -12,16 +12,16 @@ from pathlib import Path
 
 import numpy as np
 
-from triage.selective import fit_temperature, label_index, logit_matrix, risk_threshold, softmax
+from triage.selective import fit_temperature, label_index, logit_matrix, risk_threshold, softmax, split_fit_cert
 
 R = defaultdict(dict)
 for line in Path("results/llm_Qwen2.5-7B-Instruct-4bit.jsonl").read_text().splitlines():
     r = json.loads(line)
     R[(r["approach"], r["condition"])][r["id"]] = r
-cal = list(R[("few", "calib")].values())
-T = fit_temperature(logit_matrix(cal), label_index(cal))
-pc = softmax(logit_matrix(cal), T)
-tau = risk_threshold(pc.max(1), pc.argmax(1) == label_index(cal))
+fit, cert = split_fit_cert(list(R[("few", "calib")].values()))
+T = fit_temperature(logit_matrix(fit), label_index(fit))
+pc = softmax(logit_matrix(cert), T)
+tau = risk_threshold(pc.max(1), pc.argmax(1) == label_index(cert))
 
 
 def conf(r):

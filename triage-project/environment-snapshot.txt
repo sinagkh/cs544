@@ -1,6 +1,5 @@
-# Versions recorded from the original project environment on 2026-10-21.
-# The declared installation dependencies are in pyproject.toml.
-# Platform-specific packages were used on Apple silicon.
+# Versions recorded from the project environment on 2026-10-21.
+# Installation dependencies are declared in pyproject.toml; live inference uses Apple silicon.
 Jinja2==3.1.6
 MarkupSafe==3.0.4
 PyYAML==6.0.3

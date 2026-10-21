@@ -12,14 +12,14 @@ Two UIC CS544 Machine Learning in Production projects for group review and colla
 The [artifact downloads](artifacts/README.md) contain the October 21, 2026 handoff:
 
 - [RAG project ZIP](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_RAG_Project_Artifact.zip) (27.4 MB).
-- [Triage project ZIP](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_Triage_Project_Artifact.zip) (15.4 MB).
+- [Triage project ZIP](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_Triage_Project_Artifact.zip) (25.0 MB).
 - SHA-256 checksum files for both ZIPs.
 
 The artifact ZIPs include prepared datasets, embeddings, recorded predictions, response caches, source, tests, and both reports. Open `START_HERE.md` inside each extracted archive for setup and the remaining validation tasks. The approximately 1.3 GB Python environments are recreated locally; downloaded model weights are obtained separately for live inference.
 
 ## Validation and project status
 
-The prepared RAG snapshot passed 42 tests; the triage snapshot passed 49. Both main analysis scripts reproduced their supplied JSON result summaries exactly. Each proposal PDF has two pages and its Word version has 10 unique linked paper references. The ZIP files were checked for integrity and against their file hashes.
+The prepared RAG snapshot passed 42 tests; the triage snapshot passed 51. Both main analysis scripts reproduced their supplied JSON result summaries exactly. Each proposal PDF has two pages and its Word version has 10 unique linked paper references. The ZIP files were checked for integrity and against their file hashes.
 
 These are research project candidates with current measurements and planned validation. Each project guide identifies the remaining human audits and methodological checks. Live inference uses Apple silicon through MLX; the report PDFs can be reviewed directly.
 

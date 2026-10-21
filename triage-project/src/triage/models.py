@@ -17,7 +17,7 @@ def text_of(item: dict, chars: int = 1000) -> str:
     return f"{item['title']}. {item['body'][:chars]}"
 
 
-def embed(items: list[dict]) -> np.ndarray:
+def embed(items: list[dict], chars: int = 1000) -> np.ndarray:
     global _enc
     if _enc is None:
         import torch
@@ -25,7 +25,7 @@ def embed(items: list[dict]) -> np.ndarray:
 
         torch.set_num_threads(2)
         _enc = SentenceTransformer(ENCODER, device="mps" if torch.backends.mps.is_available() else "cpu")
-    return _enc.encode([text_of(x) for x in items], batch_size=32, normalize_embeddings=True,
+    return _enc.encode([text_of(x, chars) for x in items], batch_size=32, normalize_embeddings=True,
                        convert_to_numpy=True, show_progress_bar=False).astype(np.float32)
 
 
