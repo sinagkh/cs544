@@ -15,7 +15,7 @@
 *.log
 *.synctex.gz
 
-# Reproducibility snapshots are distributed as GitHub release assets.
+# Expanded reproducibility data remain local. Prepared ZIPs live in artifacts/.
 **/data/
 **/cache/
 **/results/
@@ -26,3 +26,6 @@
 *.sqlite-wal
 *.sqlite-shm
 *.zip
+
+# Publish only the two prepared handoff ZIPs.
+!artifacts/*.zip

@@ -9,13 +9,13 @@ Two UIC CS544 Machine Learning in Production projects for group review and colla
 
 ## Complete downloadable artifacts
 
-The [October 21, 2026 handoff release](https://github.com/sinagkh/cs544/releases/tag/v2026.10.21) includes:
+The [artifact downloads](artifacts/README.md) contain the October 21, 2026 handoff:
 
-- [RAG project ZIP](https://github.com/sinagkh/cs544/releases/download/v2026.10.21/CS544_RAG_Project_Artifact.zip) (27.4 MB).
-- [Triage project ZIP](https://github.com/sinagkh/cs544/releases/download/v2026.10.21/CS544_Triage_Project_Artifact.zip) (15.4 MB).
+- [RAG project ZIP](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_RAG_Project_Artifact.zip) (27.4 MB).
+- [Triage project ZIP](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_Triage_Project_Artifact.zip) (15.4 MB).
 - SHA-256 checksum files for both ZIPs.
 
-The release ZIPs include prepared datasets, embeddings, recorded predictions, response caches, source, tests, and both reports. Open `START_HERE.md` inside each extracted archive for setup and the remaining validation tasks. The approximately 1.3 GB Python environments are recreated locally; downloaded model weights are obtained separately for live inference.
+The artifact ZIPs include prepared datasets, embeddings, recorded predictions, response caches, source, tests, and both reports. Open `START_HERE.md` inside each extracted archive for setup and the remaining validation tasks. The approximately 1.3 GB Python environments are recreated locally; downloaded model weights are obtained separately for live inference.
 
 ## Validation and project status
 
@@ -25,4 +25,4 @@ These are research project candidates with current measurements and planned vali
 
 ## Working together
 
-Clone this repository for editing source, reports, or proposals. Download the relevant release asset for cached replay and recorded-result analysis. Copy its `data/`, `cache/`, `results/`, and RAG `archive/` folders into the matching project folder when working in the clone. The Git ignore rules keep those snapshots and local environments out of source commits.
+Clone this repository for editing source, reports, or proposals. Download the relevant artifact ZIP for cached replay and recorded-result analysis. Copy its `data/`, `cache/`, `results/`, and RAG `archive/` folders into the matching project folder when working in the clone. The Git ignore rules exclude the expanded data, caches, results, and local environments; the prepared ZIPs are tracked in `artifacts/`.

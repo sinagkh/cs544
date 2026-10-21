@@ -9,9 +9,9 @@
 
 ## Download the reproducibility snapshot
 
-Download [CS544_RAG_Project_Artifact.zip](https://github.com/sinagkh/cs544/releases/download/v2026.10.21/CS544_RAG_Project_Artifact.zip) from the [October 21 handoff release](https://github.com/sinagkh/cs544/releases/tag/v2026.10.21). Extract it and open its `START_HERE.md` for setup, cached replay, and analysis instructions.
+Download [CS544_RAG_Project_Artifact.zip](https://raw.githubusercontent.com/sinagkh/cs544/main/artifacts/CS544_RAG_Project_Artifact.zip) from the [artifact downloads](../artifacts/README.md). Extract it and open its `START_HERE.md` for setup, cached replay, and analysis instructions.
 
-This Git checkout contains source, tests, reports, proposals, and audit sheets. The release asset supplies the prepared data, predictions, embeddings, response caches, and provenance files needed to reproduce the recorded analysis. To work in this clone, copy `data/`, `cache/`, `results/`, and (for RAG) `archive/` from the extracted snapshot into this project folder.
+This Git checkout contains source, tests, reports, proposals, and audit sheets. The artifact ZIP supplies the prepared data, predictions, embeddings, response caches, and provenance files needed to reproduce the recorded analysis. To work in this clone, copy `data/`, `cache/`, `results/`, and (for RAG) `archive/` from the extracted snapshot into this project folder.
 
 ## Current status and next work
 
@@ -22,6 +22,6 @@ Before final submission, complete the independent human answer audit in `report/
 
 ## Environment and validation
 
-Live local inference uses Apple silicon through MLX. Each teammate creates a local Python environment using `pyproject.toml`; `environment-snapshot.txt` records the original package versions. The release includes cached responses for replay tests. First-use tokenizer downloads may require network access.
+Live local inference uses Apple silicon through MLX. Each teammate creates a local Python environment using `pyproject.toml`; `environment-snapshot.txt` records the original package versions. The artifact includes cached responses for replay tests. First-use tokenizer downloads may require network access.
 
-[VALIDATION.md](VALIDATION.md) records checks on the complete release snapshot, including unit tests, cached replay tests, and exact reproduction of the JSON result summary. Read the data-source and provenance notes in the release's `START_HERE.md` before redistributing datasets.
+[VALIDATION.md](VALIDATION.md) records checks on the complete artifact snapshot, including unit tests, cached replay tests, and exact reproduction of the JSON result summary. Read the data-source and provenance notes in the ZIP's `START_HERE.md` before redistributing datasets.
